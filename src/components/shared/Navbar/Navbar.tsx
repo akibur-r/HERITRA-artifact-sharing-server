@@ -25,19 +25,29 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Separator } from "@/components/ui/separator";
 import useAuth from "@/hooks/useAuth";
+import { useState } from "react";
 import { toast } from "sonner";
 import LoaderSpinner from "../LoaderSpinner/LoaderSpinner";
 import Logo from "../Logo/Logo";
 
 export function Navbar() {
   const { loading, user, logOut } = useAuth();
+  const [drawerOpen, setDrawerOpen] = useState(false);
 
   const handleSignOut = () => {
     logOut()
       .then(() => {
         toast.success("Signed Out");
+        setDrawerOpen(false);
       })
       .catch(() => {
         toast.error("Sign Out Failed", {
@@ -63,18 +73,30 @@ export function Navbar() {
 
   const profileDropDown = (
     <DropdownMenu dir="rtl">
-      <DropdownMenuTrigger className="cursor-pointer rounded-full">
-        <Avatar>
-          <AvatarImage src={user?.photoURL} />
-          <AvatarFallback>A</AvatarFallback>
-        </Avatar>
+      <DropdownMenuTrigger className="outline-none">
+        <Tooltip>
+          <TooltipTrigger className="cursor-pointer rounded-full">
+            <Avatar onClick={() => setDrawerOpen(true)}>
+              <AvatarImage src={user?.photoURL} />
+              <AvatarFallback>A</AvatarFallback>
+            </Avatar>
+          </TooltipTrigger>
+          <TooltipContent>
+            <p>Click to show menu</p>
+          </TooltipContent>
+        </Tooltip>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="mr-4">
         <DropdownMenuLabel>Md. Akibur Rahman</DropdownMenuLabel>
         <DropdownMenuSeparator />
 
         <Link to={"/my-artifacts"}>
-          <DropdownMenuItem className="cursor-pointer flex items-center">
+          <DropdownMenuItem
+            onClick={() => {
+              setDrawerOpen(false);
+            }}
+            className="cursor-pointer flex items-center"
+          >
             My Artifacts
             <LuAmphora />
           </DropdownMenuItem>
@@ -82,7 +104,12 @@ export function Navbar() {
         <DropdownMenuSeparator className="w-4" />
 
         <Link to={"/liked-artifacts"}>
-          <DropdownMenuItem className="cursor-pointer flex items-center">
+          <DropdownMenuItem
+            onClick={() => {
+              setDrawerOpen(false);
+            }}
+            className="cursor-pointer flex items-center"
+          >
             Liked Artifacts
             <FiThumbsUp />
           </DropdownMenuItem>
@@ -126,13 +153,41 @@ export function Navbar() {
         </div>
 
         <div className="md:hidden">
-          <Drawer direction="left">
+          <Drawer
+            open={drawerOpen}
+            onOpenChange={setDrawerOpen}
+            direction="left"
+          >
             <DrawerTrigger>
               <HiMenuAlt3 className="text-2xl" />
             </DrawerTrigger>
             <DrawerContent>
-              <DrawerHeader>{navItems}</DrawerHeader>
-              <DrawerFooter className="flex flex-row justify-end items-end">
+              <DrawerHeader className="text-right">
+                <div className="h-12 w-fit flex justify-center">
+                  <Logo />
+                </div>
+                <div
+                  className="grid mt-4"
+                  onClick={() => {
+                    setDrawerOpen(false);
+                  }}
+                >
+                  {navItems.map((item) => {
+                    return (
+                      <div className="grid justify-end">
+                        <div key={item.key}>{item}</div>
+                        <div className="w-3 my-2">
+                          <Separator />
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </DrawerHeader>
+              <DrawerFooter
+                onClick={() => setDrawerOpen(false)}
+                className="flex flex-row justify-end items-center"
+              >
                 <ThemeToggle />
 
                 {loading ? (
