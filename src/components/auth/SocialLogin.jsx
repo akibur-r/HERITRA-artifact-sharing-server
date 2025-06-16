@@ -1,15 +1,25 @@
 import { Button } from "@/components/ui/button";
 import useAuth from "@/hooks/useAuth";
 import { FcGoogle } from "react-icons/fc";
+import { useNavigate } from "react-router";
+import { toast } from "sonner";
 const SocialLogin = () => {
-  const { signInWithGoogle } = useAuth();
+  const { signInWithGoogle, setLoading } = useAuth();
+  const navigate = useNavigate();
+
   const handleGoogleSignIn = () => {
     signInWithGoogle()
-      .then((res) => {
-        console.log(res);
-        alert();
+      .then(() => {
+        toast.success("Signed In");
+        setLoading(false);
+        navigate('/');
       })
-      .catch((err) => console.log(err));
+      .catch(() => {
+        toast.error("Google Sign In Failed", {
+          description: "There was a problem while signin in with Google.",
+        });
+        setLoading(false);
+      });
   };
 
   return (

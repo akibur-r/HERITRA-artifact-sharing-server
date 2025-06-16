@@ -4,6 +4,7 @@ import { navItems } from "@/utils/navItems";
 
 import { FiThumbsUp } from "react-icons/fi";
 import { HiMenuAlt3 } from "react-icons/hi";
+import { IoIosLogOut } from "react-icons/io";
 import { LuAmphora } from "react-icons/lu";
 import { Link } from "react-router";
 
@@ -25,9 +26,26 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import useAuth from "@/hooks/useAuth";
+import { toast } from "sonner";
+import LoaderSpinner from "../LoaderSpinner/LoaderSpinner";
 import Logo from "../Logo/Logo";
 
 export function Navbar() {
+  const { loading, user, logOut } = useAuth();
+
+  const handleSignOut = () => {
+    logOut()
+      .then(() => {
+        toast.success("Signed Out");
+      })
+      .catch(() => {
+        toast.error("Sign Out Failed", {
+          description: "Something went wrong while signing out.",
+        });
+      });
+  };
+
   const authButtons = (
     <div className="flex flex-row-reverse md:flex-row">
       <Button
@@ -44,30 +62,41 @@ export function Navbar() {
   );
 
   const profileDropDown = (
-    <DropdownMenu>
+    <DropdownMenu dir="rtl">
       <DropdownMenuTrigger className="cursor-pointer rounded-full">
         <Avatar>
-          <AvatarImage src="https://github.com/shadcn.png" />
+          <AvatarImage src={user?.photoURL} />
           <AvatarFallback>A</AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>
-      <DropdownMenuContent>
+      <DropdownMenuContent className="mr-4">
         <DropdownMenuLabel>Md. Akibur Rahman</DropdownMenuLabel>
         <DropdownMenuSeparator />
 
         <Link to={"/my-artifacts"}>
           <DropdownMenuItem className="cursor-pointer flex items-center">
-            <LuAmphora />
             My Artifacts
+            <LuAmphora />
           </DropdownMenuItem>
         </Link>
+        <DropdownMenuSeparator className="w-4" />
 
         <Link to={"/liked-artifacts"}>
           <DropdownMenuItem className="cursor-pointer flex items-center">
-            <FiThumbsUp />
             Liked Artifacts
+            <FiThumbsUp />
           </DropdownMenuItem>
         </Link>
+        <DropdownMenuSeparator className="w-4" />
+
+        <DropdownMenuItem
+          variant="destructive"
+          className="cursor-pointer flex items-center"
+          onClick={handleSignOut}
+        >
+          Logout
+          <IoIosLogOut />
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );
@@ -86,8 +115,13 @@ export function Navbar() {
 
         {/* right actions */}
         <div className="hidden md:flex items-center gap-2">
-          {authButtons}
-          {profileDropDown}
+          {loading ? (
+            <LoaderSpinner size={18} />
+          ) : user ? (
+            profileDropDown
+          ) : (
+            authButtons
+          )}
           <ThemeToggle />
         </div>
 
@@ -100,8 +134,14 @@ export function Navbar() {
               <DrawerHeader>{navItems}</DrawerHeader>
               <DrawerFooter className="flex flex-row justify-end items-end">
                 <ThemeToggle />
-                {authButtons}
-                {profileDropDown}
+
+                {loading ? (
+                  <LoaderSpinner size={18} />
+                ) : user ? (
+                  profileDropDown
+                ) : (
+                  authButtons
+                )}
               </DrawerFooter>
             </DrawerContent>
           </Drawer>

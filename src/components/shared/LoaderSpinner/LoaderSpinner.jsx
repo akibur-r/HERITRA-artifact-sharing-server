@@ -1,4 +1,4 @@
-const LoaderSpinner = ({ size = 24, color = "foreground" }) => {
+const LoaderSpinner = ({ size = 20, color = "foreground" }) => {
   const spinnerStyle = {
     width: `${size}px`,
     height: `${size}px`,
