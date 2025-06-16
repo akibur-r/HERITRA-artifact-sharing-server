@@ -12,11 +12,7 @@ export function ThemeToggle() {
       className="cursor-pointer"
       size="sm"
     >
-      {theme === "dark" ? (
-        <FaSun className="" />
-      ) : (
-        <FaMoon className="" />
-      )}
+      {theme === "dark" ? <FaSun className="" /> : <FaMoon className="" />}
     </Button>
   );
 }

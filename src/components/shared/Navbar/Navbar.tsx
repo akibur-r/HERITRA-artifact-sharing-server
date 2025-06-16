@@ -4,7 +4,9 @@ import { navItems } from "@/utils/navItems";
 
 import lightModeLogo from "@/assets/images/logo_black.png";
 import darkModeLogo from "@/assets/images/logo_white.png";
+import { FiThumbsUp } from "react-icons/fi";
 import { HiMenuAlt3 } from "react-icons/hi";
+import { LuAmphora } from "react-icons/lu";
 import { Link } from "react-router";
 
 import {
@@ -15,25 +17,65 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer";
 
-const authButtons = (
-  <div className="flex flex-row-reverse md:flex-row">
-    <Button
-      variant="link"
-      className="cursor-pointer text-base-content underline hover:text-primary"
-      size="sm"
-    >
-      <Link to={"/sign-in"}>Sign In</Link>
-    </Button>
-    <Button variant="outline" className="cursor-pointer" size="sm">
-      <Link to={"/register"}>Register</Link>
-    </Button>
-  </div>
-);
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 export function Navbar() {
+  const authButtons = (
+    <div className="flex flex-row-reverse md:flex-row">
+      <Button
+        variant="link"
+        className="cursor-pointer text-base-content underline hover:text-primary"
+        size="sm"
+      >
+        <Link to={"/sign-in"}>Sign In</Link>
+      </Button>
+      <Button variant="outline" className="cursor-pointer" size="sm">
+        <Link to={"/register"}>Register</Link>
+      </Button>
+    </div>
+  );
+
+  const profileDropDown = (
+    <DropdownMenu>
+      <DropdownMenuTrigger className="cursor-pointer rounded-full">
+        <Avatar>
+          <AvatarImage src="https://github.com/shadcn.png" />
+          <AvatarFallback>A</AvatarFallback>
+        </Avatar>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent>
+        <DropdownMenuLabel>Md. Akibur Rahman</DropdownMenuLabel>
+        <DropdownMenuSeparator />
+
+        <Link to={"/my-artifacts"}>
+          <DropdownMenuItem className="cursor-pointer flex items-center">
+            <LuAmphora />
+            My Artifacts
+          </DropdownMenuItem>
+        </Link>
+
+        <Link to={"/liked-artifacts"}>
+          <DropdownMenuItem className="cursor-pointer flex items-center">
+            <FiThumbsUp />
+            Liked Artifacts
+          </DropdownMenuItem>
+        </Link>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
   return (
     <header className="w-full border-b bg-background text-foreground">
       <div className="mx-auto max-w-screen-2xl px-4 py-2 flex items-center justify-between">
+        {/* left icon */}
         <Link to={"/"} className="text-xl font-bold h-12">
           <img
             src={lightModeLogo}
@@ -47,12 +89,15 @@ export function Navbar() {
           />
         </Link>
 
+        {/* center links */}
         <nav className="hidden md:flex gap-6 text-sm font-medium">
           {navItems}
         </nav>
 
+        {/* right actions */}
         <div className="hidden md:flex items-center gap-2">
           {authButtons}
+          {profileDropDown}
           <ThemeToggle />
         </div>
 
@@ -66,6 +111,7 @@ export function Navbar() {
               <DrawerFooter className="flex flex-row justify-end items-end">
                 <ThemeToggle />
                 {authButtons}
+                {profileDropDown}
               </DrawerFooter>
             </DrawerContent>
           </Drawer>
