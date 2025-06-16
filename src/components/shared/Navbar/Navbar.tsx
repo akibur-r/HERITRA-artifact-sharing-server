@@ -15,6 +15,21 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer";
 
+const authButtons = (
+  <div className="flex flex-row-reverse md:flex-row">
+    <Button
+      variant="link"
+      className="cursor-pointer text-base-content underline hover:text-primary"
+      size="sm"
+    >
+      <Link to={"/sign-in"}>Sign In</Link>
+    </Button>
+    <Button variant="outline" className="cursor-pointer" size="sm">
+      <Link to={"/register"}>Register</Link>
+    </Button>
+  </div>
+);
+
 export function Navbar() {
   return (
     <header className="w-full border-b bg-background text-foreground">
@@ -37,9 +52,7 @@ export function Navbar() {
         </nav>
 
         <div className="hidden md:flex items-center gap-2">
-          <Button variant="outline" size="sm">
-            Sign In
-          </Button>
+          {authButtons}
           <ThemeToggle />
         </div>
 
@@ -50,11 +63,9 @@ export function Navbar() {
             </DrawerTrigger>
             <DrawerContent>
               <DrawerHeader>{navItems}</DrawerHeader>
-              <DrawerFooter className="flex items-end">
+              <DrawerFooter className="flex flex-row justify-end items-end">
                 <ThemeToggle />
-                <Button variant="outline" size="sm" className="w-full">
-                  Sign In
-                </Button>
+                {authButtons}
               </DrawerFooter>
             </DrawerContent>
           </Drawer>

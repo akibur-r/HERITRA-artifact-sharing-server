@@ -10,12 +10,12 @@ export function ThemeToggle() {
       onClick={toggleTheme}
       variant="outline"
       className="cursor-pointer"
-      size="icon"
+      size="sm"
     >
       {theme === "dark" ? (
-        <FaSun className="w-4 h-4" />
+        <FaSun className="" />
       ) : (
-        <FaMoon className="w-4 h-4" />
+        <FaMoon className="" />
       )}
     </Button>
   );
