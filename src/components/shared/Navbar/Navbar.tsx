@@ -89,7 +89,9 @@ export function Navbar() {
         </Tooltip>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="mr-4">
-        <DropdownMenuLabel className="text-left">{user?.displayName}</DropdownMenuLabel>
+        <DropdownMenuLabel className="text-left">
+          {user?.displayName}
+        </DropdownMenuLabel>
         <DropdownMenuSeparator />
 
         <Link to={"/my-artifacts"}>
@@ -161,7 +163,9 @@ export function Navbar() {
             direction="left"
           >
             <DrawerTrigger>
-              <HiMenuAlt3 className="text-2xl" />
+              <div>
+                <HiMenuAlt3 className="text-3xl" />
+              </div>
             </DrawerTrigger>
             <DrawerContent>
               <DrawerHeader className="text-right">
