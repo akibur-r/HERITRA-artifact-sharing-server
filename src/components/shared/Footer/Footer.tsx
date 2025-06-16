@@ -12,7 +12,7 @@ import Logo from "../Logo/Logo";
 const Footer = () => {
   return (
     <footer className="bg-secondary p-4 relative space-y-10 text-center md:text-left">
-      <div className="max-w-screen-2xl pt-10 mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10">
+      <div className="max-w-screen-xl pt-10 mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10">
         <div className="space-y-2 md:space-y-3 lg:space-y-4">
           <div className="h-14 md:h-16 w-fit mx-auto md:mx-0">
             <Logo />

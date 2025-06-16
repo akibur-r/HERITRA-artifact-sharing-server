@@ -132,8 +132,8 @@ export function Navbar() {
     </DropdownMenu>
   );
   return (
-    <header className="w-full border-b bg-background text-foreground">
-      <div className="mx-auto max-w-screen-2xl px-4 py-2 flex items-center justify-between">
+    <header className="w-full border-b bg-background text-foreground sticky top-0 z-10">
+      <div className="mx-auto max-w-screen-xl px-4 py-2 flex items-center justify-between">
         {/* left icon */}
         <div className="h-12 w-fit">
           <Logo />

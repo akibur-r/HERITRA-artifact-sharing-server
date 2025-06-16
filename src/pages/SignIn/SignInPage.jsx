@@ -38,7 +38,7 @@ const SignInPage = () => {
       });
   };
   return (
-    <div className="flex flex-col gap-4 justify-center items-center my-10 max-w-screen-2xl mx-auto px-4">
+    <div className="flex flex-col gap-4 justify-center items-center my-10 max-w-screen-xl mx-auto px-4">
       <div className="max-w-sm text-center">
         <h2 className="text-3xl font-cinzel font-bold">Login</h2>
         <p className="text-sm">

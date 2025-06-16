@@ -5,7 +5,7 @@ import { Outlet } from "react-router";
 
 const RootLayout = () => {
   return (
-    <div className="bg-background font-dm-sans">
+    <div className="bg-background font-dm-sans relative">
       <Navbar />
       <main>
         <Outlet />
