@@ -78,7 +78,9 @@ export function Navbar() {
           <TooltipTrigger className="cursor-pointer rounded-full">
             <Avatar onClick={() => setDrawerOpen(true)}>
               <AvatarImage src={user?.photoURL} />
-              <AvatarFallback>A</AvatarFallback>
+              <AvatarFallback>
+                {user?.displayName[0].toUpperCase()}
+              </AvatarFallback>
             </Avatar>
           </TooltipTrigger>
           <TooltipContent>
@@ -87,7 +89,7 @@ export function Navbar() {
         </Tooltip>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="mr-4">
-        <DropdownMenuLabel>Md. Akibur Rahman</DropdownMenuLabel>
+        <DropdownMenuLabel className="text-left">{user?.displayName}</DropdownMenuLabel>
         <DropdownMenuSeparator />
 
         <Link to={"/my-artifacts"}>
