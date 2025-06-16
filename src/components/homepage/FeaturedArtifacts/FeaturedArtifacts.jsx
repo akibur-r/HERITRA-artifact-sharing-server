@@ -30,7 +30,7 @@ const FeaturedArtifacts = () => {
         <h1 className="font-cinzel text-2xl font-medium">Featured Artifacts</h1>
         <p className="opacity-70">Most Liked Artifacts on Heritra</p>
       </header>
-      {!artifactsLoading ? (
+      {artifactsLoading ? (
         <main className="h-48">
           <LoaderLogoSpinner />
         </main>
@@ -44,7 +44,7 @@ const FeaturedArtifacts = () => {
 
       <footer className="flex justify-center">
         <Link to={"/all-artifacts"}>
-          <Button variant={"secondary"} className="cursor-pointer rounded-xs">
+          <Button variant={"secondary"} className="cursor-pointer rounded-xs font-cinzel">
             See All
           </Button>
         </Link>
