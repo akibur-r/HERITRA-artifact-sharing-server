@@ -2,8 +2,6 @@ import { ThemeToggle } from "@/components/theme/ThemeToggle";
 import { Button } from "@/components/ui/button";
 import { navItems } from "@/utils/navItems";
 
-import lightModeLogo from "@/assets/images/logo_black.png";
-import darkModeLogo from "@/assets/images/logo_white.png";
 import { FiThumbsUp } from "react-icons/fi";
 import { HiMenuAlt3 } from "react-icons/hi";
 import { LuAmphora } from "react-icons/lu";
@@ -27,6 +25,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import Logo from "../Logo/Logo";
 
 export function Navbar() {
   const authButtons = (
@@ -76,18 +75,9 @@ export function Navbar() {
     <header className="w-full border-b bg-background text-foreground">
       <div className="mx-auto max-w-screen-2xl px-4 py-2 flex items-center justify-between">
         {/* left icon */}
-        <Link to={"/"} className="text-xl font-bold h-12">
-          <img
-            src={lightModeLogo}
-            className="dark:hidden h-full w-full"
-            alt="Heritra"
-          />
-          <img
-            src={darkModeLogo}
-            className="hidden dark:block h-full w-full"
-            alt="Heritra"
-          />
-        </Link>
+        <div className="h-12 w-fit">
+          <Logo />
+        </div>
 
         {/* center links */}
         <nav className="hidden md:flex gap-6 text-sm font-medium">
