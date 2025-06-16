@@ -23,7 +23,7 @@ const Blogs = () => {
         <main className="space-y-4">
           <Card className="rounded-none shadow-none bg-transparent">
             <CardHeader>
-              <CardTitle className="font-cinzel flex items-center gap-2">
+              <CardTitle className="font-cinzel flex flex-col md:flex-row items-center gap-2">
                 <span>{blog.title}</span>
                 <span className="w-8 h-px bg-white/70"></span>
                 <span className="text-sm font-normal">
@@ -31,15 +31,15 @@ const Blogs = () => {
                 </span>
               </CardTitle>
             </CardHeader>
-            <CardContent className="flex gap-4 justify-between w-full h-32">
-              <p className="w-7/12 space-y-2">
+            <CardContent className="flex flex-col md:flex-row gap-4 justify-between w-full h-40 md:h-32">
+              <p className="lg:w-7/12 space-y-2 text-center md:text-left">
                 <div>{blog.description}</div>
                 <div className="opacity-80">
                   Published By:{" "}
                   <span className="font-semibold">{blog.author}</span>
                 </div>
               </p>
-              <div className="h-full w-56">
+              <div className="hidden lg:block h-full w-56">
                 <img
                   className="h-full w-full object-cover rounded-sm  border border-primary/20"
                   src="https://i.postimg.cc/59v3kGcf/blog.png"
@@ -50,7 +50,7 @@ const Blogs = () => {
           </Card>
           <Card className="rounded-none shadow-none bg-transparent">
             <CardHeader>
-              <CardTitle className="font-cinzel flex justify-end items-center gap-2">
+              <CardTitle className="font-cinzel flex flex-col md:flex-row justify-end items-center gap-2">
                 <span>{blog.title}</span>
                 <span className="w-8 h-px bg-white/70"></span>
                 <span className="text-sm font-normal">
@@ -58,15 +58,15 @@ const Blogs = () => {
                 </span>
               </CardTitle>
             </CardHeader>
-            <CardContent className="flex flex-row-reverse gap-4 justify-between w-full h-32">
-              <p className="w-7/12 space-y-2">
+            <CardContent className="flex flex-col md:flex-row-reverse gap-4 justify-between w-full h-40 md:h-32">
+              <p className="lg:w-7/12 space-y-2 text-center md:text-left">
                 <div>{blog.description}</div>
                 <div className="opacity-80">
                   Published By:{" "}
                   <span className="font-semibold">{blog.author}</span>
                 </div>
               </p>
-              <div className="h-full w-56">
+              <div className="hidden lg:block h-full w-56">
                 <img
                   className="h-full w-full object-cover rounded-sm  border border-primary/20"
                   src="https://i.postimg.cc/59v3kGcf/blog.png"
