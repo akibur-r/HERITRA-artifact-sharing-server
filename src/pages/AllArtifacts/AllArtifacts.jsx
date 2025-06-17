@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 const AllArtifacts = () => {
   const { getAllArtifactsPromise } = useArtifactsApi();
   const [artifacts, setArtifacts] = useState([]);
-  const [artifactsLoading, setArtifactsLoading] = useState("false");
+  const [artifactsLoading, setArtifactsLoading] = useState(false);
 
   useEffect(() => {
     setArtifactsLoading(true);

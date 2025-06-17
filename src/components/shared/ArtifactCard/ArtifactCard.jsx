@@ -1,12 +1,12 @@
 import { Button } from "@/components/ui/button";
 import {
-    Card,
-    CardAction,
-    CardContent,
-    CardDescription,
-    CardFooter,
-    CardHeader,
-    CardTitle,
+  Card,
+  CardAction,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
 } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { GoThumbsup } from "react-icons/go";
@@ -45,7 +45,7 @@ const ArtifactCard = ({ artifact }) => {
             </Button>
           </div>
           <CardAction>
-            <Link to={"/"}>
+            <Link to={`/artifact/details/${artifact._id}`}>
               <Button
                 variant={"outline"}
                 size={"sm"}

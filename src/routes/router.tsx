@@ -1,6 +1,7 @@
 import RootLayout from "@/layouts/RootLayout";
 import AddArtifact from "@/pages/AddArtifact/AddArtifact";
 import AllArtifacts from "@/pages/AllArtifacts/AllArtifacts";
+import ArtifactDetails from "@/pages/ArtifactDetails/ArtifactDetails";
 import ErrorPage from "@/pages/ErrorPage/ErrorPage";
 import HomePage from "@/pages/HomePage/HomePage";
 import RegisterPage from "@/pages/Register/RegisterPage";
@@ -26,6 +27,14 @@ export const router = createBrowserRouter([
         element: (
           <PrivateRouteProvider>
             <AddArtifact />
+          </PrivateRouteProvider>
+        ),
+      },
+      {
+        path: "/artifact/details/:id",
+        element: (
+          <PrivateRouteProvider>
+            <ArtifactDetails />
           </PrivateRouteProvider>
         ),
       },

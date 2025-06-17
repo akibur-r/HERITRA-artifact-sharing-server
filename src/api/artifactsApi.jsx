@@ -16,6 +16,10 @@ const useArtifactsApi = () => {
     return axiosSecure.get("/artifacts").then((res) => res.data);
   };
 
+  const getOneArtifactPromise = (id) => {
+    return axiosSecure.get(`/artifacts/findOne/${id}`).then((res) => res.data);
+  };
+
   // post apis
   const addArtifactPromise = (newArtifact) => {
     return axiosSecure.post("/artifacts", newArtifact).then((res) => res.data);
@@ -24,7 +28,8 @@ const useArtifactsApi = () => {
   return {
     topSixArtifactsPromise,
     addArtifactPromise,
-    getAllArtifactsPromise
+    getAllArtifactsPromise,
+    getOneArtifactPromise,
   };
 };
 
