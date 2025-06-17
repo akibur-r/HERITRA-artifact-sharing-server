@@ -10,10 +10,12 @@ import {
 } from "@/components/ui/select";
 
 import useArtifactsApi from "@/api/artifactsApi";
+import LoaderSpinner from "@/components/shared/LoaderSpinner/LoaderSpinner";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import useAuth from "@/hooks/useAuth";
+import { useState } from "react";
 import { toast } from "sonner";
 
 const AddArtifact = () => {
@@ -40,6 +42,8 @@ const AddArtifact = () => {
     },
   ];
 
+  const [addLoading, setAddLoading] = useState(false);
+
   const { addArtifactPromise } = useArtifactsApi();
 
   const { user } = useAuth();
@@ -47,6 +51,7 @@ const AddArtifact = () => {
   const userName = user.displayName;
 
   const handleAddArtifact = (e) => {
+    setAddLoading(true);
     e.preventDefault();
     const form = e.target;
     let formOk = true;
@@ -59,7 +64,10 @@ const AddArtifact = () => {
       }
     });
 
-    if(!formOk) return;
+    if (!formOk) {
+      setAddLoading(false);
+      return;
+    }
 
     const newArtifact = Object.fromEntries(formData.entries());
     newArtifact.userEmail = userEmail;
@@ -67,11 +75,17 @@ const AddArtifact = () => {
 
     addArtifactPromise(newArtifact)
       .then((res) => {
-        if(res.insertedId) {
-          toast.success("Artifact Added", {description: "Your Artifact is added to the database."})
+        if (res.insertedId) {
+          toast.success("Artifact Added", {
+            description: "Your Artifact is added to the database.",
+          });
         }
+        setAddLoading(false);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+        setAddLoading(false);
+      });
   };
 
   return (
@@ -236,7 +250,7 @@ const AddArtifact = () => {
 
               {/* submit btn */}
               <Button type="submit" className="md:col-span-2 w-full">
-                Add Artifact
+                {addLoading ? <LoaderSpinner /> : "Add Artifact"}
               </Button>
             </div>
           </form>
