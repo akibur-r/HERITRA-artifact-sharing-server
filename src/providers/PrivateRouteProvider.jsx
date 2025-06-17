@@ -10,7 +10,7 @@ const PrivateRouteProvider = ({ children }) => {
 
   if (loading) {
     return (
-      <div className="h-48">
+      <div className="h-48 my-10">
         <LoaderLogoSpinner />
       </div>
     );

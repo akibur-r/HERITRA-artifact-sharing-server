@@ -1,3 +1,4 @@
+import useUsersApi from "@/api/usersApi";
 import {
   createUserWithEmailAndPassword,
   getAuth,
@@ -18,6 +19,7 @@ const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   const googleAuthProvider = new GoogleAuthProvider();
+  const {addUserPromise} = useUsersApi();
 
   const createUser = (email, password) => {
     setLoading(true);
@@ -46,7 +48,19 @@ const AuthProvider = ({ children }) => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
-      setLoading(false);
+      
+      if(currentUser) {
+        addUserPromise({ email: currentUser.email, likes: [] })
+          .then((res) => {
+            setLoading(false);
+          })
+          .catch((err) => {
+            console.log(err);
+            setLoading(false);
+          });
+      } else {
+        setLoading(false);
+      }
     });
     return () => {
       unsubscribe();

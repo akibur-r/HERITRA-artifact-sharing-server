@@ -4,24 +4,31 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { useEffect, useState } from "react";
 import { AiOutlineAppstoreAdd } from "react-icons/ai";
-import { BiEditAlt, BiLike, BiTrashAlt } from "react-icons/bi";
+import { BiEditAlt, BiTrashAlt } from "react-icons/bi";
 import { GiDigDug } from "react-icons/gi";
 import { GrLocation } from "react-icons/gr";
 import { LuSearchCheck } from "react-icons/lu";
 import { useParams } from "react-router";
 
+import useUsersApi from "@/api/usersApi";
+import ArtifactLikeButton from "@/components/shared/ArtifactLikeButton/ArtifactLikeButton";
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import useAuth from "@/hooks/useAuth";
 
 const ArtifactDetails = () => {
   const { id } = useParams();
   const { getOneArtifactPromise } = useArtifactsApi();
+  const { checkIfLikedPromise, updateLikePromise } = useUsersApi();
+  const { user } = useAuth();
+
   const [artifactLoading, setArtifactLoading] = useState(true);
   const [artifact, setArtifact] = useState({});
-  //   console.log(id);
+  const [likeBtnLoading, setLikeBtnLoading] = useState(false);
+  const [liked, setLiked] = useState(false);
 
   useEffect(() => {
     getOneArtifactPromise(id)
@@ -35,12 +42,12 @@ const ArtifactDetails = () => {
       });
   }, []);
 
-  console.log(artifact);
-
   return (
     <section className="bg-primary/5 relative overflow-hidden">
       {artifactLoading ? (
-        <LoaderLogoSpinner />
+        <div className="my-10 h-48">
+          <LoaderLogoSpinner />
+        </div>
       ) : (
         <div className="max-w-screen-xl mx-auto py-10 px-4 space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-6">
@@ -93,21 +100,22 @@ const ArtifactDetails = () => {
                 <div>
                   <Tooltip>
                     <TooltipTrigger>
-                      <Button
-                        variant={"secondary"}
-                        size={"sm"}
-                        className="rounded-xs bg-green-500/5 hover:bg-green-500/5 hover:text-green-500 cursor-pointer text-base-content border border-green-500/20"
-                      >
-                        <BiLike />
-                        <span>{artifact.likeCount} Likes</span>
-                      </Button>
+                      <ArtifactLikeButton
+                        liked={liked}
+                        setLiked={setLiked}
+                        artifact={artifact}
+                      />
                     </TooltipTrigger>
                     <TooltipContent>
-                      <p>Like This Artifact</p>
+                      <p>Click to Like</p>
                     </TooltipContent>
                   </Tooltip>
                 </div>
-                <div className="text-xs">you did not like this artifact.</div>
+                <div className="text-xs">
+                  {liked
+                    ? "You liked this artifact."
+                    : "You did not like this artifact."}
+                </div>
               </div>
 
               <Separator />
