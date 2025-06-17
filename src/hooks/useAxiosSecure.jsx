@@ -1,12 +1,12 @@
-import axios from 'axios';
+import axios from "axios";
 
 const axiosInstance = axios.create({
-    baseURL: import.meta.env.VITE_baseURL || 'https://heritra-server.vercel.app'
-})
+  baseURL: "http://localhost:3000",
+  // || 'https://heritra-server.vercel.app'
+});
 
 const useAxiosSecure = () => {
-    
-    return axiosInstance;
+  return axiosInstance;
 };
 
 export default useAxiosSecure;
