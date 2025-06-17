@@ -16,6 +16,12 @@ const useArtifactsApi = () => {
     return axiosSecure.get("/artifacts").then((res) => res.data);
   };
 
+  const getArtifactsByEmailPromise = (user_email) => {
+    return axiosSecure
+      .get(`/artifacts?user_email=${user_email}`)
+      .then((res) => res.data);
+  };
+
   const getOneArtifactPromise = (id) => {
     return axiosSecure.get(`/artifacts/findOne/${id}`).then((res) => res.data);
   };
@@ -30,6 +36,7 @@ const useArtifactsApi = () => {
     addArtifactPromise,
     getAllArtifactsPromise,
     getOneArtifactPromise,
+    getArtifactsByEmailPromise,
   };
 };
 
