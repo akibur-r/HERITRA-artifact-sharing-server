@@ -10,6 +10,12 @@ const useUsersApi = () => {
       .then((res) => res.data);
   };
 
+  const getLikedArtifacts = (user_email) => {
+    return axiosSecure
+      .get(`/users/likes/${user_email}`)
+      .then((res) => res.data);
+  };
+
   // post apis
   const addUserPromise = (newUser) => {
     return axiosSecure.post("/users", newUser).then((res) => res.data);
@@ -26,6 +32,7 @@ const useUsersApi = () => {
     addUserPromise,
     checkIfLikedPromise,
     updateLikePromise,
+    getLikedArtifacts,
   };
 };
 

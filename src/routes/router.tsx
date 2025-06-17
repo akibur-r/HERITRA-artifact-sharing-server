@@ -4,6 +4,7 @@ import AllArtifacts from "@/pages/AllArtifacts/AllArtifacts";
 import ArtifactDetails from "@/pages/ArtifactDetails/ArtifactDetails";
 import ErrorPage from "@/pages/ErrorPage/ErrorPage";
 import HomePage from "@/pages/HomePage/HomePage";
+import LikedArtifactsPage from "@/pages/LikedArtifacts/LikedArtifactsPage";
 import RegisterPage from "@/pages/Register/RegisterPage";
 import SignInPage from "@/pages/SignIn/SignInPage";
 import PrivateRouteProvider from "@/providers/PrivateRouteProvider";
@@ -21,6 +22,14 @@ export const router = createBrowserRouter([
       {
         path: "/all-artifacts",
         Component: AllArtifacts,
+      },
+      {
+        path: "/liked-artifacts",
+        element: (
+          <PrivateRouteProvider>
+            <LikedArtifactsPage />
+          </PrivateRouteProvider>
+        ),
       },
       {
         path: "/add-artifact",
