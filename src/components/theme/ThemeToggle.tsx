@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { useTheme } from "@/providers/ThemeProvider";
-import { FaMoon, FaSun } from "react-icons/fa";
+import { BiMoon, BiSun } from "react-icons/bi";
 
 export function ThemeToggle() {
   const { theme, toggleTheme } = useTheme();
@@ -9,10 +9,10 @@ export function ThemeToggle() {
     <Button
       onClick={toggleTheme}
       variant="outline"
-      className="cursor-pointer"
+      className="cursor-pointer rounded-full w-9 h-9"
       size="sm"
     >
-      {theme === "dark" ? <FaSun className="" /> : <FaMoon className="" />}
+      {theme === "dark" ? <BiSun className="" /> : <BiMoon className="" />}
     </Button>
   );
 }
