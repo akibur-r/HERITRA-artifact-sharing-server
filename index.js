@@ -19,6 +19,13 @@ const client = new MongoClient(uri, {
   },
 });
 
+const formatNewArtifact = async (req, res, next) => {
+  const newArtifact = req.body;
+  newArtifact.likeCount = 0;
+
+  next();
+}
+
 async function run() {
   try {
     await client.connect();
@@ -26,21 +33,21 @@ async function run() {
     console.log("ping!!", port);
 
     // test queries
-    app.get('/', (req, res) => {
+    app.get("/", (req, res) => {
       res.send("hey!!");
-    })
+    });
 
     // artifacts related queries
     const artifactsCollection = client.db("heritra").collection("artifacts");
 
+    // get artifacts api
     app.get("/artifacts", async (req, res) => {
-
       const limit = Number(req.query.limit) || 0;
       const sort_by = req.query.sort_by;
 
-      const sort = {}
-      if(sort_by==="likeCount") {
-        sort.likeCount = -1
+      const sort = {};
+      if (sort_by === "likeCount") {
+        sort.likeCount = -1;
       }
 
       const result = await artifactsCollection
@@ -48,6 +55,14 @@ async function run() {
         .sort(sort)
         .limit(limit)
         .toArray();
+
+      res.send(result);
+    });
+
+    // add single new artifact api
+    app.post("/artifacts", formatNewArtifact, async (req, res) => {
+      const newArtifact = req.body;
+      const result = await artifactsCollection.insertOne(newArtifact);
 
       res.send(result);
     });
