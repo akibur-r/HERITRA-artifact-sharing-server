@@ -73,10 +73,10 @@ export function Navbar() {
 
   const profileDropDown = (
     <DropdownMenu dir="rtl">
-      <DropdownMenuTrigger className="outline-none">
+      <DropdownMenuTrigger className="outline-none flex">
         <Tooltip>
           <TooltipTrigger className="cursor-pointer rounded-full">
-            <Avatar onClick={() => setDrawerOpen(true)}>
+            <Avatar className="size-9 rounded-full border-4 border-primary/60 hover:border-primary/80" onClick={() => setDrawerOpen(true)}>
               <AvatarImage src={user?.photoURL} />
               <AvatarFallback>
                 {user?.displayName[0].toUpperCase()}
