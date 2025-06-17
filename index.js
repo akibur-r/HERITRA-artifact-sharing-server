@@ -42,6 +42,19 @@ async function run() {
     const usersCollection = client.db("heritra").collection("users");
 
     //users relted queries -------------------------
+
+    // check if user liked a particular artifact api -- get
+    app.get("/users/likes", async (req, res) => {
+      const artifact_id = req.query.artifact_id;
+      const user_email = req.query.user_email;
+
+      const userDetails = await usersCollection.findOne({ email: user_email });
+
+      const isLiked = userDetails.likes?.includes(artifact_id);
+
+      res.send(isLiked);
+    });
+
     // add new user api
     app.post("/users", async (req, res) => {
       const newUser = req.body;
