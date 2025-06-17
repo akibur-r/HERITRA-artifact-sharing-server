@@ -18,6 +18,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import useAuth from "@/hooks/useAuth";
+import DeleteArtifactButton from "@/components/artifact/DeleteArtifactButton";
 
 const ArtifactDetails = () => {
   const { id } = useParams();
@@ -153,42 +154,32 @@ const ArtifactDetails = () => {
               {/* <Separator className="hidden md:block" /> */}
 
               {/* action buttons: HIDDEN IF OWNER IS SOMEONE ELSE */}
-              {/* <div className="flex gap-2 justify-center md:justify-start py-2"> */}
-              <div className="hidden">
-                {/* update */}
-                <Tooltip>
-                  <TooltipTrigger>
-                    <Button
-                      variant={"secondary"}
-                      size={"sm"}
-                      className="rounded-xs bg-yellow-500/50 hover:bg-yellow-500/15 hover:text-yellow-500 cursor-pointer text-base-content border border-yellow-500/20"
-                    >
-                      <BiEditAlt />
-                      <span>Update</span>
-                    </Button>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p>Edit This Artifact</p>
-                  </TooltipContent>
-                </Tooltip>
+              {user.email===artifact.userEmail ? (
+                <div className="flex gap-2 justify-center md:justify-start py-2">
+                  {/* <div className="hidden"> */}
+                  {/* update */}
+                  <Tooltip>
+                    <TooltipTrigger>
+                      <Button
+                        variant={"secondary"}
+                        size={"sm"}
+                        className="rounded-xs bg-yellow-500/50 hover:bg-yellow-500/15 hover:text-yellow-500 cursor-pointer text-base-content border border-yellow-500/20"
+                      >
+                        <BiEditAlt />
+                        <span>Update</span>
+                      </Button>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>Edit This Artifact</p>
+                    </TooltipContent>
+                  </Tooltip>
 
-                {/* delete */}
-                <Tooltip>
-                  <TooltipTrigger>
-                    <Button
-                      variant={"secondary"}
-                      size={"sm"}
-                      className="rounded-xs bg-red-500/50 hover:bg-red-500/15 hover:text-red-500 cursor-pointer text-base-content border border-red-500/20"
-                    >
-                      <BiTrashAlt />
-                      <span>Delete</span>
-                    </Button>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p>Delete This Artifact</p>
-                  </TooltipContent>
-                </Tooltip>
-              </div>
+                  {/* delete */}
+                  <DeleteArtifactButton artifact={artifact}/>
+                </div>
+              ) : (
+                <></>
+              )}
             </div>
           </div>
           <Separator />
