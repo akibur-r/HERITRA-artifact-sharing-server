@@ -42,7 +42,7 @@ const ArtifactDetails = () => {
       {artifactLoading ? (
         <LoaderLogoSpinner />
       ) : (
-        <div className="max-w-screen-xl mx-auto py-10 px-4 ">
+        <div className="max-w-screen-xl mx-auto py-10 px-4 space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-6">
             <div className="">
               <img
@@ -182,6 +182,15 @@ const ArtifactDetails = () => {
                 </Tooltip>
               </div>
             </div>
+          </div>
+          <Separator />
+          <div>
+            <header className="text-center md:text-left">
+              <h3 className="font-cinzel font-medium text-primary text-lg md:text-xl">
+                Details
+              </h3>
+            </header>
+            <p className="text-center md:text-left">{artifact.description}</p>
           </div>
         </div>
       )}
