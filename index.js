@@ -4,7 +4,7 @@ const cors = require("cors");
 const app = express();
 const port = process.env.port || 3000;
 
-const { MongoClient, ServerApiVersion } = require("mongodb");
+const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@akibur.q5l27io.mongodb.net/?retryWrites=true&w=majority&appName=akibur`;
 
 app.use(cors());
@@ -24,7 +24,7 @@ const formatNewArtifact = async (req, res, next) => {
   newArtifact.likeCount = 0;
 
   next();
-}
+};
 
 async function run() {
   try {
@@ -37,9 +37,28 @@ async function run() {
       res.send("hey!!");
     });
 
-    // artifacts related queries
+    // collections
     const artifactsCollection = client.db("heritra").collection("artifacts");
+    const usersCollection = client.db("heritra").collection("users");
 
+    //users relted queries -------------------------
+    // add new user api
+    app.post("/users", async (req, res) => {
+      const newUser = req.body;
+      const { email } = newUser;
+
+      const exists = await usersCollection.findOne({ email: email });
+      // console.log(exists);
+
+      if (exists) {
+        res.send("user exists already");
+      } else {
+        const result = await usersCollection.insertOne(newUser);
+        res.send(result);
+      }
+    });
+
+    // artifacts related queries ---------------------
     // get artifacts api
     app.get("/artifacts", async (req, res) => {
       const limit = Number(req.query.limit) || 0;
@@ -55,6 +74,14 @@ async function run() {
         .sort(sort)
         .limit(limit)
         .toArray();
+
+      res.send(result);
+    });
+
+    app.get("/artifacts/findOne/:id", async (req, res) => {
+      const id = req.params.id;
+      const targetId = new ObjectId(id);
+      const result = await artifactsCollection.findOne({ _id: targetId });
 
       res.send(result);
     });
