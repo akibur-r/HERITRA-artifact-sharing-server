@@ -6,13 +6,14 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import useAuth from "@/hooks/useAuth";
-import { Link, useNavigate } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import { toast } from "sonner";
 
 const SignInPage = () => {
   const { signIn, setLoading, loading } = useAuth();
 
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleSignIn = (e) => {
     e.preventDefault();
@@ -28,7 +29,7 @@ const SignInPage = () => {
         toast.success('Signed In Successfully', {
           description: "You can now access private features"
         })
-        navigate('/');
+        navigate(`${location.state ? location.state : "/"}`);
       })
       .catch((err) => {
         setLoading(false);
