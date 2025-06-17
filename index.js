@@ -50,9 +50,30 @@ async function run() {
 
       const userDetails = await usersCollection.findOne({ email: user_email });
 
-      const isLiked = userDetails.likes?.includes(artifact_id);
+      const isLiked = userDetails.likes?.some(
+        (id) => id.toString() === artifact_id
+      );
+
+      // console.log(artifact_id);
 
       res.send(isLiked);
+    });
+
+    // get all liked artifacts api
+    app.get("/users/likes/:user_email", async (req, res) => {
+      const user_email = req.params.user_email;
+
+      const userDetails = await usersCollection.findOne({ email: user_email });
+
+      const likedArtifacts = await Promise.all(
+        userDetails.likes?.map(async (liked_artifact_id) => {
+          return await artifactsCollection.findOne({
+            _id: new ObjectId(liked_artifact_id),
+          });
+        }) || []
+      );
+
+      res.send(likedArtifacts);
     });
 
     // add new user api
@@ -69,6 +90,52 @@ async function run() {
         const result = await usersCollection.insertOne(newUser);
         res.send(result);
       }
+    });
+
+    app.put("/users/likes", async (req, res) => {
+      const artifact_id = req.query.artifact_id;
+      const user_email = req.query.user_email;
+
+      // update user like add or remove
+      const userDetails = await usersCollection.findOne({ email: user_email });
+
+      const alreadyLiked = userDetails.likes?.includes(artifact_id);
+
+      const userUpdateFilter = { email: user_email };
+      const userUpdateOptions = { upsert: false };
+      let userUpdateQuery = { $addToSet: { likes: artifact_id } };
+
+      if (alreadyLiked) {
+        userUpdateQuery = { $pull: { likes: artifact_id } };
+      }
+
+      const result = await usersCollection.updateOne(
+        userUpdateFilter,
+        userUpdateQuery,
+        userUpdateOptions
+      );
+
+      result.likeAdded = !alreadyLiked;
+
+      // artifact count add or remove
+      const artifactDetails = await artifactsCollection.findOne({
+        _id: new ObjectId(artifact_id),
+      });
+      const newLikeCount = artifactDetails.likeCount + (alreadyLiked ? -1 : 1);
+
+      const artifactUpdateFilter = { _id: new ObjectId(artifact_id) };
+      const artifactUpdateQuery = { $set: { likeCount: newLikeCount } };
+      const artifactUpdateOptions = { upsert: false };
+
+      const countUpd = await artifactsCollection.updateOne(
+        artifactUpdateFilter,
+        artifactUpdateQuery,
+        artifactUpdateOptions
+      );
+      console.log(countUpd);
+
+      res.send(result);
+      // res.send(alreadyLiked)
     });
 
     // artifacts related queries ---------------------
