@@ -3,7 +3,7 @@ import useAuth from "@/hooks/useAuth";
 import { FcGoogle } from "react-icons/fc";
 import { useNavigate } from "react-router";
 import { toast } from "sonner";
-const SocialLogin = () => {
+const SocialLogin = ({ location }) => {
   const { signInWithGoogle, setLoading } = useAuth();
   const navigate = useNavigate();
 
@@ -12,7 +12,8 @@ const SocialLogin = () => {
       .then(() => {
         toast.success("Signed In");
         setLoading(false);
-        navigate('/');
+
+        navigate(`${location.state ? location.state : "/"}`);
       })
       .catch(() => {
         toast.error("Google Sign In Failed", {

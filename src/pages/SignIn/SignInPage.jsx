@@ -26,16 +26,16 @@ const SignInPage = () => {
     signIn(email, password)
       .then(() => {
         setLoading(false);
-        toast.success('Signed In Successfully', {
-          description: "You can now access private features"
-        })
+        toast.success("Signed In Successfully", {
+          description: "You can now access private features",
+        });
         navigate(`${location.state ? location.state : "/"}`);
       })
       .catch((err) => {
         setLoading(false);
-        toast.error('Login Failed', {
-          description: "Something went wrong while loggin in"
-        })
+        toast.error("Login Failed", {
+          description: "Something went wrong while loggin in",
+        });
       });
   };
   return (
@@ -70,7 +70,7 @@ const SignInPage = () => {
           <CardFooter className="flex-col gap-2">
             <div className="w-full space-y-1">
               <Button type="submit" className="w-full">
-                {loading? <Loader/> : "Sign In"}
+                {loading ? <Loader /> : "Sign In"}
               </Button>
               <p className="text-sm">
                 Don't have an account?{" "}
@@ -80,7 +80,7 @@ const SignInPage = () => {
               </p>
             </div>
             <Separator className="my-4" />
-            <SocialLogin />
+            <SocialLogin location={location} />
           </CardFooter>
         </Card>
       </form>
