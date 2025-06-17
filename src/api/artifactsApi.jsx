@@ -3,6 +3,7 @@ import useAxiosSecure from "@/hooks/useAxiosSecure";
 const useArtifactsApi = () => {
   const axiosSecure = useAxiosSecure();
 
+  // get apis
   const topSixArtifactsPromise = () => {
     return axiosSecure
       .get(`/artifacts?limit=6&sort_by=likeCount`)
@@ -11,6 +12,11 @@ const useArtifactsApi = () => {
       });
   };
 
+  const getAllArtifactsPromise = () => {
+    return axiosSecure.get("/artifacts").then((res) => res.data);
+  };
+
+  // post apis
   const addArtifactPromise = (newArtifact) => {
     return axiosSecure.post("/artifacts", newArtifact).then((res) => res.data);
   };
@@ -18,6 +24,7 @@ const useArtifactsApi = () => {
   return {
     topSixArtifactsPromise,
     addArtifactPromise,
+    getAllArtifactsPromise
   };
 };
 
