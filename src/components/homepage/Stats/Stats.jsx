@@ -40,7 +40,7 @@ const Stats = () => {
             <div className="p-6 transition duration-300 flex flex-col items-center text-center">
               <div className="text-4xl">{stat.icon}</div>
               <div className="text-3xl font-semibold mt-3">{stat.value}+</div>
-              <div className="text-sm opacity-80 mt-1">{stat.label}</div>
+              <div className="text-sm opacity-80 mt-1 font-cinzel">{stat.label}</div>
             </div>
             <Separator orientation="vertical" className="hidden md:block"  />    
           </div>

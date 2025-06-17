@@ -1,9 +1,11 @@
 import RootLayout from "@/layouts/RootLayout";
+import AddArtifact from "@/pages/AddArtifact/AddArtifact";
 import AllArtifacts from "@/pages/AllArtifacts/AllArtifacts";
 import ErrorPage from "@/pages/ErrorPage/ErrorPage";
 import HomePage from "@/pages/HomePage/HomePage";
 import RegisterPage from "@/pages/Register/RegisterPage";
 import SignInPage from "@/pages/SignIn/SignInPage";
+import PrivateRouteProvider from "@/providers/PrivateRouteProvider";
 import { createBrowserRouter } from "react-router";
 
 export const router = createBrowserRouter([
@@ -18,6 +20,14 @@ export const router = createBrowserRouter([
       {
         path: "/all-artifacts",
         Component: AllArtifacts,
+      },
+      {
+        path: "/add-artifact",
+        element: (
+          <PrivateRouteProvider>
+            <AddArtifact />
+          </PrivateRouteProvider>
+        ),
       },
       {
         path: "/sign-in",
