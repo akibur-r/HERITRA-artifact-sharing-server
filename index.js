@@ -143,14 +143,20 @@ async function run() {
     app.get("/artifacts", async (req, res) => {
       const limit = Number(req.query.limit) || 0;
       const sort_by = req.query.sort_by;
+      const user_email = req.query.user_email;
 
       const sort = {};
+      const query = {};
       if (sort_by === "likeCount") {
         sort.likeCount = -1;
       }
 
+      if (user_email) {
+        query.userEmail = user_email;
+      }
+
       const result = await artifactsCollection
-        .find()
+        .find(query)
         .sort(sort)
         .limit(limit)
         .toArray();
