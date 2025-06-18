@@ -311,11 +311,11 @@ const ArtifactUpdateButton = ({
 
           <DialogFooter>
             <DialogClose asChild>
-              <Button type="button" variant="outline" className="rounded-xs">
+              <Button type="button" variant="outline">
                 Cancel
               </Button>
             </DialogClose>
-            <Button type="submit" className="rounded-xs">
+            <Button type="submit">
               {updateConfirmLoading ? <LoaderSpinner /> : "Save"}
             </Button>
           </DialogFooter>

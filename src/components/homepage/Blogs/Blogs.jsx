@@ -80,7 +80,7 @@ const Blogs = () => {
         <footer className="flex justify-center">
           <Button
             variant={"outline"}
-            className="cursor-pointer rounded-xs font-cinzel"
+            className="cursor-pointer font-cinzel"
           >
             Explore More
           </Button>
