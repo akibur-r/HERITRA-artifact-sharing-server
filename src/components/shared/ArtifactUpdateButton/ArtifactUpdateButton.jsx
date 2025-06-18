@@ -55,6 +55,7 @@ const ArtifactUpdateButton = ({
   artifact,
   updateBtnLoading,
   setUpdateBtnLoading,
+  showText = true,
 }) => {
   const [updateConfirmLoading, setUpdateConfirmLoading] = useState(false);
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -124,7 +125,7 @@ const ArtifactUpdateButton = ({
           ) : (
             <>
               <BiEditAlt />
-              <span>Update</span>
+              {showText && <span>Update</span>}
             </>
           )}
         </Button>

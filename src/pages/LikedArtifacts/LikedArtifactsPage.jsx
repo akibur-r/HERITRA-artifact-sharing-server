@@ -1,14 +1,13 @@
 import useUsersApi from "@/api/usersApi";
+import ArtifactRow from "@/components/artifacts/ArtifactRow";
 import LoaderLogoSpinner from "@/components/shared/LoaderLogoSpinner/LoaderLogoSpinner";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   Table,
   TableBody,
   TableCaption,
-  TableCell,
   TableHead,
   TableHeader,
-  TableRow,
+  TableRow
 } from "@/components/ui/table";
 import useAuth from "@/hooks/useAuth";
 import { useEffect, useState } from "react";
@@ -73,6 +72,7 @@ const LikedArtifactsPage = () => {
     getLikedArtifacts(user.email)
       .then((res) => {
         setArtifacts(res);
+        console.log(res);
         setArtifactsLoading(false);
       })
       .catch((err) => {
@@ -81,9 +81,7 @@ const LikedArtifactsPage = () => {
       });
   }, []);
 
-  const handleClick = (id) => {
-    navigate(`/artifact/details/${id}`);
-  };
+  // console.log(artifacts);
 
   return (
     <section className="flex flex-col gap-4 justify-center items-center my-10 max-w-screen-xl mx-auto px-4">
@@ -117,34 +115,11 @@ const LikedArtifactsPage = () => {
               </TableHeader>
               <TableBody>
                 {artifacts.map((artifact, idx) => (
-                  <TableRow
-                    onClick={() => handleClick(artifact._id)}
-                    className="cursor-pointer"
+                  <ArtifactRow
+                    artifact={artifact}
+                    idx={idx + 1}
                     key={artifact._id}
-                  >
-                    <TableCell className="font-medium hidden md:table-cell">
-                      {idx + 1}
-                    </TableCell>
-                    <TableCell>
-                      <Avatar className="rounded-none bg-foreground/10 dark:bg-foreground/5 size-12">
-                        <AvatarImage src={artifact.imageURL} />
-                        <AvatarFallback>A</AvatarFallback>
-                      </Avatar>
-                    </TableCell>
-                    <TableCell className="font-medium">
-                      {artifact.name}
-                    </TableCell>
-                    <TableCell className="hidden md:table-cell">
-                      {artifact.type}
-                    </TableCell>
-                    <TableCell className="hidden md:table-cell">
-                      {artifact.discoveredBy}
-                    </TableCell>
-                    <TableCell className="hidden lg:table-cell">
-                      {artifact.presentAddress}
-                    </TableCell>
-                    <TableCell className="text-center">-</TableCell>
-                  </TableRow>
+                  />
                 ))}
               </TableBody>
             </Table>

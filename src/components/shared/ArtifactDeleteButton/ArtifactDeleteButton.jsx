@@ -21,7 +21,7 @@ import { useState } from "react";
 import { BiTrashAlt } from "react-icons/bi";
 import { useNavigate } from "react-router";
 
-const ArtifactDeleteButton = ({ artifact }) => {
+const ArtifactDeleteButton = ({ artifact, showText = true }) => {
   const { deleteArtifactPromise } = useArtifactsApi();
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
@@ -48,7 +48,7 @@ const ArtifactDeleteButton = ({ artifact }) => {
               className="rounded-xs bg-red-500/50 hover:bg-red-500/15 hover:text-red-500 cursor-pointer text-base-content border border-red-500/20"
             >
               <BiTrashAlt />
-              <span>Delete</span>
+              {showText && <span>Delete</span>}
             </Button>
           </DialogTrigger>
           <DialogContent className="rounded-xs" showCloseButton={false}>

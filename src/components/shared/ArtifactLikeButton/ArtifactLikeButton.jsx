@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { BiLike } from "react-icons/bi";
 import LoaderSpinner from "../LoaderSpinner/LoaderSpinner";
 
-const ArtifactLikeButton = ({ liked = false, setLiked, artifact }) => {
+const ArtifactLikeButton = ({ liked = false, setLiked, artifact, showText = true }) => {
   const { checkIfLikedPromise, updateLikePromise } = useUsersApi();
   const { user } = useAuth();
 
@@ -69,7 +69,7 @@ const ArtifactLikeButton = ({ liked = false, setLiked, artifact }) => {
       ) : (
         <>
           <BiLike />
-          <span>{totalLikes} Likes</span>
+          <span>{totalLikes} {showText && "Likes"}</span>
         </>
       )}
     </Button>
