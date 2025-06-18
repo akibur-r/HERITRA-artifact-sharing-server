@@ -1,24 +1,23 @@
 import useArtifactsApi from "@/api/artifactsApi";
 import LoaderLogoSpinner from "@/components/shared/LoaderLogoSpinner/LoaderLogoSpinner";
-import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { useEffect, useState } from "react";
 import { AiOutlineAppstoreAdd } from "react-icons/ai";
-import { BiEditAlt, BiTrashAlt } from "react-icons/bi";
 import { GiDigDug } from "react-icons/gi";
 import { GrLocation } from "react-icons/gr";
 import { LuSearchCheck } from "react-icons/lu";
 import { useParams } from "react-router";
 
 import useUsersApi from "@/api/usersApi";
+import ArtifactDeleteButton from "@/components/shared/ArtifactDeleteButton/ArtifactDeleteButton";
 import ArtifactLikeButton from "@/components/shared/ArtifactLikeButton/ArtifactLikeButton";
+import ArtifactUpdateButton from "@/components/shared/ArtifactUpdateButton/ArtifactUpdateButton";
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import useAuth from "@/hooks/useAuth";
-import DeleteArtifactButton from "@/components/artifact/DeleteArtifactButton";
 
 const ArtifactDetails = () => {
   const { id } = useParams();
@@ -154,28 +153,14 @@ const ArtifactDetails = () => {
               {/* <Separator className="hidden md:block" /> */}
 
               {/* action buttons: HIDDEN IF OWNER IS SOMEONE ELSE */}
-              {user.email===artifact.userEmail ? (
+              {user.email === artifact.userEmail ? (
                 <div className="flex gap-2 justify-center md:justify-start py-2">
                   {/* <div className="hidden"> */}
                   {/* update */}
-                  <Tooltip>
-                    <TooltipTrigger>
-                      <Button
-                        variant={"secondary"}
-                        size={"sm"}
-                        className="rounded-xs bg-yellow-500/50 hover:bg-yellow-500/15 hover:text-yellow-500 cursor-pointer text-base-content border border-yellow-500/20"
-                      >
-                        <BiEditAlt />
-                        <span>Update</span>
-                      </Button>
-                    </TooltipTrigger>
-                    <TooltipContent>
-                      <p>Edit This Artifact</p>
-                    </TooltipContent>
-                  </Tooltip>
+                  <ArtifactUpdateButton artifact={artifact} />
 
                   {/* delete */}
-                  <DeleteArtifactButton artifact={artifact}/>
+                  <ArtifactDeleteButton artifact={artifact} />
                 </div>
               ) : (
                 <></>

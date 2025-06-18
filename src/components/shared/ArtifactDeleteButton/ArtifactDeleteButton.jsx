@@ -1,18 +1,18 @@
 import {
-    Tooltip,
-    TooltipContent,
-    TooltipTrigger,
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
 } from "@/components/ui/tooltip";
 
 import {
-    Dialog,
-    DialogClose,
-    DialogContent,
-    DialogDescription,
-    DialogFooter,
-    DialogHeader,
-    DialogTitle,
-    DialogTrigger,
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
 } from "@/components/ui/dialog";
 
 import useArtifactsApi from "@/api/artifactsApi";
@@ -21,7 +21,7 @@ import { useState } from "react";
 import { BiTrashAlt } from "react-icons/bi";
 import { useNavigate } from "react-router";
 
-const DeleteArtifactButton = ({ artifact }) => {
+const ArtifactDeleteButton = ({ artifact }) => {
   const { deleteArtifactPromise } = useArtifactsApi();
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
@@ -30,7 +30,7 @@ const DeleteArtifactButton = ({ artifact }) => {
     deleteArtifactPromise(artifact._id)
       .then((res) => {
         console.log(res);
-        navigate("/my-artifacts");
+        navigate("/all-artifacts");
       })
       .catch((err) => {
         console.log(err);
@@ -84,4 +84,4 @@ const DeleteArtifactButton = ({ artifact }) => {
   );
 };
 
-export default DeleteArtifactButton;
+export default ArtifactDeleteButton;
