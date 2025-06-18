@@ -4,6 +4,13 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
 import useAuth from "@/hooks/useAuth";
 import useDynamicTitle from "@/hooks/useDynamicTitle";
@@ -11,7 +18,7 @@ import { Link, useNavigate } from "react-router";
 import { toast } from "sonner";
 
 const RegisterPage = () => {
-  useDynamicTitle("Register")
+  useDynamicTitle("Register");
   const { loading, setLoading, createUser, updateUser, setUser } = useAuth();
 
   const navigate = useNavigate();
@@ -24,6 +31,7 @@ const RegisterPage = () => {
     const email = form.email.value;
     const photoURL = form.photoURL.value;
     const password = form.password.value;
+    const gender = form.gender.value || "unspecified";
 
     const passRegex = /(?=.*[a-z])(?=.*[A-Z]).{6,}/;
 
@@ -37,9 +45,14 @@ const RegisterPage = () => {
     createUser(email, password)
       .then((res) => {
         const user = res.user;
-        updateUser({ displayName: name, photoURL: photoURL })
+        updateUser({ displayName: name, photoURL: photoURL, gender: gender })
           .then(() => {
-            setUser({ ...user, displayName: name, photoURL: photoURL });
+            setUser({
+              ...user,
+              displayName: name,
+              photoURL: photoURL,
+              gender: gender,
+            });
 
             toast.success("Account created successfully", {
               description: "You can now access private routes.",
@@ -72,10 +85,10 @@ const RegisterPage = () => {
           features.
         </p>
       </div>
-      <form onSubmit={handleRegister} className="w-full max-w-sm">
-        <Card>
+      <form onSubmit={handleRegister} className="w-full max-w-xl">
+        <Card className="rounded-xs">
           <CardContent>
-            <div className="flex flex-col gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="grid gap-2">
                 <Label htmlFor="name">Name</Label>
                 <Input
@@ -94,7 +107,7 @@ const RegisterPage = () => {
                   required
                 />
               </div>
-              <div className="grid gap-2">
+              <div className="md:col-span-2 grid gap-2">
                 <Label htmlFor="photoURL">Photo</Label>
                 <Input
                   id="photoURL"
@@ -113,6 +126,32 @@ const RegisterPage = () => {
                   placeholder="Your Password"
                   required
                 />
+              </div>
+
+              <div className="grid gap-2">
+                <Label htmlFor="gender">Gender</Label>
+                <Select name="gender">
+                  <SelectTrigger className="w-full">
+                    <SelectValue
+                      className="text-sm md:text-md"
+                      placeholder="Select Gender (Optional)"
+                    />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value={"male"} className="text-sm md:text-md">
+                      Male
+                    </SelectItem>
+                    <SelectItem value={"female"} className="text-sm md:text-md">
+                      Female
+                    </SelectItem>
+                    <SelectItem
+                      value={"unspecified"}
+                      className="text-sm md:text-md"
+                    >
+                      Prefer Not to Say
+                    </SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
             </div>
           </CardContent>
