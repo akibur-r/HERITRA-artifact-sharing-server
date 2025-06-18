@@ -2,10 +2,15 @@ import useUsersApi from "@/api/usersApi";
 import { Button } from "@/components/ui/button";
 import useAuth from "@/hooks/useAuth";
 import { useEffect, useState } from "react";
-import { BiLike } from "react-icons/bi";
+import { AiFillLike, AiOutlineLike } from "react-icons/ai";
 import LoaderSpinner from "../LoaderSpinner/LoaderSpinner";
 
-const ArtifactLikeButton = ({ liked = false, setLiked, artifact, showText = true }) => {
+const ArtifactLikeButton = ({
+  liked = false,
+  setLiked,
+  artifact,
+  showText = true,
+}) => {
   const { checkIfLikedPromise, updateLikePromise } = useUsersApi();
   const { user } = useAuth();
 
@@ -68,8 +73,10 @@ const ArtifactLikeButton = ({ liked = false, setLiked, artifact, showText = true
         </>
       ) : (
         <>
-          <BiLike />
-          <span>{totalLikes} {showText && "Likes"}</span>
+          {liked ? <AiFillLike /> : <AiOutlineLike />}
+          <span>
+            {totalLikes} {showText && "Likes"}
+          </span>
         </>
       )}
     </Button>
