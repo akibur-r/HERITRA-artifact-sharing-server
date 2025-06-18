@@ -143,6 +143,7 @@ async function run() {
     app.get("/artifacts", async (req, res) => {
       const limit = Number(req.query.limit) || 0;
       const sort_by = req.query.sort_by;
+      const searchByNameQuery = req.query.name;
       const user_email = req.query.user_email;
 
       const sort = {};
@@ -153,6 +154,10 @@ async function run() {
 
       if (user_email) {
         query.userEmail = user_email;
+      }
+      if (searchByNameQuery) {
+        queryRegex = new RegExp(searchByNameQuery, "i");
+        query.name = { $regex: queryRegex};
       }
 
       const result = await artifactsCollection
