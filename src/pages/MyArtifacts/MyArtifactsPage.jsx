@@ -1,6 +1,15 @@
 import useArtifactsApi from "@/api/artifactsApi";
 import ArtifactRow from "@/components/artifacts/ArtifactRow";
 import LoaderLogoSpinner from "@/components/shared/LoaderLogoSpinner/LoaderLogoSpinner";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import {
   Table,
   TableBody,
@@ -11,7 +20,8 @@ import {
 } from "@/components/ui/table";
 import useAuth from "@/hooks/useAuth";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router";
+import { BiXCircle } from "react-icons/bi";
+import { Link, useNavigate } from "react-router";
 
 const MyArtifactsPage = () => {
   const [artifacts, setArtifacts] = useState([]);
@@ -41,7 +51,7 @@ const MyArtifactsPage = () => {
         <div className="h-48">
           <LoaderLogoSpinner />
         </div>
-      ) : (
+      ) : artifacts.length ? (
         <>
           <header className="max-w-sm text-center">
             <h2 className="text-3xl font-cinzel font-bold">My Artifacts</h2>
@@ -78,6 +88,39 @@ const MyArtifactsPage = () => {
               </TableBody>
             </Table>
           </main>
+        </>
+      ) : (
+        <>
+          <Card className="w-full max-w-sm text-center bg-destructive/5">
+            <CardHeader>
+              <div className="flex justify-center">
+                <BiXCircle className="text-6xl text-destructive" />
+              </div>
+            </CardHeader>
+            <CardContent>
+              <CardTitle className="text-2xl font-cinzel">
+                No Artifacts
+              </CardTitle>
+              <CardDescription>
+                You haven't added any artifact yet.
+              </CardDescription>
+            </CardContent>
+            <CardFooter className="flex-col gap-2">
+              <Link to={"/add-artifact"} className="w-full">
+                <Button variant={"outline"} className="w-full text-primary">
+                  Add an Artifact
+                </Button>
+              </Link>
+              <Link to={-1} className="w-full">
+                <Button
+                  variant={"link"}
+                  className="w-full text-base-content underline"
+                >
+                  Go Back
+                </Button>
+              </Link>
+            </CardFooter>
+          </Card>
         </>
       )}
     </section>
