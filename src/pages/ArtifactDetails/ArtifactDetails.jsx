@@ -2,10 +2,13 @@ import useArtifactsApi from "@/api/artifactsApi";
 import LoaderLogoSpinner from "@/components/shared/LoaderLogoSpinner/LoaderLogoSpinner";
 import { Separator } from "@/components/ui/separator";
 import { useEffect, useState } from "react";
-import { AiOutlineAppstoreAdd } from "react-icons/ai";
-import { GiDigDug } from "react-icons/gi";
-import { GrLocation } from "react-icons/gr";
-import { LuFileX, LuSearchCheck } from "react-icons/lu";
+import { LuFileX } from "react-icons/lu";
+import {
+  TbClockSearch,
+  TbMapPin2,
+  TbUserSearch,
+  TbUserUp,
+} from "react-icons/tb";
 import { Link, useParams } from "react-router";
 
 import useUsersApi from "@/api/usersApi";
@@ -136,31 +139,76 @@ const ArtifactDetails = () => {
 
                   {/* other details */}
                   <div className="flex justify-center md:justify-start">
-                    <div className="grid grid-cols-2 md:grid-cols-1 gap-y-1 gap-x-3">
-                      <div>
-                        <span className="flex items-center gap-2 overflow-hidden">
-                          <GiDigDug className="text-md md:text-lg opacity-90 shrink-0 text-accent" />{" "}
-                          {artifact.discoveredBy}
-                        </span>
-                      </div>
-                      <div>
-                        <span className="flex items-center gap-2 overflow-hidden">
-                          <LuSearchCheck className="text-md md:text-lg opacity-90 text-accent" />{" "}
-                          {artifact.discoveredAt}
-                        </span>
-                      </div>
-                      <div>
-                        <span className="flex items-center gap-2 overflow-hidden">
-                          <GrLocation className="text-md md:text-lg opacity-90 text-accent" />{" "}
-                          {artifact.presentAddress}
-                        </span>
-                      </div>
-                      <div>
-                        <span className="flex items-center gap-2 overflow-hidden">
-                          <AiOutlineAppstoreAdd className="text-md md:text-lg opacity-90 text-accent" />{" "}
-                          {artifact.userName}
-                        </span>
-                      </div>
+                    <div className="grid place-items-center md:place-items-start grid-cols-1 gap-y-1 gap-x-3">
+                      <Tooltip>
+                        <TooltipTrigger>
+                          <div className="flex flex-col md:flex-row place-items-center gap-y-0 gap-x-2 overflow-hidden select-text">
+                            <span className="text-sm md:text-xl opacity-90 shrink-0 text-accent flex place-items-center gap-1">
+                              <TbUserSearch />
+                              <span className="md:hidden">Discovered By</span>
+                            </span>
+                            <span className="text-center md:text-left">
+                              {artifact.discoveredBy}
+                            </span>
+                          </div>
+                        </TooltipTrigger>
+                        <TooltipContent side="left" className="hidden lg:block">
+                          <p>Discovered By</p>
+                        </TooltipContent>
+                      </Tooltip>
+
+                      <Tooltip>
+                        <TooltipTrigger>
+                          <div className="flex flex-col md:flex-row place-items-center gap-y-0 gap-x-2 overflow-hidden select-text">
+                            <span className="text-sm md:text-xl opacity-90 shrink-0 text-accent flex place-items-center gap-1">
+                              <TbClockSearch />
+                              <span className="md:hidden">Discovered At</span>
+                            </span>
+                            <span className="text-center md:text-left">
+                              {artifact.discoveredAt}
+                            </span>
+                          </div>
+                        </TooltipTrigger>
+                        <TooltipContent side="left" className="hidden lg:block">
+                          <p>Discovered At</p>
+                        </TooltipContent>
+                      </Tooltip>
+
+                      <Tooltip>
+                        <TooltipTrigger>
+                          <div className="flex flex-col md:flex-row place-items-center gap-y-0 gap-x-2 overflow-hidden select-text">
+                            <span className="text-sm md:text-xl opacity-90 shrink-0 text-accent flex place-items-center gap-1">
+                              <TbMapPin2 />
+                              <span className="md:hidden">
+                                Present Location
+                              </span>
+                            </span>
+                            <span className="text-center md:text-left">
+                              {artifact.presentAddress}
+                            </span>
+                          </div>
+                        </TooltipTrigger>
+                        <TooltipContent side="left" className="hidden lg:block">
+                          <p>Present Location</p>
+                        </TooltipContent>
+                      </Tooltip>
+
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <div className="flex flex-col md:flex-row place-items-center gap-y-0 gap-x-2 overflow-hidden select-text">
+                            <span className="text-sm md:text-xl opacity-90 shrink-0 text-accent flex place-items-center gap-1">
+                              <TbUserUp />
+                              <span className="md:hidden">Uploaded By</span>
+                            </span>
+                            <span className="text-center md:text-left">
+                              {artifact.userName}
+                            </span>
+                          </div>
+                        </TooltipTrigger>
+                        <TooltipContent side="left" className="hidden lg:block">
+                          <p>Uploaded By</p>
+                        </TooltipContent>
+                      </Tooltip>
                     </div>
                   </div>
 
