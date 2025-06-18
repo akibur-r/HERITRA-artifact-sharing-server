@@ -10,6 +10,8 @@ const ArtifactRow = ({ artifact, idx, viewControls = false, hideLikeBtn = false 
   const [updateBtnLoading, setUpdateBtnLoading] = useState(false);
   const [liked, setLiked] = useState(false);
 
+  
+
   const navigate = useNavigate();
 
   const navigateToDetails = () => {

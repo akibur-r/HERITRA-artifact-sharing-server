@@ -7,11 +7,23 @@ import {
   TableCaption,
   TableHead,
   TableHeader,
-  TableRow
+  TableRow,
 } from "@/components/ui/table";
+import { BsHeartbreak } from "react-icons/bs";
+
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+
+import { Button } from "@/components/ui/button";
 import useAuth from "@/hooks/useAuth";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 
 const invoices = [
   {
@@ -89,7 +101,7 @@ const LikedArtifactsPage = () => {
         <div className="h-48">
           <LoaderLogoSpinner />
         </div>
-      ) : (
+      ) : artifacts.length ? (
         <>
           <header className="max-w-sm text-center">
             <h2 className="text-3xl font-cinzel font-bold">Liked Artifacts</h2>
@@ -124,6 +136,39 @@ const LikedArtifactsPage = () => {
               </TableBody>
             </Table>
           </main>
+        </>
+      ) : (
+        <>
+          <Card className="w-full max-w-sm text-center bg-accent/5">
+            <CardHeader>
+              <div className="flex justify-center">
+                <BsHeartbreak className="text-5xl text-accent" />
+              </div>
+            </CardHeader>
+            <CardContent>
+              <CardTitle className="text-2xl font-cinzel">
+                No Liked Artifacts
+              </CardTitle>
+              <CardDescription>
+                You didn't like any artifact yet.
+              </CardDescription>
+            </CardContent>
+            <CardFooter className="flex-col gap-2">
+              <Link to={"/all-artifacts"} className="w-full">
+                <Button variant={"outline"} className="w-full text-primary">
+                  Browse Artifacts
+                </Button>
+              </Link>
+              <Link to={-1} className="w-full">
+                <Button
+                  variant={"link"}
+                  className="w-full text-base-content underline"
+                >
+                  Go Back
+                </Button>
+              </Link>
+            </CardFooter>
+          </Card>
         </>
       )}
     </section>
