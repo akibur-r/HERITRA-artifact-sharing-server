@@ -19,11 +19,14 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import useAuth from "@/hooks/useAuth";
+import useDynamicTitle from "@/hooks/useDynamicTitle";
 import { useEffect, useState } from "react";
 import { BiXCircle } from "react-icons/bi";
 import { Link, useNavigate } from "react-router";
 
 const MyArtifactsPage = () => {
+  useDynamicTitle("My Artifacts");
+  
   const [artifacts, setArtifacts] = useState([]);
   const [artifactsLoading, setArtifactsLoading] = useState(false);
 

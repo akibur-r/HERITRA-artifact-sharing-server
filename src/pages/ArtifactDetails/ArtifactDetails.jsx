@@ -27,8 +27,10 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import useAuth from "@/hooks/useAuth";
+import useDynamicTitle from "@/hooks/useDynamicTitle";
 
 const ArtifactDetails = () => {
+  useDynamicTitle("Artifact Details");
   const { id } = useParams();
   const { getOneArtifactPromise } = useArtifactsApi();
   const { checkIfLikedPromise, updateLikePromise } = useUsersApi();
@@ -199,35 +201,38 @@ const ArtifactDetails = () => {
             <>
               <div className="flex justify-center">
                 <Card className="w-full max-w-sm text-center bg-destructive/5">
-                <CardHeader>
-                  <div className="flex justify-center">
-                    <LuFileX className="text-5xl text-destructive" />
-                  </div>
-                </CardHeader>
-                <CardContent>
-                  <CardTitle className="text-2xl font-cinzel">
-                    Artifact Not Found
-                  </CardTitle>
-                  <CardDescription>
-                    The artifact you're looking for is not in our server.
-                  </CardDescription>
-                </CardContent>
-                <CardFooter className="flex-col gap-2">
-                  <Link to={-1} className="w-full">
-                    <Button variant={"outline"} className="w-full text-primary">
-                      Go Back
-                    </Button>
-                  </Link>
-                  <Link to={"/"} className="w-full">
-                    <Button
-                      variant={"link"}
-                      className="w-full text-base-content underline"
-                    >
-                      Go to Homepage
-                    </Button>
-                  </Link>
-                </CardFooter>
-              </Card>
+                  <CardHeader>
+                    <div className="flex justify-center">
+                      <LuFileX className="text-5xl text-destructive" />
+                    </div>
+                  </CardHeader>
+                  <CardContent>
+                    <CardTitle className="text-2xl font-cinzel">
+                      Artifact Not Found
+                    </CardTitle>
+                    <CardDescription>
+                      The artifact you're looking for is not in our server.
+                    </CardDescription>
+                  </CardContent>
+                  <CardFooter className="flex-col gap-2">
+                    <Link to={-1} className="w-full">
+                      <Button
+                        variant={"outline"}
+                        className="w-full text-primary"
+                      >
+                        Go Back
+                      </Button>
+                    </Link>
+                    <Link to={"/"} className="w-full">
+                      <Button
+                        variant={"link"}
+                        className="w-full text-base-content underline"
+                      >
+                        Go to Homepage
+                      </Button>
+                    </Link>
+                  </CardFooter>
+                </Card>
               </div>
             </>
           )}

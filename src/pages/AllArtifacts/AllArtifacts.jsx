@@ -1,9 +1,11 @@
 import useArtifactsApi from "@/api/artifactsApi";
 import ArtifactCard from "@/components/shared/ArtifactCard/ArtifactCard";
 import LoaderLogoSpinner from "@/components/shared/LoaderLogoSpinner/LoaderLogoSpinner";
+import useDynamicTitle from "@/hooks/useDynamicTitle";
 import { useEffect, useState } from "react";
 
 const AllArtifacts = () => {
+  useDynamicTitle("Artifacts Collection")
   const { getAllArtifactsPromise } = useArtifactsApi();
   const [artifacts, setArtifacts] = useState([]);
   const [artifactsLoading, setArtifactsLoading] = useState(false);

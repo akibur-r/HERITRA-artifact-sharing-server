@@ -15,10 +15,12 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import useAuth from "@/hooks/useAuth";
+import useDynamicTitle from "@/hooks/useDynamicTitle";
 import { useState } from "react";
 import { toast } from "sonner";
 
 const AddArtifact = () => {
+  useDynamicTitle("Add Artifact");
   const artifactTypes = [
     {
       title: "Tools",

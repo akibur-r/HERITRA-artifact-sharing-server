@@ -6,10 +6,12 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import useAuth from "@/hooks/useAuth";
+import useDynamicTitle from "@/hooks/useDynamicTitle";
 import { Link, useLocation, useNavigate } from "react-router";
 import { toast } from "sonner";
 
 const SignInPage = () => {
+  useDynamicTitle("Sign In")
   const { signIn, setLoading, loading } = useAuth();
 
   const navigate = useNavigate();

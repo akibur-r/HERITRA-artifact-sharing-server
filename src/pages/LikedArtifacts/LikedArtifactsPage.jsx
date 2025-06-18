@@ -22,10 +22,12 @@ import {
 
 import { Button } from "@/components/ui/button";
 import useAuth from "@/hooks/useAuth";
+import useDynamicTitle from "@/hooks/useDynamicTitle";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router";
 
 const LikedArtifactsPage = () => {
+  useDynamicTitle("My Likes")
   const [artifacts, setArtifacts] = useState([]);
   const [artifactsLoading, setArtifactsLoading] = useState(false);
 
@@ -39,7 +41,6 @@ const LikedArtifactsPage = () => {
     getLikedArtifacts(user.email)
       .then((res) => {
         setArtifacts(res);
-        console.log(res);
         setArtifactsLoading(false);
       })
       .catch((err) => {
