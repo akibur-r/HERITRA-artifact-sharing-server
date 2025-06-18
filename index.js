@@ -132,7 +132,7 @@ async function run() {
         artifactUpdateQuery,
         artifactUpdateOptions
       );
-      console.log(countUpd);
+      // console.log(countUpd);
 
       res.send(result);
       // res.send(alreadyLiked)
@@ -176,6 +176,55 @@ async function run() {
     app.post("/artifacts", formatNewArtifact, async (req, res) => {
       const newArtifact = req.body;
       const result = await artifactsCollection.insertOne(newArtifact);
+
+      res.send(result);
+    });
+
+    // update artifact
+    app.put("/artifacts/:id", async (req, res) => {
+      const id = req.params.id;
+      const filter = { _id: new ObjectId(id) };
+      const options = { upsert: false };
+      const updatedArtifact = req.body;
+      const updatedDoc = {
+        $set: updatedArtifact,
+      };
+
+      const result = await artifactsCollection.updateOne(
+        filter,
+        updatedDoc,
+        options
+      );
+
+      res.send(result);
+    });
+
+    // delete single artifact
+    app.delete("/artifacts/:id", async (req, res) => {
+      const id = req.params.id;
+
+      const allUsers = await usersCollection.find().toArray();
+      // delete it from all users
+      const userUpdateQuery = { $pull: { likes: id } };
+      const userUpdateOptions = { upsert: false };
+
+      allUsers.map(async (user) => {
+        const user_email = user.email;
+
+        const userLikesThis = user.likes?.includes(id);
+        if (userLikesThis) {
+          const userUpdateFilter = { email: user_email };
+          await usersCollection.updateOne(
+            userUpdateFilter,
+            userUpdateQuery,
+            userUpdateOptions
+          );
+        }
+      });
+
+      const result = await artifactsCollection.deleteOne({
+        _id: new ObjectId(id),
+      });
 
       res.send(result);
     });
