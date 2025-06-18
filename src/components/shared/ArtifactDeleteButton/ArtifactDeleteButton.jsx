@@ -71,7 +71,7 @@ const ArtifactDeleteButton = ({ artifact, showText = true }) => {
           {showText && <span>Delete</span>}
         </Button>
       </DialogTrigger>
-      <DialogContent className="rounded-xs" showCloseButton={false}>
+      <DialogContent  showCloseButton={false}>
         <DialogHeader>
           <DialogTitle>Are you absolutely sure?</DialogTitle>
           <DialogDescription className="max-w-sm">
@@ -82,14 +82,14 @@ const ArtifactDeleteButton = ({ artifact, showText = true }) => {
 
         <DialogFooter>
           <DialogClose asChild>
-            <Button variant={"outline"} className="rounded-xs">
+            <Button variant={"outline"} >
               Cancel
             </Button>
           </DialogClose>
           <Button
             onClick={handleDeleteArtifact}
             variant={"default"}
-            className="rounded-xs bg-red-500/70 hover:bg-red-500/80 text-base-content"
+            className="bg-red-500/70 hover:bg-red-500/80 text-base-content"
           >
             {deleteBtnLoading ? <LoaderSpinner /> : "Delete"}
           </Button>

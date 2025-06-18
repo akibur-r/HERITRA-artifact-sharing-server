@@ -28,7 +28,7 @@ const SocialLogin = ({ location }) => {
       onClick={handleGoogleSignIn}
       type="button"
       variant="outline"
-      className="w-full cursor-pointer"
+      className="w-full cursor-pointer rounded-xs"
     >
       <FcGoogle /> Login with Google
     </Button>

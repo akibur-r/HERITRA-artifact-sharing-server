@@ -118,7 +118,7 @@ const ArtifactUpdateButton = ({
           type="button"
           variant={"secondary"}
           size={"sm"}
-          className="rounded-xs bg-yellow-500/50 hover:bg-yellow-500/15 hover:text-yellow-500 cursor-pointer text-base-content border border-yellow-500/20"
+          className=" bg-yellow-500/50 hover:bg-yellow-500/15 hover:text-yellow-500 cursor-pointer text-base-content border border-yellow-500/20"
         >
           {updateBtnLoading ? (
             <LoaderSpinner />
@@ -130,7 +130,7 @@ const ArtifactUpdateButton = ({
           )}
         </Button>
       </DialogTrigger>
-      <DialogContent className="rounded-xs" showCloseButton={false}>
+      <DialogContent className="" showCloseButton={false}>
         <form className="flex flex-col gap-4" onSubmit={handleArtifactUpdate}>
           <DialogHeader>
             <DialogTitle className="font-cinzel">Update Artifact</DialogTitle>
@@ -155,7 +155,7 @@ const ArtifactUpdateButton = ({
                   id="name"
                   type="text"
                   placeholder="Artifact Name"
-                  className="text-sm md:text-md rounded-xs"
+                  className="text-sm md:text-md"
                   defaultValue={artifact.name}
                   /*required*/
                 />
@@ -167,7 +167,7 @@ const ArtifactUpdateButton = ({
                 <Select name="type" defaultValue={artifact.type}>
                   <SelectTrigger className="w-full">
                     <SelectValue
-                      className="text-sm md:text-md rounded-xs"
+                      className="text-sm md:text-md"
                       placeholder="Select Artifact Type"
                     />
                   </SelectTrigger>
@@ -193,7 +193,7 @@ const ArtifactUpdateButton = ({
                   id="name"
                   type="text"
                   placeholder="Artifact Image URL"
-                  className="text-sm md:text-md rounded-xs"
+                  className="text-sm md:text-md"
                   defaultValue={artifact.imageURL}
                   /*required*/
                 />
@@ -206,7 +206,7 @@ const ArtifactUpdateButton = ({
                   id="historicalContext"
                   name="historicalContext"
                   placeholder="Historical Context of the Artifact..."
-                  className="text-sm md:text-md rounded-xs"
+                  className="text-sm md:text-md"
                   defaultValue={artifact.historicalContext}
                 />
               </div>
@@ -218,7 +218,7 @@ const ArtifactUpdateButton = ({
                   id="description"
                   name="description"
                   placeholder="Short Description..."
-                  className="text-sm md:text-md rounded-xs"
+                  className="text-sm md:text-md"
                   defaultValue={artifact.description}
                 />
               </div>
@@ -231,7 +231,7 @@ const ArtifactUpdateButton = ({
                   id="name"
                   type="text"
                   placeholder="e.g. 100 BC"
-                  className="text-sm md:text-md rounded-xs"
+                  className="text-sm md:text-md"
                   defaultValue={artifact.createdAt}
                   /*required*/
                 />
@@ -245,7 +245,7 @@ const ArtifactUpdateButton = ({
                   id="name"
                   type="text"
                   placeholder="e.g. 2002"
-                  className="text-sm md:text-md rounded-xs"
+                  className="text-sm md:text-md"
                   defaultValue={artifact.discoveredAt}
                   /*required*/
                 />
@@ -259,7 +259,7 @@ const ArtifactUpdateButton = ({
                   id="name"
                   type="text"
                   placeholder="e.g. X Person"
-                  className="text-sm md:text-md rounded-xs"
+                  className="text-sm md:text-md"
                   defaultValue={artifact.discoveredBy}
                   /*required*/
                 />
@@ -273,7 +273,7 @@ const ArtifactUpdateButton = ({
                   id="name"
                   type="text"
                   placeholder="National Museum"
-                  className="text-sm md:text-md rounded-xs"
+                  className="text-sm md:text-md"
                   defaultValue={artifact.presentAddress}
                   /*required*/
                 />
@@ -287,7 +287,7 @@ const ArtifactUpdateButton = ({
                   id="name"
                   type="text"
                   placeholder="XYZ Person"
-                  className="text-sm md:text-md rounded-xs"
+                  className="text-sm md:text-md"
                   defaultValue={artifact.userName}
                   disabled
                 />
@@ -302,7 +302,7 @@ const ArtifactUpdateButton = ({
                   type="email"
                   placeholder="mail@email.com"
                   defaultValue={artifact.userEmail}
-                  className="text-sm md:text-md rounded-xs"
+                  className="text-sm md:text-md"
                   disabled
                 />
               </div>

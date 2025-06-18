@@ -96,7 +96,7 @@ const AddArtifact = () => {
         <h2 className="text-3xl font-cinzel font-bold">Add Artifact</h2>
         <p className="text-sm">Share your discovery to the community.</p>
       </header>
-      <Card className="w-full ">
+      <Card className="w-full rounded-xs">
         <CardContent>
           <form onSubmit={handleAddArtifact}>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-y-4 gap-x-10">

@@ -61,7 +61,7 @@ const ArtifactLikeButton = ({
       onClick={handleLike}
       variant={"secondary"}
       size={"sm"}
-      className={`rounded-xs border border-green-500/20 cursor-pointer ${
+      className={`border border-green-500/20 cursor-pointer ${
         liked
           ? "bg-green-500/50 hover:bg-green-500/15 hover:text-green-500 text-black dark:text-white"
           : "hover:bg-green-500/50 bg-green-500/15 text-green-700 dark:text-green-300 hover:text-black dark:hover:text-white"
