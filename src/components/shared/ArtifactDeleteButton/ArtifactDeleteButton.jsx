@@ -71,7 +71,7 @@ const ArtifactDeleteButton = ({ artifact, showText = true }) => {
           {showText && <span>Delete</span>}
         </Button>
       </DialogTrigger>
-      <DialogContent  showCloseButton={false}>
+      <DialogContent className="rounded-xs" showCloseButton={false}>
         <DialogHeader>
           <DialogTitle>Are you absolutely sure?</DialogTitle>
           <DialogDescription className="max-w-sm">
