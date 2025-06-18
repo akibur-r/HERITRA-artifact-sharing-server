@@ -16,6 +16,10 @@ const useArtifactsApi = () => {
     return axiosSecure.get("/artifacts").then((res) => res.data);
   };
 
+  const getArtifactsBySearchPromise = (query) => {
+    return axiosSecure.get(`/artifacts?name=${query}`).then((res) => res.data);
+  };
+
   const getArtifactsByEmailPromise = (user_email) => {
     return axiosSecure
       .get(`/artifacts?user_email=${user_email}`)
@@ -51,6 +55,7 @@ const useArtifactsApi = () => {
     getArtifactsByEmailPromise,
     deleteArtifactPromise,
     updateArtifactPromise,
+    getArtifactsBySearchPromise
   };
 };
 
