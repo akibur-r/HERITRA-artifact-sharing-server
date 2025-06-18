@@ -64,7 +64,7 @@ const AllArtifacts = () => {
             <Input
               type="text"
               id="email"
-              placeholder="e.g. Babylon..."
+              placeholder="Type to search..."
               className="w-full text-sm max-w-sm border-0 focus-visible:ring-ring/10 focus-visible:ring-[2px]"
               ref={searchQueryRef}
               onChange={handleSearch}
