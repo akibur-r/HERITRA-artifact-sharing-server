@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { BiLike } from "react-icons/bi";
 import LoaderSpinner from "../LoaderSpinner/LoaderSpinner";
 
-const ArtifactLikeButton = ({ liked, setLiked, artifact }) => {
+const ArtifactLikeButton = ({ liked = false, setLiked, artifact }) => {
   const { checkIfLikedPromise, updateLikePromise } = useUsersApi();
   const { user } = useAuth();
 
@@ -13,36 +13,42 @@ const ArtifactLikeButton = ({ liked, setLiked, artifact }) => {
   const [totalLikes, setTotalLikes] = useState(artifact.likeCount);
 
   useEffect(() => {
-    checkIfLikedPromise(artifact._id, user.email)
-      .then((res) => {
-        setLiked(res);
-        setLikeBtnLoading(false);
-      })
-      .catch((err) => {
-        console.log(err);
-        setLikeBtnLoading(false);
-      });
-  }, [liked, totalLikes]);
+    if (user) {
+      checkIfLikedPromise(artifact._id, user.email)
+        .then((res) => {
+          setLiked(res);
+          setLikeBtnLoading(false);
+        })
+        .catch((err) => {
+          console.log(err);
+          setLikeBtnLoading(false);
+        });
+    }
+  }, [liked, totalLikes, user]);
 
   const handleLike = () => {
     setLikeBtnLoading(true);
 
-    updateLikePromise(artifact._id, user.email)
-      .then((res) => {
-        if (res?.likeAdded) {
-          setLiked(true);
-          setTotalLikes(totalLikes + 1);
-        } else {
-          setLiked(false);
-          setTotalLikes(totalLikes - 1);
-        }
+    if (user) {
+      updateLikePromise(artifact._id, user.email)
+        .then((res) => {
+          if (res?.likeAdded) {
+            setLiked(true);
+            setTotalLikes(totalLikes + 1);
+          } else {
+            setLiked(false);
+            setTotalLikes(totalLikes - 1);
+          }
 
-        setLikeBtnLoading(false);
-      })
-      .catch((err) => {
-        console.log(err);
-        setLikeBtnLoading(false);
-      });
+          setLikeBtnLoading(false);
+        })
+        .catch((err) => {
+          console.log(err);
+          setLikeBtnLoading(false);
+        });
+    } else {
+      setLikeBtnLoading(false);
+    }
   };
 
   return (
@@ -58,7 +64,7 @@ const ArtifactLikeButton = ({ liked, setLiked, artifact }) => {
     >
       {likeBtnLoading ? (
         <>
-          <LoaderSpinner />
+          <LoaderSpinner size={16} />
         </>
       ) : (
         <>

@@ -9,11 +9,14 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { GoThumbsup } from "react-icons/go";
+import { useState } from "react";
 import { Link } from "react-router";
+import ArtifactLikeButton from "../ArtifactLikeButton/ArtifactLikeButton";
 
 const ArtifactCard = ({ artifact }) => {
   const { name, imageURL, description, likeCount } = artifact;
+  const [liked, setLiked] = useState(false);
+
   return (
     <Card className="flex flex-col rounded-xs">
       {/* <div className="">
@@ -35,14 +38,12 @@ const ArtifactCard = ({ artifact }) => {
 
         <CardFooter className="flex justify-between">
           <div>
-            <Button
-              variant={"secondary"}
-              size={"sm"}
-              className="rounded-xs bg-green-500/5 hover:bg-green-500/5 hover:text-green-500 cursor-pointer text-base-content border border-green-500/20"
-            >
-              <GoThumbsup />
-              <span>{likeCount} Likes</span>
-            </Button>
+
+            <ArtifactLikeButton
+              liked={liked}
+              setLiked={setLiked}
+              artifact={artifact}
+            />
           </div>
           <CardAction>
             <Link to={`/artifact/details/${artifact._id}`}>
