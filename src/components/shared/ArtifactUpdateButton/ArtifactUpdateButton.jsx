@@ -13,6 +13,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
+import useArtifactsApi from "@/api/artifactsApi";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import {
   Select,
@@ -22,7 +23,10 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+import { useState } from "react";
 import { BiEditAlt } from "react-icons/bi";
+import { toast } from "sonner";
+import LoaderSpinner from "../LoaderSpinner/LoaderSpinner";
 
 const artifactTypes = [
   {
@@ -47,23 +51,86 @@ const artifactTypes = [
   },
 ];
 
-const handleArtifactUpdate = () => {};
+const ArtifactUpdateButton = ({
+  artifact,
+  updateBtnLoading,
+  setUpdateBtnLoading,
+}) => {
+  const [updateConfirmLoading, setUpdateConfirmLoading] = useState(false);
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const { updateArtifactPromise } = useArtifactsApi();
 
-const ArtifactUpdateButton = ({ artifact }) => {
+  const handleArtifactUpdate = (e) => {
+    e.preventDefault();
+    setUpdateBtnLoading(true);
+    setUpdateConfirmLoading(true);
+    const form = e.target;
+    let formOk = true;
+
+    const formData = new FormData(form);
+    formData.forEach((key, value) => {
+      if (!key) {
+        toast.error(`${value} can't be empty`);
+        formOk = false;
+      }
+    });
+
+    if (!formOk) {
+      setUpdateConfirmLoading(false);
+      setUpdateBtnLoading(true);
+      return;
+    }
+
+    const updatedArtifact = Object.fromEntries(formData.entries());
+
+    updateArtifactPromise(artifact._id, updatedArtifact)
+      .then((res) => {
+        if (res.modifiedCount) {
+          toast.success("Changes Saved", {
+            description: "The artifact has been updated",
+          });
+          setDialogOpen(false);
+          setUpdateBtnLoading(false);
+          setUpdateConfirmLoading(false);
+        } else {
+          toast.warning("Changes Not Saved", {
+            description: "There was no change made.",
+          });
+          setUpdateBtnLoading(false);
+          setUpdateConfirmLoading(false);
+        }
+      })
+      .catch(() => {
+        toast.error("Changes Not Saved", {
+          description: "Something went wrong.",
+        });
+        setUpdateBtnLoading(false);
+        setDialogOpen(false);
+        setUpdateConfirmLoading(false);
+      });
+  };
+
   return (
-    <Dialog>
-      <form>
-        <DialogTrigger asChild>
-          <Button
-            variant={"secondary"}
-            size={"sm"}
-            className="rounded-xs bg-yellow-500/50 hover:bg-yellow-500/15 hover:text-yellow-500 cursor-pointer text-base-content border border-yellow-500/20"
-          >
-            <BiEditAlt />
-            <span>Update</span>
-          </Button>
-        </DialogTrigger>
-        <DialogContent className="rounded-xs" showCloseButton={false}>
+    <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
+      <DialogTrigger asChild>
+        <Button
+          type="button"
+          variant={"secondary"}
+          size={"sm"}
+          className="rounded-xs bg-yellow-500/50 hover:bg-yellow-500/15 hover:text-yellow-500 cursor-pointer text-base-content border border-yellow-500/20"
+        >
+          {updateBtnLoading ? (
+            <LoaderSpinner />
+          ) : (
+            <>
+              <BiEditAlt />
+              <span>Update</span>
+            </>
+          )}
+        </Button>
+      </DialogTrigger>
+      <DialogContent className="rounded-xs" showCloseButton={false}>
+        <form className="flex flex-col gap-4" onSubmit={handleArtifactUpdate}>
           <DialogHeader>
             <DialogTitle className="font-cinzel">Update Artifact</DialogTitle>
             <DialogDescription>
@@ -77,8 +144,7 @@ const ArtifactUpdateButton = ({ artifact }) => {
               </p>
             </DialogDescription>
           </DialogHeader>
-
-          <ScrollArea className="max-h-[50vh] w-full md:w-[70vw] pr-2 md:pr-4">
+          <ScrollArea className="max-h-[50vh] lg:max-h-[60vh] w-full md:w-[70vw] pr-2 md:pr-4">
             <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-y-4 gap-x-10">
               {/* name */}
               <div className="grid gap-2">
@@ -244,12 +310,16 @@ const ArtifactUpdateButton = ({ artifact }) => {
 
           <DialogFooter>
             <DialogClose asChild>
-              <Button variant="outline" className="rounded-xs">Cancel</Button>
+              <Button type="button" variant="outline" className="rounded-xs">
+                Cancel
+              </Button>
             </DialogClose>
-            <Button type="submit" className="rounded-xs">Save</Button>
+            <Button type="submit" className="rounded-xs">
+              {updateConfirmLoading ? <LoaderSpinner /> : "Save"}
+            </Button>
           </DialogFooter>
-        </DialogContent>
-      </form>
+        </form>
+      </DialogContent>
     </Dialog>
   );
 };

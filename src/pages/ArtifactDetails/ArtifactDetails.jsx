@@ -28,6 +28,7 @@ const ArtifactDetails = () => {
   const [artifactLoading, setArtifactLoading] = useState(true);
   const [artifact, setArtifact] = useState({});
   const [likeBtnLoading, setLikeBtnLoading] = useState(false);
+  const [updateBtnLoading, setUpdateBtnLoading] = useState(false);
   const [liked, setLiked] = useState(false);
 
   useEffect(() => {
@@ -40,7 +41,7 @@ const ArtifactDetails = () => {
         console.log(err);
         setArtifactLoading(false);
       });
-  }, []);
+  }, [updateBtnLoading]);
 
   return (
     <section className="bg-primary/5 relative overflow-hidden">
@@ -157,7 +158,11 @@ const ArtifactDetails = () => {
                 <div className="flex gap-2 justify-center md:justify-start py-2">
                   {/* <div className="hidden"> */}
                   {/* update */}
-                  <ArtifactUpdateButton artifact={artifact} />
+                  <ArtifactUpdateButton
+                    updateBtnLoading={updateBtnLoading}
+                    setUpdateBtnLoading={setUpdateBtnLoading}
+                    artifact={artifact}
+                  />
 
                   {/* delete */}
                   <ArtifactDeleteButton artifact={artifact} />

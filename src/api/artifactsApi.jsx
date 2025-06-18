@@ -31,6 +31,13 @@ const useArtifactsApi = () => {
     return axiosSecure.post("/artifacts", newArtifact).then((res) => res.data);
   };
 
+  // put apis
+  const updateArtifactPromise = (id, updatedArtifact) => {
+    return axiosSecure
+      .put(`/artifacts/${id}`, updatedArtifact)
+      .then((res) => res.data);
+  };
+
   // delete apis
   const deleteArtifactPromise = (id) => {
     return axiosSecure.delete(`/artifacts/${id}`).then((res) => res.data);
@@ -42,7 +49,8 @@ const useArtifactsApi = () => {
     getAllArtifactsPromise,
     getOneArtifactPromise,
     getArtifactsByEmailPromise,
-    deleteArtifactPromise
+    deleteArtifactPromise,
+    updateArtifactPromise,
   };
 };
 
