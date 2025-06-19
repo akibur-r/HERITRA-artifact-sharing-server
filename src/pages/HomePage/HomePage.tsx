@@ -29,7 +29,7 @@ const HomePage = () => {
           <Button
             type="button"
             variant={"default"}
-            className="rounded-[1px] bg-transparent h-fit px-6 py-2 border-ring ring-[8px]"
+            className="rounded-[1px] bg-transparent h-fit px-6 py-2 border-ring ring-background ring-[8px]"
           >
             <motion.span
               animate={{
