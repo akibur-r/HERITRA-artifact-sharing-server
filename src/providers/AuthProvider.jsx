@@ -1,4 +1,4 @@
-import useUsersApi from "@/api/usersApi";
+// import useUsersApi from "@/api/usersApi";
 import {
   createUserWithEmailAndPassword,
   getAuth,
@@ -11,6 +11,7 @@ import {
 } from "firebase/auth";
 import { createContext, useEffect, useState } from "react";
 import app from "../firebase/firebase.init";
+import authUserApi from "@/api/authUserApi";
 export const AuthContext = createContext();
 
 const auth = getAuth(app);
@@ -19,7 +20,7 @@ const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   const googleAuthProvider = new GoogleAuthProvider();
-  const { addUserPromise } = useUsersApi();
+  const { addUserPromise } = authUserApi();
 
   const createUser = (email, password) => {
     setLoading(true);

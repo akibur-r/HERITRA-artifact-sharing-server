@@ -17,9 +17,7 @@ const useUsersApi = () => {
   };
 
   // post apis
-  const addUserPromise = (newUser) => {
-    return axiosSecure.post("/users", newUser).then((res) => res.data);
-  };
+  
 
   //   put apis
   const updateLikePromise = (artifact_id, user_email) => {
@@ -29,7 +27,6 @@ const useUsersApi = () => {
   };
 
   return {
-    addUserPromise,
     checkIfLikedPromise,
     updateLikePromise,
     getLikedArtifacts,
