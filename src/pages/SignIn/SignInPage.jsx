@@ -11,7 +11,7 @@ import { Link, useLocation, useNavigate } from "react-router";
 import { toast } from "sonner";
 
 const SignInPage = () => {
-  useDynamicTitle("Sign In")
+  useDynamicTitle("Sign In");
   const { signIn, setLoading, loading } = useAuth();
 
   const navigate = useNavigate();
@@ -28,28 +28,38 @@ const SignInPage = () => {
     signIn(email, password)
       .then(() => {
         setLoading(false);
-        toast.success("Signed In Successfully", {
-          description: "You can now access private features",
+        toast.success("Signed In Successfully.", {
+          description: "You can now access private features.",
         });
         navigate(`${location.state ? location.state : "/"}`);
       })
       .catch((err) => {
+        if (err.code === "auth/invalid-credential") {
+          toast.error("Login Failed.", {
+            description: "Invalid email or password.",
+          });
+        } else if (err.code === "auth/user-not-found") {
+          toast.error("Login Failed.", {
+            description: "You don't have an account. Register first.",
+          });
+        } else {
+          toast.error("Login Failed", {
+            description: "Something went wrong.",
+          });
+        }
         setLoading(false);
-        toast.error("Login Failed", {
-          description: "Something went wrong while loggin in",
-        });
       });
   };
   return (
     <div className="flex flex-col gap-4 justify-center items-center my-10 max-w-screen-xl mx-auto px-4">
       <div className="max-w-sm text-center">
-        <h2 className="text-3xl font-cinzel font-bold">Login</h2>
+        <h2 className="text-3xl font-cinzel font-bold">Sign In</h2>
         <p className="text-sm">
           Enter your Email and Password to login to your account.
         </p>
       </div>
       <form onSubmit={handleSignIn} className="w-full max-w-sm">
-        <Card>
+        <Card className="rounded-xs">
           <CardContent>
             <div className="flex flex-col gap-6">
               <div className="grid gap-2">

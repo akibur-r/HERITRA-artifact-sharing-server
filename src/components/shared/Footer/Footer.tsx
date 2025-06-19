@@ -23,17 +23,17 @@ const Footer = () => {
             about history.
           </p>
           <div className="flex justify-center md:justify-start gap-4 mt-4  text-lg">
-            <Link to={"#"}>
-              <FaXTwitter className="hover:text-white cursor-pointer" />
+            <Link to={"https://www.facebook.com/ar.akib2d"} target="_blank">
+              <FaFacebookF className="hover:text-white cursor-pointer" />
             </Link>
-            <Link to={"#"}>
-              <FaLinkedinIn className="hover:text-white cursor-pointer" />
-            </Link>
-            <Link to={"#"}>
+            <Link to={"https://www.instagram.com/_akibur_r/"} target="_blank">
               <FaInstagram className="hover:text-white cursor-pointer" />
             </Link>
-            <Link to={"#"}>
-              <FaFacebookF className="hover:text-white cursor-pointer" />
+            <Link to={"https://www.linkedin.com/in/akibur-r/"} target="_blank">
+              <FaLinkedinIn className="hover:text-white cursor-pointer" />
+            </Link>
+            <Link to={"https://x.com/akibur_r"} target="_blank">
+              <FaXTwitter className="hover:text-white cursor-pointer" />
             </Link>
           </div>
         </div>
