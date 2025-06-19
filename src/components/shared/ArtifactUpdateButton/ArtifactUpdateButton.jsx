@@ -23,33 +23,11 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+import { artifactTypes } from "@/utils/artifactTypes";
 import { useState } from "react";
 import { BiEditAlt } from "react-icons/bi";
 import { toast } from "sonner";
 import LoaderSpinner from "../LoaderSpinner/LoaderSpinner";
-
-const artifactTypes = [
-  {
-    title: "Tools",
-    value: "tools",
-  },
-  {
-    title: "Weapons",
-    value: "weapons",
-  },
-  {
-    title: "Documents",
-    value: "documents",
-  },
-  {
-    title: "Writings",
-    value: "writings",
-  },
-  {
-    title: "Other",
-    value: "other",
-  },
-];
 
 const ArtifactUpdateButton = ({
   artifact,
@@ -174,11 +152,11 @@ const ArtifactUpdateButton = ({
                   <SelectContent>
                     {artifactTypes.map((artifactType) => (
                       <SelectItem
-                        key={artifactType.value}
-                        value={artifactType.value}
+                        key={artifactType}
+                        value={artifactType}
                         className="text-sm md:text-md"
                       >
-                        {artifactType.title}
+                        {artifactType}
                       </SelectItem>
                     ))}
                   </SelectContent>

@@ -16,33 +16,13 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import useAuth from "@/hooks/useAuth";
 import useDynamicTitle from "@/hooks/useDynamicTitle";
+import { artifactTypes } from "@/utils/artifactTypes";
 import { useState } from "react";
 import { toast } from "sonner";
 
 const AddArtifact = () => {
   useDynamicTitle("Add Artifact");
-  const artifactTypes = [
-    {
-      title: "Tools",
-      value: "tools",
-    },
-    {
-      title: "Weapons",
-      value: "weapons",
-    },
-    {
-      title: "Documents",
-      value: "documents",
-    },
-    {
-      title: "Writings",
-      value: "writings",
-    },
-    {
-      title: "Other",
-      value: "other",
-    },
-  ];
+  
 
   const [addLoading, setAddLoading] = useState(false);
 
@@ -126,11 +106,11 @@ const AddArtifact = () => {
                   <SelectContent>
                     {artifactTypes.map((artifactType) => (
                       <SelectItem
-                        key={artifactType.value}
-                        value={artifactType.value}
+                        key={artifactType}
+                        value={artifactType}
                         className="text-sm md:text-md"
                       >
-                        {artifactType.title}
+                        {artifactType}
                       </SelectItem>
                     ))}
                   </SelectContent>
