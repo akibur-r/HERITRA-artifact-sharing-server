@@ -11,6 +11,7 @@ const ArtifactLikeButton = ({
   setLiked,
   artifact,
   showText = true,
+  disabled = false,
 }) => {
   const { checkIfLikedPromise, updateLikePromise } = useUsersApi();
   const { user } = useAuth();
@@ -71,6 +72,7 @@ const ArtifactLikeButton = ({
           ? "bg-green-500/50 hover:bg-green-500/15 hover:text-green-500 text-black dark:text-white"
           : "hover:bg-green-500/50 bg-green-500/15 text-green-700 dark:text-green-300 hover:text-black dark:hover:text-white"
       }`}
+      disabled={disabled}
     >
       {likeBtnLoading ? (
         <>

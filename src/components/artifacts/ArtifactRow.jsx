@@ -2,6 +2,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { TableCell, TableRow } from "@/components/ui/table";
 import { useState } from "react";
 import { useNavigate } from "react-router";
+import { toast } from "sonner";
 import ArtifactDeleteButton from "../shared/ArtifactDeleteButton/ArtifactDeleteButton";
 import ArtifactLikeButton from "../shared/ArtifactLikeButton/ArtifactLikeButton";
 import ArtifactUpdateButton from "../shared/ArtifactUpdateButton/ArtifactUpdateButton";
@@ -14,15 +15,20 @@ const ArtifactRow = ({
 }) => {
   const [updateBtnLoading, setUpdateBtnLoading] = useState(false);
   const [liked, setLiked] = useState(false);
+  const [deleted, setDeleted] = useState(false);
 
   const navigate = useNavigate();
 
   const navigateToDetails = () => {
-    navigate(`/artifact/details/${artifact._id}`);
+    if (deleted) {
+      toast.warning("This artifact is deleted");
+    } else {
+      navigate(`/artifact/details/${artifact._id}`);
+    }
   };
 
   return (
-    <TableRow className="cursor-pointer">
+    <TableRow className={`${deleted ? "opacity-50" : "cursor-pointer"}`}>
       <TableCell
         onClick={navigateToDetails}
         className="font-medium hidden md:table-cell"
@@ -55,6 +61,7 @@ const ArtifactRow = ({
               liked={liked}
               artifact={artifact}
               showText={false}
+              disabled={deleted}
             />
           </span>
           {viewControls ? (
@@ -64,9 +71,15 @@ const ArtifactRow = ({
                 updateBtnLoading={updateBtnLoading}
                 showText={false}
                 artifact={artifact}
+                disabled={deleted}
               />
 
-              <ArtifactDeleteButton showText={false} artifact={artifact} />
+              <ArtifactDeleteButton
+                deleted={deleted}
+                setDeleted={setDeleted}
+                showText={false}
+                artifact={artifact}
+              />
             </>
           ) : (
             <></>

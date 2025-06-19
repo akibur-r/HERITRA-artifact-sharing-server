@@ -17,13 +17,17 @@ import { useLocation, useNavigate } from "react-router";
 import { toast } from "sonner";
 import LoaderSpinner from "../LoaderSpinner/LoaderSpinner";
 
-const ArtifactDeleteButton = ({ artifact, showText = true }) => {
+const ArtifactDeleteButton = ({
+  deleted = false,
+  setDeleted = (val) => {},
+  artifact,
+  showText = true,
+}) => {
   const { deleteArtifactPromise } = useArtifactsApi();
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const [deleteBtnLoading, setDeleteBtnLoading] = useState(false);
   const [dialogOpen, setDialogOpen] = useState(false);
-  const [deleted, setDeleted] = useState(false);
 
   const location = useLocation();
 

@@ -23,18 +23,19 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+import { artifactErrorMessages } from "@/utils/artifactErrorMessages";
 import { artifactTypes } from "@/utils/artifactTypes";
 import { useState } from "react";
 import { BiEditAlt } from "react-icons/bi";
 import { toast } from "sonner";
 import LoaderSpinner from "../LoaderSpinner/LoaderSpinner";
-import { artifactErrorMessages } from "@/utils/artifactErrorMessages";
 
 const ArtifactUpdateButton = ({
   artifact,
   updateBtnLoading,
   setUpdateBtnLoading,
   showText = true,
+  disabled = false,
 }) => {
   const [updateConfirmLoading, setUpdateConfirmLoading] = useState(false);
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -111,7 +112,26 @@ const ArtifactUpdateButton = ({
     }
   };
 
-  return (
+  return disabled ? (
+    <>
+      <Button
+        type="button"
+        variant={"secondary"}
+        size={"sm"}
+        className=" bg-yellow-500/50 hover:bg-yellow-500/15 hover:text-yellow-500 cursor-pointer text-base-content border border-yellow-500/20"
+        disabled
+      >
+        {updateBtnLoading ? (
+          <LoaderSpinner />
+        ) : (
+          <>
+            <BiEditAlt />
+            {showText && <span>Update</span>}
+          </>
+        )}
+      </Button>
+    </>
+  ) : (
     <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
       <DialogTrigger asChild>
         <Button
