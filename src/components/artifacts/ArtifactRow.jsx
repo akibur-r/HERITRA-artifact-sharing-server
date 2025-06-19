@@ -6,11 +6,14 @@ import ArtifactDeleteButton from "../shared/ArtifactDeleteButton/ArtifactDeleteB
 import ArtifactLikeButton from "../shared/ArtifactLikeButton/ArtifactLikeButton";
 import ArtifactUpdateButton from "../shared/ArtifactUpdateButton/ArtifactUpdateButton";
 
-const ArtifactRow = ({ artifact, idx, viewControls = false, hideLikeBtn = false }) => {
+const ArtifactRow = ({
+  artifact,
+  idx,
+  viewControls = false,
+  hideLikeBtn = false,
+}) => {
   const [updateBtnLoading, setUpdateBtnLoading] = useState(false);
   const [liked, setLiked] = useState(false);
-
-  
 
   const navigate = useNavigate();
 
@@ -32,17 +35,17 @@ const ArtifactRow = ({ artifact, idx, viewControls = false, hideLikeBtn = false 
           <AvatarFallback>A</AvatarFallback>
         </Avatar>
       </TableCell>
-      <TableCell onClick={navigateToDetails} className="font-medium">
-        {artifact.name}
+      <TableCell onClick={navigateToDetails} className="font-medium ">
+        <div className="w-full text-wrap">{artifact.name}</div>
       </TableCell>
       <TableCell onClick={navigateToDetails} className="hidden md:table-cell">
-        {artifact.type}
+        <div className="w-full text-wrap">{artifact.type}</div>
       </TableCell>
       <TableCell onClick={navigateToDetails} className="hidden md:table-cell">
-        {artifact.discoveredBy}
+        <div className="w-full text-wrap">{artifact.discoveredBy}</div>
       </TableCell>
       <TableCell onClick={navigateToDetails} className="hidden lg:table-cell">
-        {artifact.presentAddress}
+        <div className="w-full text-wrap">{artifact.presentAddress}</div>
       </TableCell>
       <TableCell className="text-center">
         <div className="flex gap-2 justify-center">
