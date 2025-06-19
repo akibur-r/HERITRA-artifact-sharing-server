@@ -5,9 +5,15 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import useDynamicTitle from "@/hooks/useDynamicTitle";
 import { useEffect, useRef, useState } from "react";
-import { BiErrorCircle } from "react-icons/bi";
+import { BiErrorCircle, BiInfoCircle } from "react-icons/bi";
+import { Link } from "react-router";
 
 const AllArtifacts = () => {
   useDynamicTitle("Artifacts Collection");
@@ -88,12 +94,38 @@ const AllArtifacts = () => {
                       We couldn't find anything matching your query in our
                       server. Try a different search.
                     </p>
-                    <p className="text-foreground/70">Note: Searches work only on the artifact names.</p>
+                    <p className="text-foreground/70">
+                      Note: Searches work only on the artifact names.
+                    </p>
                   </AlertDescription>
                 </Alert>
               </>
             ) : (
-              <>empty</>
+              <>
+                <Alert variant={"default"}>
+                  <BiInfoCircle />
+                  <AlertTitle className="text-lg">
+                    No artifact available.
+                  </AlertTitle>
+                  <AlertDescription>
+                    <p>Artifacts will eventually appear here.</p>
+                    <Tooltip>
+                      <TooltipTrigger>
+                        <p className="text-foreground/70">
+                          try{" "}
+                          <Link to={"/add-artifact"} className="underline">
+                            Adding an artifact
+                          </Link>
+                          .
+                        </p>
+                      </TooltipTrigger>
+                      <TooltipContent side="bottom">
+                        <p>Click to add an artifact.</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </AlertDescription>
+                </Alert>
+              </>
             )}
           </main>
         </main>
