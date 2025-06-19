@@ -19,13 +19,15 @@ const FeaturedArtifacts = () => {
         setArtifactsLoading(false);
       })
       .catch(() => {
-        console.log("error");
         setArtifactsLoading(false);
       });
   }, []);
 
   return (
-    <section className="max-w-screen-xl mx-auto px-4 my-10 space-y-6">
+    <section
+      id="featured-artifacts"
+      className="max-w-screen-xl mx-auto px-4 my-10 space-y-6"
+    >
       <header>
         <h1 className="font-cinzel text-2xl font-medium">Featured Artifacts</h1>
         <p className="opacity-70">Most Liked Artifacts on Heritra</p>

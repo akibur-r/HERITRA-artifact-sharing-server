@@ -60,7 +60,7 @@ const SwiperSlider = () => {
                 <h1 className="text-3xl md:text-4xl lg:text-6xl font-cinzel max-w-lg">
                   {item.title}
                 </h1>
-                <p className="px-6 border-l-4 border-l-primary md:w-7/12">
+                <p className="px-6 mb-6 md:mb-0 border-l-4 border-l-primary md:w-7/12">
                   {item.subtitle}
                 </p>
               </div>

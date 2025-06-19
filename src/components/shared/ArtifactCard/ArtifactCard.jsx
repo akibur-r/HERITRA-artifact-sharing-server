@@ -30,7 +30,9 @@ const ArtifactCard = ({ artifact }) => {
 
         <div className="flex flex-col gap-3 justify-between h-full">
           <CardContent className="h-full space-y-2">
-            <CardTitle className="font-cinzel text-xl font-semibold">{name}</CardTitle>
+            <CardTitle className="font-cinzel text-xl font-semibold">
+              {name}
+            </CardTitle>
             <CardDescription>
               {historicalContext.length > 150
                 ? historicalContext.slice(0, 150) + "..."
@@ -38,7 +40,7 @@ const ArtifactCard = ({ artifact }) => {
             </CardDescription>
           </CardContent>
 
-          <Separator/>
+          <Separator />
 
           <CardFooter className="flex justify-between">
             <div>
