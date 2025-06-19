@@ -18,7 +18,7 @@ const ArtifactCard = ({ artifact }) => {
   const [liked, setLiked] = useState(false);
 
   return (
-    <Card className="grid grid-rows-2 gap-3 aspect-auto md:aspect-[4/5] rounded-xs">
+    <Card className="grid grid-rows-2 gap-3 aspect-auto rounded-xs">
       <CardHeader className="grid items-center justify-center">
         <img src={imageURL} alt={name} className="max-h-48 object-contain" />
       </CardHeader>
