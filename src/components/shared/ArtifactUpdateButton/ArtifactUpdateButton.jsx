@@ -130,7 +130,7 @@ const ArtifactUpdateButton = ({
           )}
         </Button>
       </DialogTrigger>
-      <DialogContent className="" showCloseButton={false}>
+      <DialogContent className="rounded-xs" showCloseButton={false}>
         <form className="flex flex-col gap-4" onSubmit={handleArtifactUpdate}>
           <DialogHeader>
             <DialogTitle className="font-cinzel">Update Artifact</DialogTitle>
