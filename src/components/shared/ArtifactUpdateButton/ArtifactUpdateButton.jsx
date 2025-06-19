@@ -28,6 +28,7 @@ import { useState } from "react";
 import { BiEditAlt } from "react-icons/bi";
 import { toast } from "sonner";
 import LoaderSpinner from "../LoaderSpinner/LoaderSpinner";
+import { artifactErrorMessages } from "@/utils/artifactErrorMessages";
 
 const ArtifactUpdateButton = ({
   artifact,
@@ -45,23 +46,34 @@ const ArtifactUpdateButton = ({
     setUpdateConfirmLoading(true);
     try {
       const form = e.target;
-      let formOk = true;
 
       const formData = new FormData(form);
-      formData.forEach((key, value) => {
-        if (!key) {
-          toast.error(`${value} can't be empty`);
-          formOk = false;
-        }
-      });
+      const updatedArtifact = Object.fromEntries(formData.entries());
 
-      if (!formOk) {
-        setUpdateConfirmLoading(false);
-        setUpdateBtnLoading(true);
-        return;
+      for (const [key, value] of Object.entries(updatedArtifact)) {
+        if (!value) {
+          setUpdateBtnLoading(false);
+          setUpdateConfirmLoading(false);
+
+          toast.error("Not Saved.", {
+            description: artifactErrorMessages[key],
+          });
+          return;
+        }
       }
 
-      const updatedArtifact = Object.fromEntries(formData.entries());
+      const validUrlRegex =
+        /^https?:\/\/(www\.)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/[^\s]*)?$/;
+
+      if (!validUrlRegex.test(updatedArtifact.imageURL)) {
+        toast.error("Not Saved.", {
+          description: "You must provide a valid image URL.",
+        });
+        setUpdateBtnLoading(false);
+        setUpdateConfirmLoading(false);
+
+        return;
+      }
 
       updateArtifactPromise(artifact._id, updatedArtifact)
         .then((res) => {

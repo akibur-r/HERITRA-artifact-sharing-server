@@ -20,6 +20,8 @@ import { artifactTypes } from "@/utils/artifactTypes";
 import { useState } from "react";
 import { toast } from "sonner";
 
+import { artifactErrorMessages } from "@/utils/artifactErrorMessages";
+
 const AddArtifact = () => {
   useDynamicTitle("Add Artifact");
 
@@ -31,41 +33,55 @@ const AddArtifact = () => {
   const userEmail = user.email;
   const userName = user.displayName;
 
+  
+
   const handleAddArtifact = (e) => {
     setAddLoading(true);
     e.preventDefault();
     const form = e.target;
-    let formOk = true;
 
     const formData = new FormData(form);
-    formData.forEach((key, value) => {
-      if (!key) {
-        toast.error(`${value} is required`);
-        formOk = false;
-      }
-    });
-
-    if (!formOk) {
-      setAddLoading(false);
-      return;
-    }
-
     const newArtifact = Object.fromEntries(formData.entries());
     newArtifact.userEmail = userEmail;
     newArtifact.userName = userName;
     newArtifact.uploadTime = new Date();
 
+    for (const [key, value] of Object.entries(newArtifact)) {
+      if (!value) {
+        setAddLoading(false);
+
+        toast.error("Adding Not Added.", {
+          description: artifactErrorMessages[key],
+        });
+        return;
+      }
+    }
+
+    const validUrlRegex =
+      /^https?:\/\/(www\.)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/[^\s]*)?$/;
+
+    if (!validUrlRegex.test(newArtifact.imageURL)) {
+      toast.error("Artifact Not Added.", {
+        description: "You must provide a valid image URL.",
+      });
+      setAddLoading(false);
+
+      return;
+    }
+
     addArtifactPromise(newArtifact)
       .then((res) => {
         if (res.insertedId) {
-          toast.success("Artifact Added", {
+          toast.success("Artifact Added.", {
             description: "Your Artifact is added to the database.",
           });
         }
         setAddLoading(false);
       })
       .catch((err) => {
-        console.log(err);
+        toast.error("Artifact Not Added.", {
+          description: "Something went wrong.",
+        });
         setAddLoading(false);
       });
   };
@@ -136,7 +152,7 @@ const AddArtifact = () => {
                 <Textarea
                   id="historicalContext"
                   name="historicalContext"
-                  placeholder="Historical Context of the Artifact..."
+                  placeholder="Historical context of the artifact... (in short)"
                   className="text-sm md:text-md"
                 />
               </div>
