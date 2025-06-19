@@ -35,8 +35,8 @@ const Stats = () => {
   ];
 
   const animationOpacities = [
-    [0.5, 1, 0.5],
     [1, 0.5, 1],
+    [0.5, 1, 0.5],
   ];
 
   return (
