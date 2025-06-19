@@ -160,6 +160,7 @@ async function run() {
         query.name = { $regex: queryRegex};
       }
 
+      sort.uploadTime = -1;
       const result = await artifactsCollection
         .find(query)
         .sort(sort)
