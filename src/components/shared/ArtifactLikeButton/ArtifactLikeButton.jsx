@@ -4,6 +4,7 @@ import useAuth from "@/hooks/useAuth";
 import { useEffect, useState } from "react";
 import { AiFillLike, AiOutlineLike } from "react-icons/ai";
 import LoaderSpinner from "../LoaderSpinner/LoaderSpinner";
+import { toast } from "sonner";
 
 const ArtifactLikeButton = ({
   liked = false,
@@ -48,10 +49,14 @@ const ArtifactLikeButton = ({
           setLikeBtnLoading(false);
         })
         .catch((err) => {
+          toast.error("Failed", { description: "Something went wrong." });
           console.log(err);
           setLikeBtnLoading(false);
         });
     } else {
+      toast.error("Like Not Added.", {
+        description: "You must be logged in to like an artifact",
+      });
       setLikeBtnLoading(false);
     }
   };
