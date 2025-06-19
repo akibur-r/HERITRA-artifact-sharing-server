@@ -1,4 +1,3 @@
-
 import {
   Dialog,
   DialogClose,
@@ -13,7 +12,7 @@ import {
 import useArtifactsApi from "@/api/artifactsApi";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
-import { BiTrashAlt } from "react-icons/bi";
+import { BiCheck, BiTrashAlt } from "react-icons/bi";
 import { useLocation, useNavigate } from "react-router";
 import { toast } from "sonner";
 import LoaderSpinner from "../LoaderSpinner/LoaderSpinner";
@@ -24,6 +23,7 @@ const ArtifactDeleteButton = ({ artifact, showText = true }) => {
   const [open, setOpen] = useState(false);
   const [deleteBtnLoading, setDeleteBtnLoading] = useState(false);
   const [dialogOpen, setDialogOpen] = useState(false);
+  const [deleted, setDeleted] = useState(false);
 
   const location = useLocation();
 
@@ -41,6 +41,7 @@ const ArtifactDeleteButton = ({ artifact, showText = true }) => {
           } else {
             navigate("/my-artifacts");
           }
+          setDeleted(true);
           setDialogOpen(false);
         } else {
           toast.error("Not Deleted", {
@@ -60,15 +61,22 @@ const ArtifactDeleteButton = ({ artifact, showText = true }) => {
   };
 
   return (
-    <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
+    <Dialog open={dialogOpen && !deleted} onOpenChange={setDialogOpen}>
       <DialogTrigger>
         <Button
+          disabled={deleted}
           variant={"secondary"}
           size={"sm"}
           className="rounded-xs bg-red-500/50 hover:bg-red-500/15 hover:text-red-500 cursor-pointer text-base-content border border-red-500/20"
         >
-          <BiTrashAlt />
-          {showText && <span>Delete</span>}
+          {deleteBtnLoading ? (
+            <LoaderSpinner size={12} />
+          ) : (
+            <>
+              {deleted ? <BiCheck /> : <BiTrashAlt />}
+              {showText && <span>Delete</span>}
+            </>
+          )}
         </Button>
       </DialogTrigger>
       <DialogContent className="rounded-xs" showCloseButton={false}>
@@ -82,9 +90,7 @@ const ArtifactDeleteButton = ({ artifact, showText = true }) => {
 
         <DialogFooter>
           <DialogClose asChild>
-            <Button variant={"outline"} >
-              Cancel
-            </Button>
+            <Button variant={"outline"}>Cancel</Button>
           </DialogClose>
           <Button
             onClick={handleDeleteArtifact}

@@ -22,7 +22,6 @@ import { toast } from "sonner";
 
 const AddArtifact = () => {
   useDynamicTitle("Add Artifact");
-  
 
   const [addLoading, setAddLoading] = useState(false);
 
@@ -54,6 +53,7 @@ const AddArtifact = () => {
     const newArtifact = Object.fromEntries(formData.entries());
     newArtifact.userEmail = userEmail;
     newArtifact.userName = userName;
+    newArtifact.uploadTime = new Date();
 
     addArtifactPromise(newArtifact)
       .then((res) => {
@@ -208,10 +208,11 @@ const AddArtifact = () => {
               <div className="grid gap-2">
                 <Label htmlFor="adder_name">Adder Name</Label>
                 <Input
+                  value={user.displayName}
                   name="adder_name"
                   id="name"
                   type="text"
-                  placeholder="XYZ Person"
+                  placeholder={user.displayName}
                   className="text-sm md:text-md"
                   disabled
                 />
@@ -221,10 +222,11 @@ const AddArtifact = () => {
               <div className="grid gap-2">
                 <Label htmlFor="adder_email">Adder Email</Label>
                 <Input
+                  value={user.email}
                   name="adder_email"
-                  id="name"
+                  id="adder_email"
                   type="email"
-                  placeholder="mail@email.com"
+                  placeholder={user.email}
                   className="text-sm md:text-md"
                   disabled
                 />

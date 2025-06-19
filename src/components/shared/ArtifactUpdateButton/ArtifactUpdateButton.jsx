@@ -43,50 +43,60 @@ const ArtifactUpdateButton = ({
     e.preventDefault();
     setUpdateBtnLoading(true);
     setUpdateConfirmLoading(true);
-    const form = e.target;
-    let formOk = true;
+    try {
+      const form = e.target;
+      let formOk = true;
 
-    const formData = new FormData(form);
-    formData.forEach((key, value) => {
-      if (!key) {
-        toast.error(`${value} can't be empty`);
-        formOk = false;
-      }
-    });
-
-    if (!formOk) {
-      setUpdateConfirmLoading(false);
-      setUpdateBtnLoading(true);
-      return;
-    }
-
-    const updatedArtifact = Object.fromEntries(formData.entries());
-
-    updateArtifactPromise(artifact._id, updatedArtifact)
-      .then((res) => {
-        if (res.modifiedCount) {
-          toast.success("Changes Saved", {
-            description: "The artifact has been updated",
-          });
-          setDialogOpen(false);
-          setUpdateBtnLoading(false);
-          setUpdateConfirmLoading(false);
-        } else {
-          toast.warning("Changes Not Saved", {
-            description: "There was no change made.",
-          });
-          setUpdateBtnLoading(false);
-          setUpdateConfirmLoading(false);
+      const formData = new FormData(form);
+      formData.forEach((key, value) => {
+        if (!key) {
+          toast.error(`${value} can't be empty`);
+          formOk = false;
         }
-      })
-      .catch(() => {
-        toast.error("Changes Not Saved", {
-          description: "Something went wrong.",
-        });
-        setUpdateBtnLoading(false);
-        setDialogOpen(false);
-        setUpdateConfirmLoading(false);
       });
+
+      if (!formOk) {
+        setUpdateConfirmLoading(false);
+        setUpdateBtnLoading(true);
+        return;
+      }
+
+      const updatedArtifact = Object.fromEntries(formData.entries());
+
+      updateArtifactPromise(artifact._id, updatedArtifact)
+        .then((res) => {
+          console.log(res);
+          if (res.modifiedCount) {
+            toast.success("Changes Saved", {
+              description: "The artifact has been updated",
+            });
+            setDialogOpen(false);
+            setUpdateBtnLoading(false);
+            setUpdateConfirmLoading(false);
+          } else {
+            toast.warning("Changes Not Saved", {
+              description: "There was no change made.",
+            });
+            setUpdateBtnLoading(false);
+            setUpdateConfirmLoading(false);
+          }
+        })
+        .catch(() => {
+          toast.error("Changes Not Saved", {
+            description: "Something went wrong.",
+          });
+          setUpdateBtnLoading(false);
+          setDialogOpen(false);
+          setUpdateConfirmLoading(false);
+        });
+    } catch (err) {
+      toast.error("Changes Not Saved", {
+        description: "Something went wrong.",
+      });
+      setUpdateBtnLoading(false);
+      setDialogOpen(false);
+      setUpdateConfirmLoading(false);
+    }
   };
 
   return (
@@ -262,7 +272,7 @@ const ArtifactUpdateButton = ({
                 <Label htmlFor="adder_name">Adder Name</Label>
                 <Input
                   name="adder_name"
-                  id="name"
+                  id="adder_name"
                   type="text"
                   placeholder="XYZ Person"
                   className="text-sm md:text-md"
@@ -276,7 +286,7 @@ const ArtifactUpdateButton = ({
                 <Label htmlFor="adder_email">Adder Email</Label>
                 <Input
                   name="adder_email"
-                  id="name"
+                  id="adder_email"
                   type="email"
                   placeholder="mail@email.com"
                   defaultValue={artifact.userEmail}
