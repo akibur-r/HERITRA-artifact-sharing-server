@@ -4,6 +4,11 @@ const useUsersApi = () => {
   const axiosSecure = useAxiosSecure();
 
   // get apis
+
+  const getUserInfoPromise = () => {
+    return axiosSecure.get("/users").then((res) => res.data);
+  };
+
   const checkIfLikedPromise = (artifact_id, user_email) => {
     return axiosSecure
       .get(`/users/likes?artifact_id=${artifact_id}&user_email=${user_email}`)
@@ -17,7 +22,6 @@ const useUsersApi = () => {
   };
 
   // post apis
-  
 
   //   put apis
   const updateLikePromise = (artifact_id, user_email) => {
@@ -27,6 +31,7 @@ const useUsersApi = () => {
   };
 
   return {
+    getUserInfoPromise,
     checkIfLikedPromise,
     updateLikePromise,
     getLikedArtifacts,
