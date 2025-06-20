@@ -27,7 +27,7 @@ const useArtifactsApi = () => {
   };
 
   const getOneArtifactPromise = (id) => {
-    return axiosOpen.get(`/artifacts/findOne/${id}`).then((res) => res.data);
+    return axiosSecure.get(`/artifacts/findOne/${id}`).then((res) => res.data);
   };
 
   // post apis

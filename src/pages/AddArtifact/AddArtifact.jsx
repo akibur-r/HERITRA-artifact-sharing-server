@@ -44,7 +44,6 @@ const AddArtifact = () => {
     const newArtifact = Object.fromEntries(formData.entries());
     newArtifact.userEmail = userEmail;
     newArtifact.userName = userName;
-    newArtifact.uploadTime = new Date();
 
     for (const [key, value] of Object.entries(newArtifact)) {
       if (!value) {
