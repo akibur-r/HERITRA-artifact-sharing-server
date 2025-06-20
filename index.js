@@ -19,11 +19,53 @@ const client = new MongoClient(uri, {
   },
 });
 
+const admin = require("firebase-admin");
+
+const serviceAccount = require("./firebase_admin_key.json");
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+});
+
 const formatNewArtifact = async (req, res, next) => {
   const newArtifact = req.body;
   newArtifact.likeCount = 0;
 
   next();
+};
+
+const verifyUserForEmailInQuery = (req, res, next) => {
+  if (req.query.user_email === req.decoded.email) {
+    next();
+  } else {
+    return res.status(403).send({ message: "Access Forbidden" });
+  }
+};
+
+const verifyUserForEmailInParams = (req, res, next) => {
+  if (req.params.user_email === req.decoded.email) {
+    next();
+  } else {
+    return res.status(403).send({ message: "Access Forbidden" });
+  }
+};
+
+const verifyToken = async (req, res, next) => {
+  const authHeader = req.headers?.authorization;
+
+  if (!authHeader || !authHeader.startsWith("Bearer ")) {
+    return res.status(401).send({ message: "Unauthorized access" });
+  }
+
+  const authToken = authHeader.split(" ")[1];
+  try {
+    const decoded = await admin.auth().verifyIdToken(authToken);
+    req.decoded = decoded;
+
+    next();
+  } catch (error) {
+    res.status(401).send({ message: "Unauthorized access" });
+  }
 };
 
 async function run() {
@@ -44,37 +86,51 @@ async function run() {
     //users relted queries -------------------------
 
     // check if user liked a particular artifact api -- get
-    app.get("/users/likes", async (req, res) => {
-      const artifact_id = req.query.artifact_id;
-      const user_email = req.query.user_email;
+    app.get(
+      "/users/likes",
+      verifyToken,
+      verifyUserForEmailInQuery,
+      async (req, res) => {
+        const artifact_id = req.query.artifact_id;
+        const user_email = req.query.user_email;
 
-      const userDetails = await usersCollection.findOne({ email: user_email });
+        const userDetails = await usersCollection.findOne({
+          email: user_email,
+        });
 
-      const isLiked = userDetails.likes?.some(
-        (id) => id.toString() === artifact_id
-      );
+        const isLiked = userDetails.likes?.some(
+          (id) => id.toString() === artifact_id
+        );
 
-      // console.log(artifact_id);
+        // console.log(artifact_id);
 
-      res.send(isLiked);
-    });
+        res.send(isLiked);
+      }
+    );
 
     // get all liked artifacts api
-    app.get("/users/likes/:user_email", async (req, res) => {
-      const user_email = req.params.user_email;
+    app.get(
+      "/users/likes/:user_email",
+      // verifyToken,
+      // verifyUserForEmailInParams,
+      async (req, res) => {
+        const user_email = req.params.user_email;
 
-      const userDetails = await usersCollection.findOne({ email: user_email });
+        const userDetails = await usersCollection.findOne({
+          email: user_email,
+        });
 
-      const likedArtifacts = await Promise.all(
-        userDetails.likes?.map(async (liked_artifact_id) => {
-          return await artifactsCollection.findOne({
-            _id: new ObjectId(liked_artifact_id),
-          });
-        }) || []
-      );
+        const likedArtifacts = await Promise.all(
+          userDetails.likes?.map(async (liked_artifact_id) => {
+            return await artifactsCollection.findOne({
+              _id: new ObjectId(liked_artifact_id),
+            });
+          }) || []
+        );
 
-      res.send(likedArtifacts);
-    });
+        res.send(likedArtifacts);
+      }
+    );
 
     // add new user api
     app.post("/users", async (req, res) => {
@@ -92,51 +148,59 @@ async function run() {
       }
     });
 
-    app.put("/users/likes", async (req, res) => {
-      const artifact_id = req.query.artifact_id;
-      const user_email = req.query.user_email;
+    app.put(
+      "/users/likes",
+      // verifyToken,
+      // verifyUserForEmailInQuery,
+      async (req, res) => {
+        const artifact_id = req.query.artifact_id;
+        const user_email = req.query.user_email;
 
-      // update user like add or remove
-      const userDetails = await usersCollection.findOne({ email: user_email });
+        // update user like add or remove
+        const userDetails = await usersCollection.findOne({
+          email: user_email,
+        });
 
-      const alreadyLiked = userDetails.likes?.includes(artifact_id);
+        const alreadyLiked = userDetails.likes?.includes(artifact_id);
 
-      const userUpdateFilter = { email: user_email };
-      const userUpdateOptions = { upsert: false };
-      let userUpdateQuery = { $addToSet: { likes: artifact_id } };
+        const userUpdateFilter = { email: user_email };
+        const userUpdateOptions = { upsert: false };
+        let userUpdateQuery = { $addToSet: { likes: artifact_id } };
 
-      if (alreadyLiked) {
-        userUpdateQuery = { $pull: { likes: artifact_id } };
+        if (alreadyLiked) {
+          userUpdateQuery = { $pull: { likes: artifact_id } };
+        }
+
+        const result = await usersCollection.updateOne(
+          userUpdateFilter,
+          userUpdateQuery,
+          userUpdateOptions
+        );
+
+        result.likeAdded = !alreadyLiked;
+
+        // artifact count add or remove
+        const artifactDetails = await artifactsCollection.findOne({
+          _id: new ObjectId(artifact_id),
+        });
+        const newLikeCount =
+          artifactDetails.likeCount + (alreadyLiked ? -1 : 1);
+
+        const artifactUpdateFilter = { _id: new ObjectId(artifact_id) };
+        const artifactUpdateQuery = { $set: { likeCount: newLikeCount } };
+        const artifactUpdateOptions = { upsert: false };
+
+        const countUpd = await artifactsCollection.updateOne(
+          artifactUpdateFilter,
+          artifactUpdateQuery,
+          artifactUpdateOptions
+        );
+        // console.log(countUpd);
+
+        res.send(result);
+        // res.send(alreadyLiked)
       }
-
-      const result = await usersCollection.updateOne(
-        userUpdateFilter,
-        userUpdateQuery,
-        userUpdateOptions
-      );
-
-      result.likeAdded = !alreadyLiked;
-
-      // artifact count add or remove
-      const artifactDetails = await artifactsCollection.findOne({
-        _id: new ObjectId(artifact_id),
-      });
-      const newLikeCount = artifactDetails.likeCount + (alreadyLiked ? -1 : 1);
-
-      const artifactUpdateFilter = { _id: new ObjectId(artifact_id) };
-      const artifactUpdateQuery = { $set: { likeCount: newLikeCount } };
-      const artifactUpdateOptions = { upsert: false };
-
-      const countUpd = await artifactsCollection.updateOne(
-        artifactUpdateFilter,
-        artifactUpdateQuery,
-        artifactUpdateOptions
-      );
-      // console.log(countUpd);
-
-      res.send(result);
-      // res.send(alreadyLiked)
-    });
+    );
 
     // artifacts related queries ---------------------
     // get artifacts api
@@ -157,7 +221,7 @@ async function run() {
       }
       if (searchByNameQuery) {
         queryRegex = new RegExp(searchByNameQuery, "i");
-        query.name = { $regex: queryRegex};
+        query.name = { $regex: queryRegex };
       }
 
       sort.uploadTime = -1;
