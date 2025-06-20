@@ -29,7 +29,7 @@ const SignInPage = () => {
       .then(() => {
         setLoading(false);
         toast.success("Signed In Successfully.", {
-          description: "You can now access private features.",
+          description: "You can now access exclusive features.",
         });
         navigate(`${location.state ? location.state : "/"}`);
       })

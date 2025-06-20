@@ -17,7 +17,9 @@ const SocialLogin = ({ location }) => {
 
         addUserPromise({ email: email, gender: "unspecified", likes: [] })
           .then((res) => {
-            toast.success("Signed In");
+            toast.success("Signed In Successfully.", {
+              description: "You can now access exclusive features.",
+            });
             setLoading(false);
             navigate(`${location.state ? location.state : "/"}`);
           })
