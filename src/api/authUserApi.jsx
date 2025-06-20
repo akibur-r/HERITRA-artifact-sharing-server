@@ -1,10 +1,10 @@
-import axios from "axios";
+import useAxiosOpen from "@/hooks/useAxiosOpen";
 
 const authUserApi = () => {
+  const axiosOpen = useAxiosOpen();
+
   const addUserPromise = (newUser) => {
-    return axios
-      .post("http://localhost:3000/users", newUser)
-      .then((res) => res.data);
+    return axiosOpen.post("/users", newUser).then((res) => res.data);
   };
 
   return { addUserPromise };

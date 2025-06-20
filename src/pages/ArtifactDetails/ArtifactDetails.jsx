@@ -49,7 +49,6 @@ const ArtifactDetails = () => {
     getOneArtifactPromise(id)
       .then((res) => {
         setArtifact(res);
-        console.log(res);
         setArtifactLoading(false);
       })
       .catch((err) => {

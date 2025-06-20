@@ -1,23 +1,23 @@
+import useAxiosOpen from "@/hooks/useAxiosOpen";
 import useAxiosSecure from "@/hooks/useAxiosSecure";
 
 const useArtifactsApi = () => {
   const axiosSecure = useAxiosSecure();
+  const axiosOpen = useAxiosOpen();
 
   // get apis
   const topSixArtifactsPromise = () => {
-    return axiosSecure
-      .get(`/artifacts?limit=6&sort_by=likeCount`)
-      .then((res) => {
-        return res.data;
-      });
+    return axiosOpen.get(`/artifacts?limit=6&sort_by=likeCount`).then((res) => {
+      return res.data;
+    });
   };
 
   const getAllArtifactsPromise = () => {
-    return axiosSecure.get("/artifacts").then((res) => res.data);
+    return axiosOpen.get("/artifacts").then((res) => res.data);
   };
 
   const getArtifactsBySearchPromise = (query) => {
-    return axiosSecure.get(`/artifacts?name=${query}`).then((res) => res.data);
+    return axiosOpen.get(`/artifacts?name=${query}`).then((res) => res.data);
   };
 
   const getArtifactsByEmailPromise = (user_email) => {
@@ -27,7 +27,7 @@ const useArtifactsApi = () => {
   };
 
   const getOneArtifactPromise = (id) => {
-    return axiosSecure.get(`/artifacts/findOne/${id}`).then((res) => res.data);
+    return axiosOpen.get(`/artifacts/findOne/${id}`).then((res) => res.data);
   };
 
   // post apis
@@ -55,7 +55,7 @@ const useArtifactsApi = () => {
     getArtifactsByEmailPromise,
     deleteArtifactPromise,
     updateArtifactPromise,
-    getArtifactsBySearchPromise
+    getArtifactsBySearchPromise,
   };
 };
 
