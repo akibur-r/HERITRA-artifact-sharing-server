@@ -30,6 +30,7 @@ admin.initializeApp({
 const formatNewArtifact = async (req, res, next) => {
   const newArtifact = req.body;
   newArtifact.likeCount = 0;
+  newArtifact.uploadTime = new Date();
 
   next();
 };
@@ -47,8 +48,8 @@ const verifyToken = async (req, res, next) => {
     const decoded = await admin.auth().verifyIdToken(authToken);
     req.decoded = decoded;
 
-    if(req.decoded.email !== authEmail) {
-      return res.status(403).send({message: "Fuck you"})
+    if (req.decoded.email !== authEmail) {
+      return res.status(403).send({ message: "Fuck you" });
     }
 
     next();
@@ -224,7 +225,8 @@ async function run() {
       res.send(result);
     });
 
-    app.get("/artifacts/findOne/:id", async (req, res) => {
+    // [secured] get a single artifact
+    app.get("/artifacts/findOne/:id", verifyToken, async (req, res) => {
       const id = req.params.id;
       const targetId = new ObjectId(id);
       const result = await artifactsCollection.findOne({ _id: targetId });
@@ -232,16 +234,16 @@ async function run() {
       res.send(result);
     });
 
-    // add single new artifact api
-    app.post("/artifacts", formatNewArtifact, async (req, res) => {
+    // [secured] add single new artifact api
+    app.post("/artifacts", verifyToken, formatNewArtifact, async (req, res) => {
       const newArtifact = req.body;
       const result = await artifactsCollection.insertOne(newArtifact);
 
       res.send(result);
     });
 
-    // update artifact
-    app.put("/artifacts/:id", async (req, res) => {
+    // [secured] update artifact
+    app.put("/artifacts/:id", verifyToken, async (req, res) => {
       const id = req.params.id;
       const filter = { _id: new ObjectId(id) };
       const options = { upsert: false };
@@ -259,8 +261,8 @@ async function run() {
       res.send(result);
     });
 
-    // delete single artifact
-    app.delete("/artifacts/:id", async (req, res) => {
+    // [secured] delete single artifact
+    app.delete("/artifacts/:id", verifyToken, async (req, res) => {
       const id = req.params.id;
 
       const allUsers = await usersCollection.find().toArray();
