@@ -54,6 +54,8 @@ The application is built in response of the need to create a simple and accessib
   <img src="https://img.shields.io/badge/Swiper-6332F6?style=for-the-badge&logo=swiper&logoColor=white" />
   <img src="https://img.shields.io/badge/React%20Icons-61DAFB?style=for-the-badge&logo=react&logoColor=black" />
   <img src="https://img.shields.io/badge/React_Helmet-282C34?style=for-the-badge&logo=react&logoColor=61DAFB" />
+  <img src="https://img.shields.io/badge/date--fns-262626?style=for-the-badge&logo=react&logoColor=white" />
+
 </p>
 
 ## <p style="color: #b89c72">Features</p>
@@ -91,6 +93,7 @@ The application is built in response of the need to create a simple and accessib
 - If the users try to access any invalid route, a stylish error page is displayed.
 - Users can change their added information on the site only (secured by axios and access tokens).
 - Once a user deletes an artifact, all the likes from all users are removed.
+- The upload time in artifact details page is displayed relative to current time.
 
 ###
 
