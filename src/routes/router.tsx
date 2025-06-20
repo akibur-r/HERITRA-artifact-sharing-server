@@ -6,6 +6,7 @@ import ErrorPage from "@/pages/ErrorPage/ErrorPage";
 import HomePage from "@/pages/HomePage/HomePage";
 import LikedArtifactsPage from "@/pages/LikedArtifacts/LikedArtifactsPage";
 import MyArtifactsPage from "@/pages/MyArtifacts/MyArtifactsPage";
+import MyProfilePage from "@/pages/MyProfile/MyProfilePage";
 import RegisterPage from "@/pages/Register/RegisterPage";
 import SignInPage from "@/pages/SignIn/SignInPage";
 import PrivateRouteProvider from "@/providers/PrivateRouteProvider";
@@ -53,6 +54,14 @@ export const router = createBrowserRouter([
         element: (
           <PrivateRouteProvider>
             <ArtifactDetails />
+          </PrivateRouteProvider>
+        ),
+      },
+      {
+        path: "/my-profile",
+        element: (
+          <PrivateRouteProvider>
+            <MyProfilePage />
           </PrivateRouteProvider>
         ),
       },

@@ -24,9 +24,11 @@ import { useEffect, useState } from "react";
 import { BiXCircle } from "react-icons/bi";
 import { Link, useNavigate } from "react-router";
 
-const MyArtifactsPage = () => {
-  useDynamicTitle("My Artifacts");
-  
+const MyArtifactsPage = ({ showHeader = true }) => {
+  if (showHeader) {
+    useDynamicTitle("My Artifacts");
+  }
+
   const [artifacts, setArtifacts] = useState([]);
   const [artifactsLoading, setArtifactsLoading] = useState(false);
 
@@ -49,14 +51,18 @@ const MyArtifactsPage = () => {
   }, []);
 
   return (
-    <section className="flex flex-col gap-4 justify-center items-center my-10 max-w-screen-xl mx-auto px-4">
+    <section
+      className={`flex flex-col gap-4 justify-center items-center ${
+        showHeader && "my-10 max-w-screen-xl mx-auto px-4"
+      }`}
+    >
       {artifactsLoading ? (
         <div className="h-48">
           <LoaderLogoSpinner />
         </div>
       ) : artifacts.length ? (
         <>
-          <header className="max-w-sm text-center">
+          <header className={`max-w-sm text-center ${!showHeader && "hidden"}`}>
             <h2 className="text-3xl font-cinzel font-bold">My Artifacts</h2>
             <p className="text-sm">Artifacts that you added are listed here.</p>
           </header>

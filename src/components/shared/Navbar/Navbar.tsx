@@ -2,10 +2,8 @@ import { ThemeToggle } from "@/components/theme/ThemeToggle";
 import { Button } from "@/components/ui/button";
 import { navItems } from "@/utils/navItems";
 
-import { FiThumbsUp } from "react-icons/fi";
+import { FiBox, FiLogOut, FiThumbsUp, FiUser } from "react-icons/fi";
 import { HiMenuAlt3 } from "react-icons/hi";
-import { IoIosLogOut } from "react-icons/io";
-import { LuAmphora } from "react-icons/lu";
 import { Link } from "react-router";
 
 import {
@@ -97,6 +95,19 @@ export function Navbar() {
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
 
+        <Link to={"/my-profile"}>
+          <DropdownMenuItem
+            onClick={() => {
+              setDrawerOpen(false);
+            }}
+            className="cursor-pointer flex items-center"
+          >
+            My Profile
+            <FiUser />
+          </DropdownMenuItem>
+        </Link>
+        <DropdownMenuSeparator className="w-4" />
+
         <Link to={"/my-artifacts"}>
           <DropdownMenuItem
             onClick={() => {
@@ -105,7 +116,7 @@ export function Navbar() {
             className="cursor-pointer flex items-center"
           >
             My Artifacts
-            <LuAmphora />
+            <FiBox />
           </DropdownMenuItem>
         </Link>
         <DropdownMenuSeparator className="w-4" />
@@ -115,7 +126,7 @@ export function Navbar() {
             onClick={() => {
               setDrawerOpen(false);
             }}
-            className="cursor-pointer flex items-center"
+            className="cursor-pointer flex items-center pr-8 md:pr-10"
           >
             Liked Artifacts
             <FiThumbsUp />
@@ -129,7 +140,7 @@ export function Navbar() {
           onClick={handleSignOut}
         >
           Logout
-          <IoIosLogOut />
+          <FiLogOut />
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
