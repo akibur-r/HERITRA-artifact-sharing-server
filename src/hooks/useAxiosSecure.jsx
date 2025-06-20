@@ -14,6 +14,7 @@ const useAxiosSecure = () => {
     if (user) {
       axiosInstance.interceptors.request.use((config) => {
         config.headers.authorization = `Bearer ${user.accessToken}`;
+        config.headers.user_email = user.email;
         return config;
       });
     }
