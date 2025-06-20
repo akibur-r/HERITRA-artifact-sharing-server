@@ -1,3 +1,4 @@
+import useAuthUserApi from "@/api/authUserApi";
 import SocialLogin from "@/components/auth/SocialLogin";
 import Loader from "@/components/shared/LoaderSpinner/LoaderSpinner";
 import { Button } from "@/components/ui/button";
@@ -19,7 +20,9 @@ import { toast } from "sonner";
 
 const RegisterPage = () => {
   useDynamicTitle("Register");
-  const { loading, setLoading, createUser, updateUser, setUser } = useAuth();
+  const { loading, setLoading, createUser, updateUser, setUser, logOut } =
+    useAuth();
+  const { addUserPromise } = useAuthUserApi();
 
   const navigate = useNavigate();
 
@@ -47,18 +50,22 @@ const RegisterPage = () => {
         const user = res.user;
         updateUser({ displayName: name, photoURL: photoURL, gender: gender })
           .then(() => {
-            setUser({
-              ...user,
-              displayName: name,
-              photoURL: photoURL,
-              gender: gender,
-            });
-
-            toast.success("Account created successfully", {
-              description: "You can now access private routes.",
-            });
-            setLoading(false);
-            navigate("/");
+            addUserPromise({ email: email, gender: gender, likes: [] })
+              .then((res) => {
+                toast.success("Account created successfully", {
+                  description: "You can now access exclusive contents.",
+                });
+                setLoading(false);
+                navigate("/");
+              })
+              .catch((err) => {
+                toast.error("Something Went Wrong", {
+                  description:
+                    "There was a problem while creating your account.",
+                });
+                logOut();
+                setLoading(false);
+              });
           })
           .catch((err) => {
             console.log(err);
@@ -145,7 +152,7 @@ const RegisterPage = () => {
                       Female
                     </SelectItem>
                     <SelectItem
-                      value={"unspecified"}
+                      value={"prefersNotToSay"}
                       className="text-sm md:text-md"
                     >
                       Prefer Not to Say

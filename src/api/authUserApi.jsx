@@ -1,6 +1,6 @@
 import useAxiosOpen from "@/hooks/useAxiosOpen";
 
-const authUserApi = () => {
+const useAuthUserApi = () => {
   const axiosOpen = useAxiosOpen();
 
   const addUserPromise = (newUser) => {
@@ -10,4 +10,4 @@ const authUserApi = () => {
   return { addUserPromise };
 };
 
-export default authUserApi;
+export default useAuthUserApi;

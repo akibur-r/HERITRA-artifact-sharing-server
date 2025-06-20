@@ -1,3 +1,4 @@
+import useAuthUserApi from "@/api/authUserApi";
 import { Button } from "@/components/ui/button";
 import useAuth from "@/hooks/useAuth";
 import { FcGoogle } from "react-icons/fc";
@@ -7,17 +8,29 @@ const SocialLogin = ({ location }) => {
   const { signInWithGoogle, setLoading } = useAuth();
   const navigate = useNavigate();
 
+  const { addUserPromise } = useAuthUserApi();
+
   const handleGoogleSignIn = () => {
     signInWithGoogle()
-      .then(() => {
-        toast.success("Signed In");
-        setLoading(false);
+      .then((res) => {
+        const email = res.user.email;
 
-        navigate(`${location.state ? location.state : "/"}`);
+        addUserPromise({ email: email, gender: "unspecified", likes: [] })
+          .then((res) => {
+            toast.success("Signed In");
+            setLoading(false);
+            navigate(`${location.state ? location.state : "/"}`);
+          })
+          .catch((err) => {
+            toast.error("Google Sign In Failed", {
+              description: "Something went wrong.",
+            });
+            setLoading(false);
+          });
       })
       .catch(() => {
         toast.error("Google Sign In Failed", {
-          description: "There was a problem while signin in with Google.",
+          description: "Something went wrong.",
         });
         setLoading(false);
       });

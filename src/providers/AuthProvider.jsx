@@ -11,7 +11,6 @@ import {
 } from "firebase/auth";
 import { createContext, useEffect, useState } from "react";
 import app from "../firebase/firebase.init";
-import authUserApi from "@/api/authUserApi";
 export const AuthContext = createContext();
 
 const auth = getAuth(app);
@@ -20,7 +19,6 @@ const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   const googleAuthProvider = new GoogleAuthProvider();
-  const { addUserPromise } = authUserApi();
 
   const createUser = (email, password) => {
     setLoading(true);
@@ -50,17 +48,8 @@ const AuthProvider = ({ children }) => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
 
-      if (currentUser) {
-        addUserPromise({ email: currentUser.email, likes: [] })
-          .then((res) => {
-            setLoading(false);
-          })
-          .catch((err) => {
-            setLoading(false);
-          });
-      } else {
+      
         setLoading(false);
-      }
     });
     return () => {
       unsubscribe();
