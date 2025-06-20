@@ -14,7 +14,7 @@
 
 </div>
 
-<details>
+<details open="open">
 <summary><h3>Table of Contents</h3></summary>
 
 - [About](#about)
@@ -22,6 +22,8 @@
   - [Built With](#built-with)
 - [Features](#features)
   - [Visitor](#visitor)
+  - [Registered Users](#registered-user)
+- [Behind the Scene](#behind-the-scene)
 
 </details>
 
@@ -89,7 +91,9 @@ The application is built in response of the need to create a simple and accessib
 - If the users try to access any invalid route, a stylish error page is displayed.
 - Users can change their added information on the site only (secured by axios and access tokens).
 - Once a user deletes an artifact, all the likes from all users are removed.
+
 ###
+
 - Like button and like count is updated upon interaction.
 - Deleting takes two step confirmation.
 - Updating is done only when anything is changed.
