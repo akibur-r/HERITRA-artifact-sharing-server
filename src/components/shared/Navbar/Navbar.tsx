@@ -76,7 +76,10 @@ export function Navbar() {
       <DropdownMenuTrigger className="outline-none flex">
         <Tooltip>
           <TooltipTrigger className="cursor-pointer rounded-full">
-            <Avatar className="size-9 rounded-full border-4 border-primary/60 hover:border-primary/80" onClick={() => setDrawerOpen(true)}>
+            <Avatar
+              className="size-9 rounded-full border-4 border-primary/60 hover:border-primary/80"
+              onClick={() => setDrawerOpen(true)}
+            >
               <AvatarImage src={user?.photoURL} />
               <AvatarFallback>
                 {user?.displayName[0].toUpperCase()}
@@ -132,7 +135,7 @@ export function Navbar() {
     </DropdownMenu>
   );
   return (
-    <header className="w-full border-b bg-background text-foreground sticky top-0 z-10">
+    <header className="w-full border-b bg-background text-foreground sticky top-0 z-20">
       <div className="mx-auto max-w-screen-xl px-4 py-2 flex items-center justify-between">
         {/* left icon */}
         <div className="h-12 w-fit">

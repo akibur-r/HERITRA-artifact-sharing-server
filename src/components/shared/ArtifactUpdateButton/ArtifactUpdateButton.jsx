@@ -159,8 +159,7 @@ const ArtifactUpdateButton = ({
                 <span>
                   Edit your artifact details here. Click save when you&apos;re
                   done.
-                </span>
-                &nbsp;
+                </span>{" "}
                 <span className="text-accent">Scroll to view more</span>
               </p>
             </DialogDescription>

@@ -4,7 +4,7 @@ import { FaAngleDoubleDown } from "react-icons/fa";
 
 const HeroButton = () => {
   return (
-    <div className="absolute w-full flex -translate-y-8 h-16 z-50 justify-center items-center">
+    <div className="absolute w-full flex -translate-y-8 h-16 z-10 justify-center items-center">
       <motion.a
         animate={{
           backgroundColor: [
