@@ -7,7 +7,18 @@ const port = process.env.port || 3000;
 const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@akibur.q5l27io.mongodb.net/?retryWrites=true&w=majority&appName=akibur`;
 
-app.use(cors());
+
+
+app.use(cors(
+  {
+    origin: [
+      "http://localhost:5173",
+      "https://career-portal-ph.web.app",
+      "https://career-portal-ph.firebaseapp.com",
+    ],
+    credentials: true,
+  }
+));
 app.use(express.json());
 
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
@@ -21,7 +32,9 @@ const client = new MongoClient(uri, {
 
 const admin = require("firebase-admin");
 
-const serviceAccount = require("./firebase_admin_key.json");
+const serviceKey = Buffer.from(process.env.FIREBASE_SERVICE_KEY, 'base64').toString('utf8');
+// console.log(serviceKey);
+const serviceAccount = JSON.parse(serviceKey);
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
@@ -60,9 +73,9 @@ const verifyToken = async (req, res, next) => {
 
 async function run() {
   try {
-    await client.connect();
-    await client.db("admin").command({ ping: 1 });
-    console.log("ping!!", port);
+    // await client.connect();
+    // await client.db("admin").command({ ping: 1 });
+    // console.log("ping!!", port);
 
     // test queries
     app.get("/", (req, res) => {
