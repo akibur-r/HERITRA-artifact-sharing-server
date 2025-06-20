@@ -3,8 +3,10 @@ import LoaderLogoSpinner from "@/components/shared/LoaderLogoSpinner/LoaderLogoS
 import { Separator } from "@/components/ui/separator";
 import { useEffect, useState } from "react";
 import { LuFileX } from "react-icons/lu";
+import { formatDistanceToNow } from "date-fns";
 import {
   TbClockSearch,
+  TbClockStar,
   TbMapPin2,
   TbUserSearch,
   TbUserUp,
@@ -97,10 +99,11 @@ const ArtifactDetails = () => {
                     </div>
 
                     <h4 className="text-sm ">
-                      <span className="text-accent">Created at</span>{" "}
+                      <span className="text-accent">Uploaded</span>{" "}
                       <span className="font-medium text-base-content">
-                        {artifact.createdAt}
-                      </span>
+                        {formatDistanceToNow(artifact.uploadTime)}
+                      </span>{" "}
+                      <span className="text-accent">ago.</span>
                     </h4>
                   </div>
 
@@ -139,6 +142,23 @@ const ArtifactDetails = () => {
                   {/* other details */}
                   <div className="flex justify-center md:justify-start">
                     <div className="grid place-items-center md:place-items-start grid-cols-1 gap-y-1 gap-x-3">
+                      <Tooltip>
+                        <TooltipTrigger>
+                          <div className="flex flex-col md:flex-row place-items-center gap-y-0 gap-x-2 overflow-hidden select-text">
+                            <span className="text-sm md:text-xl opacity-90 shrink-0 text-accent flex place-items-center gap-1">
+                              <TbClockStar />
+                              <span className="md:hidden">Created At</span>
+                            </span>
+                            <span className="text-center md:text-left">
+                              {artifact.createdAt}
+                            </span>
+                          </div>
+                        </TooltipTrigger>
+                        <TooltipContent side="left" className="hidden lg:block">
+                          <p>Created At</p>
+                        </TooltipContent>
+                      </Tooltip>
+
                       <Tooltip>
                         <TooltipTrigger>
                           <div className="flex flex-col md:flex-row place-items-center gap-y-0 gap-x-2 overflow-hidden select-text">

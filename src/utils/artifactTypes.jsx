@@ -1,11 +1,12 @@
 export const artifactTypes = [
-  "People",
   "Document",
-  "Writing",
-  "Building",
   "Sculpture",
   "Painting",
+  "Building",
+  "Jewelry",
   "Weapon",
-  "Tools",
+  "Tool",
+  "Coin",
+  "Textile",
   "Other",
 ];
