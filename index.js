@@ -34,24 +34,9 @@ const formatNewArtifact = async (req, res, next) => {
   next();
 };
 
-const verifyUserForEmailInQuery = (req, res, next) => {
-  if (req.query.user_email === req.decoded.email) {
-    next();
-  } else {
-    return res.status(403).send({ message: "Access Forbidden" });
-  }
-};
-
-const verifyUserForEmailInParams = (req, res, next) => {
-  if (req.params.user_email === req.decoded.email) {
-    next();
-  } else {
-    return res.status(403).send({ message: "Access Forbidden" });
-  }
-};
-
 const verifyToken = async (req, res, next) => {
   const authHeader = req.headers?.authorization;
+  const authEmail = req.headers?.user_email;
 
   if (!authHeader || !authHeader.startsWith("Bearer ")) {
     return res.status(401).send({ message: "Unauthorized access" });
@@ -61,6 +46,10 @@ const verifyToken = async (req, res, next) => {
   try {
     const decoded = await admin.auth().verifyIdToken(authToken);
     req.decoded = decoded;
+
+    if(req.decoded.email !== authEmail) {
+      return res.status(403).send({message: "Fuck you"})
+    }
 
     next();
   } catch (error) {
@@ -85,11 +74,11 @@ async function run() {
 
     //users relted queries -------------------------
 
-    // check if user liked a particular artifact api -- get
+    // [secured] check if user liked a particular artifact api -- get
     app.get(
       "/users/likes",
       verifyToken,
-      verifyUserForEmailInQuery,
+      // verifyUserForEmailInQuery,
       async (req, res) => {
         const artifact_id = req.query.artifact_id;
         const user_email = req.query.user_email;
@@ -108,10 +97,10 @@ async function run() {
       }
     );
 
-    // get all liked artifacts api
+    // [secured] get all liked artifacts api
     app.get(
       "/users/likes/:user_email",
-      // verifyToken,
+      verifyToken,
       // verifyUserForEmailInParams,
       async (req, res) => {
         const user_email = req.params.user_email;
@@ -148,9 +137,10 @@ async function run() {
       }
     });
 
+    // [secured] add or remove like
     app.put(
       "/users/likes",
-      // verifyToken,
+      verifyToken,
       // verifyUserForEmailInQuery,
       async (req, res) => {
         const artifact_id = req.query.artifact_id;
