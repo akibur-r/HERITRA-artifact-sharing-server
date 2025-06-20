@@ -11,8 +11,8 @@ app.use(
   cors({
     origin: [
       "http://localhost:5173",
-      "https://career-portal-ph.web.app",
-      "https://career-portal-ph.firebaseapp.com",
+      "https://heritra-by-akib.web.app",
+      "https://heritra-by-akib.firebaseapp.com/",
     ],
     credentials: true,
   })
