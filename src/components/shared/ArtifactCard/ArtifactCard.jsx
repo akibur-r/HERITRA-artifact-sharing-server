@@ -20,7 +20,7 @@ const ArtifactCard = ({ artifact }) => {
   return (
     <Card className="grid grid-rows-2 gap-3 aspect-auto rounded-xs">
       <CardHeader className="grid items-center justify-center">
-        <img src={imageURL} alt={name} className="max-h-48 object-contain" />
+        <img src={imageURL} alt={name} className="max-h-48 h-48 object-contain" />
       </CardHeader>
 
       <div>
