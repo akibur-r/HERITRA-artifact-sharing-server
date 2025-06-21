@@ -1,6 +1,6 @@
 <h1 align="center">
   <a href="https://heritra-by-akib.web.app/">
-    <img src="./public/heritra_logo.png" alt="Logo"  height="125">
+    <img src="logo.png" alt="Logo"  height="125">
   </a>
 </h1>
 
