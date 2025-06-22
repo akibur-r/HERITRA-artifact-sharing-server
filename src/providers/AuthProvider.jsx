@@ -1,6 +1,7 @@
 // import useUsersApi from "@/api/usersApi";
 import {
   createUserWithEmailAndPassword,
+  deleteUser,
   getAuth,
   GoogleAuthProvider,
   onAuthStateChanged,
@@ -40,6 +41,10 @@ const AuthProvider = ({ children }) => {
     return updateProfile(auth.currentUser, updatedData);
   };
 
+  const deleteUserFromFirebase = () => {
+    return deleteUser(auth.currentUser);
+  };
+
   const logOut = () => {
     return signOut(auth);
   };
@@ -65,6 +70,7 @@ const AuthProvider = ({ children }) => {
     setLoading,
     updateUser,
     signInWithGoogle,
+    deleteUserFromFirebase
   };
   return <AuthContext value={authData}>{children}</AuthContext>;
 };

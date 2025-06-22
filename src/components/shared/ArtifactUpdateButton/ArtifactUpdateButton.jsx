@@ -78,7 +78,7 @@ const ArtifactUpdateButton = ({
 
       updateArtifactPromise(artifact._id, updatedArtifact)
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           if (res.modifiedCount) {
             toast.success("Changes Saved", {
               description: "The artifact has been updated",

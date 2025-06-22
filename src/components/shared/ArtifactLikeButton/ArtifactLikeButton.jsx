@@ -27,7 +27,7 @@ const ArtifactLikeButton = ({
           setLikeBtnLoading(false);
         })
         .catch((err) => {
-          console.log(err);
+          // console.log(err);
           setLikeBtnLoading(false);
         });
     }
@@ -51,7 +51,7 @@ const ArtifactLikeButton = ({
         })
         .catch((err) => {
           toast.error("Failed", { description: "Something went wrong." });
-          console.log(err);
+          // console.log(err);
           setLikeBtnLoading(false);
         });
     } else {

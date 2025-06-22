@@ -80,7 +80,7 @@ export function Navbar() {
             >
               <AvatarImage src={user?.photoURL} />
               <AvatarFallback>
-                {user?.displayName[0].toUpperCase()}
+                {user?.displayName?.toUpperCase()[0]}
               </AvatarFallback>
             </Avatar>
           </TooltipTrigger>
@@ -91,7 +91,7 @@ export function Navbar() {
       </DropdownMenuTrigger>
       <DropdownMenuContent className="mr-4">
         <DropdownMenuLabel className="text-left">
-          {user?.displayName}
+          {user?.displayName && user.displayName}
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
 

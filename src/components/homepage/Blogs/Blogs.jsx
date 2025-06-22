@@ -33,11 +33,11 @@ const Blogs = () => {
             </CardHeader>
             <CardContent className="flex flex-col md:flex-row gap-4 justify-between w-full h-40 md:h-32">
               <p className="lg:w-7/12 space-y-2 text-center md:text-left">
-                <div>{blog.description}</div>
-                <div className="opacity-80">
+                <span>{blog.description}</span>
+                <span className="opacity-80">
                   Published By:{" "}
                   <span className="font-semibold">{blog.author}</span>
-                </div>
+                </span>
               </p>
               <div className="hidden lg:block h-full w-56">
                 <img
@@ -60,11 +60,11 @@ const Blogs = () => {
             </CardHeader>
             <CardContent className="flex flex-col md:flex-row-reverse gap-4 justify-between w-full h-40 md:h-32">
               <p className="lg:w-7/12 space-y-2 text-center md:text-left">
-                <div>{blog.description}</div>
-                <div className="opacity-80">
+                <span>{blog.description}</span>
+                <span className="opacity-80">
                   Published By:{" "}
                   <span className="font-semibold">{blog.author}</span>
-                </div>
+                </span>
               </p>
               <div className="hidden lg:block h-full w-56">
                 <img

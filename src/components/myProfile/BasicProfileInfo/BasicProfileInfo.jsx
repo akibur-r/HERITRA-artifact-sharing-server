@@ -17,12 +17,12 @@ const BasicProfileInfo = () => {
     setBasicProfileInfoLoading(true);
     getUserInfoPromise()
       .then((res) => {
-        console.log(user);
+        // console.log(user);
         setUserFromDB(res);
         setBasicProfileInfoLoading(false);
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       });
   }, [user]);
 
@@ -37,7 +37,7 @@ const BasicProfileInfo = () => {
           <Avatar className="relative w-32 md:w-48 h-32 md:h-48 rounded-xs ring-3 ring-secondary/50 bg-accent/10">
             <AvatarImage
               src={user.photoURL}
-              className="object-cover object-bottom"
+              className="object-cover object-top"
             />
             <AvatarFallback>A</AvatarFallback>
           </Avatar>

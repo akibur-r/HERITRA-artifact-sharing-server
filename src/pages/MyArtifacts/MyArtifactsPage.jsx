@@ -45,7 +45,7 @@ const MyArtifactsPage = ({ showHeader = true }) => {
         setArtifactsLoading(false);
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
         setArtifactsLoading(false);
       });
   }, []);

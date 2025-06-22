@@ -34,7 +34,7 @@ const AllArtifacts = () => {
         setArtifactsLoading(false);
       })
       .catch(() => {
-        console.log("error");
+        // console.log("error");
         setArtifactsLoading(false);
       });
   }, []);
@@ -47,7 +47,7 @@ const AllArtifacts = () => {
         setArtifacts(res);
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       });
   };
 

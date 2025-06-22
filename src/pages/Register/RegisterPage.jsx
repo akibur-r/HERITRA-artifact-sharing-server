@@ -20,8 +20,15 @@ import { toast } from "sonner";
 
 const RegisterPage = () => {
   useDynamicTitle("Register");
-  const { loading, setLoading, createUser, updateUser, setUser, logOut } =
-    useAuth();
+  const {
+    loading,
+    setLoading,
+    createUser,
+    updateUser,
+    setUser,
+    logOut,
+    deleteUserFromFirebase,
+  } = useAuth();
   const { addUserPromise } = useAuthUserApi();
 
   const navigate = useNavigate();
@@ -39,9 +46,10 @@ const RegisterPage = () => {
     const passRegex = /(?=.*[a-z])(?=.*[A-Z]).{6,}/;
 
     if (!passRegex.test(password)) {
-      console.log(
-        "Password must be at least 6 characters long, with at least one uppercase and one lowercase letter."
-      );
+      toast.error("Failed to Register.", {
+        description:
+          "Password must be at least 6 characters long with minimum 1 digit.",
+      });
       return;
     }
 
@@ -59,16 +67,19 @@ const RegisterPage = () => {
                 navigate("/");
               })
               .catch((err) => {
-                toast.error("Something Went Wrong", {
-                  description:
-                    "There was a problem while creating your account.",
-                });
-                logOut();
+                deleteUserFromFirebase()
+                  .then((res) => {
+                    toast.error("Something Went Wrong", {
+                      description:
+                        "There was a problem while creating your account.",
+                    });
+                  })
+                  .catch(() => {});
                 setLoading(false);
               });
           })
           .catch((err) => {
-            console.log(err);
+            // console.log(err);
             setLoading(false);
             toast.error("Something Went Wrong", {
               description: "There was a problem while creating your account.",

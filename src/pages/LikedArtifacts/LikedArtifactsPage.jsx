@@ -44,7 +44,7 @@ const LikedArtifactsPage = () => {
         setArtifactsLoading(false);
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
         setArtifactsLoading(false);
       });
   }, []);
