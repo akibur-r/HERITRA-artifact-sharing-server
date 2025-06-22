@@ -21,7 +21,9 @@ const SocialLogin = ({ location }) => {
               description: "You can now access exclusive features.",
             });
             setLoading(false);
-            navigate(`${location.state ? location.state : "/"}`);
+            navigate(
+              `${location ? (location.state ? location.state : "/") : "/"}`
+            );
           })
           .catch((err) => {
             toast.error("Google Sign In Failed", {
