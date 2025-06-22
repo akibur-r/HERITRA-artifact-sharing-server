@@ -157,7 +157,7 @@ const ArtifactUpdateButton = ({
             <DialogDescription>
               <p className="text-xs">
                 <span>
-                  Edit your artifact details here. Click save when you&apos;re
+                  Edit your artifact details here. Click save when you're
                   done.
                 </span>{" "}
                 <span className="text-accent">Scroll to view more</span>
@@ -165,7 +165,7 @@ const ArtifactUpdateButton = ({
             </DialogDescription>
           </DialogHeader>
           <ScrollArea className="max-h-[50vh] lg:max-h-[60vh] w-full md:w-[70vw] pr-2 md:pr-4">
-            <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-y-4 gap-x-10">
+            <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-y-4 gap-x-10 p-2">
               {/* name */}
               <div className="grid gap-2">
                 <Label htmlFor="name">Name</Label>

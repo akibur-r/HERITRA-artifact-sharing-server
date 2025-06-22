@@ -84,7 +84,8 @@ The application is built in response of the need to create a simple and accessib
 - Like/Unlike an artifact
 - See all liked artifacts
 - See all artifacts that they added
-- View self profile details
+- View personal profile details
+- Update personal profile details
 </details>
 
 ## <p style="color: #b89c72">Behind the Scene</p>

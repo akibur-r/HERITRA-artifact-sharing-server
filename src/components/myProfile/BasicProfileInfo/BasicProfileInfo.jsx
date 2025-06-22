@@ -5,10 +5,12 @@ import { Separator } from "@/components/ui/separator";
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
 import useAuth from "@/hooks/useAuth";
 import { useEffect, useState } from "react";
+import UpdateBasicInfoButton from "../UpdateBasicInfoButton/UpdateBasicInfoButton";
 
 const BasicProfileInfo = () => {
   const [basicProfileInfoLoading, setBasicProfileInfoLoading] = useState(false);
   const [userFromDB, setUserFromDB] = useState(null);
+  const [profileUpdated, setProfileUpdated] = useState(false);
 
   const { user } = useAuth();
   const { getUserInfoPromise } = useUsersApi();
@@ -24,7 +26,7 @@ const BasicProfileInfo = () => {
       .catch((err) => {
         // console.log(err);
       });
-  }, [user]);
+  }, [user, profileUpdated]);
 
   return (
     <div>
@@ -33,7 +35,10 @@ const BasicProfileInfo = () => {
           <LoaderLogoSpinner />
         </div>
       ) : (
-        <div className="flex flex-col gap-4 justify-center items-center my-4">
+        <div className="flex flex-col gap-4 justify-center items-center my-4 relative">
+          <div className="absolute top-0 right-0 z-10">
+            <UpdateBasicInfoButton setProfileUpdated={setProfileUpdated} showText={false} />
+          </div>
           <Avatar className="relative w-32 md:w-48 h-32 md:h-48 rounded-xs ring-3 ring-secondary/50 bg-accent/10">
             <AvatarImage
               src={user.photoURL}
