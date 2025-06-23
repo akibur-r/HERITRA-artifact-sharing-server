@@ -160,12 +160,12 @@ const AllArtifacts = () => {
               </main>
 
               <footer>
-                <Pagination>
+                <Pagination className="flex-col items-center justify-center gap-y-2">
                   <PaginationContent className="space-x-2">
                     <PaginationItem>
                       <PaginationPrevious onClick={handlePrev} />
                     </PaginationItem>
-                    <PaginationItem className="space-x-2">
+                    <PaginationItem className="flex gap-x-1 flex-wrap justify-center">
                       {pages.map((page) => (
                         <PaginationLink
                           onClick={() => handleCurrentPage(page)}
@@ -178,27 +178,26 @@ const AllArtifacts = () => {
                     <PaginationItem>
                       <PaginationNext onClick={handleNext} />
                     </PaginationItem>
-
-                    <PaginationItem>
-                      <Select
-                        value={artifactsPerPage}
-                        onValueChange={handlePerPageValueChange}
-                      >
-                        <SelectTrigger className="border-none">
-                          View:{" "}
-                          {artifactsPerPage === artifactsCount + 1
-                            ? "All"
-                            : artifactsPerPage}
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value={3}>3</SelectItem>
-                          <SelectItem value={6}>6</SelectItem>
-                          <SelectItem value={9}>9</SelectItem>
-                          <SelectItem value={0}>All</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </PaginationItem>
                   </PaginationContent>
+                  <div>
+                    <Select
+                      value={artifactsPerPage}
+                      onValueChange={handlePerPageValueChange}
+                    >
+                      <SelectTrigger className="border-none">
+                        View:{" "}
+                        {artifactsPerPage === artifactsCount + 1
+                          ? "All"
+                          : artifactsPerPage}
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value={3}>3</SelectItem>
+                        <SelectItem value={6}>6</SelectItem>
+                        <SelectItem value={9}>9</SelectItem>
+                        <SelectItem value={0}>All</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
                 </Pagination>
               </footer>
             </section>
