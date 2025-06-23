@@ -49,6 +49,14 @@ const UpdateBasicInfoButton = ({ showText = true, setProfileUpdated }) => {
         photoURL: photoURL,
       };
 
+      if (name === user.displayName && photoURL === user.photoURL) {
+        toast.warning("Not Saved.", {
+          description: "You did not make any change.",
+        });
+
+        return;
+      }
+
       const validUrlRegex =
         /^https?:\/\/(www\.)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/[^\s]*)?$/;
       const validPhoneNumberRegex = /^$|^\+?[0-9]+$/;
@@ -173,9 +181,7 @@ const UpdateBasicInfoButton = ({ showText = true, setProfileUpdated }) => {
                   id="phoneNumber"
                   type="text"
                   placeholder="Your Phone Number"
-                  defaultValue={
-                    user.phoneNumber ? user.phoneNumber : "Not Added"
-                  }
+                  defaultValue={user.phoneNumber ? user.phoneNumber : ""}
                   disabled
                 />
               </div>
