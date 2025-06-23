@@ -76,7 +76,9 @@ The application is built in response of the need to create a simple and accessib
 - Like/Unlike an artifact
 - See all liked artifacts
 - See all artifacts that they added
-- View self profile details
+- View personal profile details
+- Update personal profile details
+- Delete profile
 </details>
 
 ## <p style="color: #b89c72">Behind the Scene</p>
@@ -85,12 +87,14 @@ The application is built in response of the need to create a simple and accessib
 - If the users try to access any invalid route, a stylish error page is displayed.
 - Users can change their added information on the site only (secured by axios and access tokens).
 - Once a user deletes an artifact, all the likes from all users are removed.
+- The upload time in artifact details page is displayed relative to current time.
 
 ###
 
 - Like button and like count is updated upon interaction.
 - Deleting takes two step confirmation.
 - Updating is done only when anything is changed.
+- Upon deleting user profile, all data related to that user is also deleted from the server.
 - <p style="color: #ff7c00">A custom loading animation (.gif) is used in all loading scenerios.</p>
 
 #### In the Backend
