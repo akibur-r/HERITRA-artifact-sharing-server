@@ -218,12 +218,28 @@ async function run() {
     );
 
     // artifacts related queries ---------------------
+
+    // get artifacts count
+    app.get("/artifactsCount", async (req, res) => {
+      const searchByNameQuery = req.query.searchQuery;
+      queryRegex = new RegExp(searchByNameQuery, "i");
+
+      const count = await artifactsCollection.countDocuments({
+        name: { $regex: queryRegex },
+      });
+
+      res.send(count);
+    });
+
     // get artifacts api
     app.get("/artifacts", async (req, res) => {
       const limit = Number(req.query.limit) || 0;
       const sort_by = req.query.sort_by;
       const searchByNameQuery = req.query.name;
       const user_email = req.query.user_email;
+
+      const currentPage = parseInt(req.query.currentPage) || 0;
+      const skip = currentPage * limit;
 
       const sort = {};
       const query = {};
@@ -243,6 +259,7 @@ async function run() {
       const result = await artifactsCollection
         .find(query)
         .sort(sort)
+        .skip(skip)
         .limit(limit)
         .toArray();
 
