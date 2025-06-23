@@ -8,12 +8,20 @@ const useArtifactsApi = () => {
   // get apis
 
   const getArtifactsCountPromise = (searchQuery = "") => {
-    return axiosOpen.get(`/artifactsCount?searchQuery=${searchQuery}`).then((res) => res.data);
+    return axiosOpen
+      .get(`/artifactsCount?searchQuery=${searchQuery}`)
+      .then((res) => res.data);
   };
 
-  const getArtifactsByPagePromise = (artifactsPerPage, currentPage, searchQuery="") => {
+  const getArtifactsByPagePromise = (
+    artifactsPerPage,
+    currentPage,
+    searchQuery = ""
+  ) => {
     return axiosOpen
-      .get(`/artifacts?limit=${artifactsPerPage}&currentPage=${currentPage}&name=${searchQuery}`)
+      .get(
+        `/artifacts?limit=${artifactsPerPage}&currentPage=${currentPage}&name=${searchQuery}`
+      )
       .then((res) => res.data);
   };
 
@@ -21,14 +29,6 @@ const useArtifactsApi = () => {
     return axiosOpen.get(`/artifacts?limit=6&sort_by=likeCount`).then((res) => {
       return res.data;
     });
-  };
-
-  const getAllArtifactsPromise = () => {
-    return axiosOpen.get("/artifacts").then((res) => res.data);
-  };
-
-  const getArtifactsBySearchPromise = (query) => {
-    return axiosOpen.get(`/artifacts?name=${query}`).then((res) => res.data);
   };
 
   const getArtifactsByEmailPromise = (user_email) => {
@@ -63,12 +63,10 @@ const useArtifactsApi = () => {
     getArtifactsByPagePromise,
     topSixArtifactsPromise,
     addArtifactPromise,
-    getAllArtifactsPromise,
     getOneArtifactPromise,
     getArtifactsByEmailPromise,
     deleteArtifactPromise,
     updateArtifactPromise,
-    getArtifactsBySearchPromise,
   };
 };
 

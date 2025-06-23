@@ -70,17 +70,17 @@ const AllArtifacts = () => {
   useEffect(() => {
     setArtifactsLoading(true);
 
-    const searchQuery = searchQueryRef.current.value;
-
-    getArtifactsByPagePromise(artifactsPerPage, currentPage, searchQuery)
+    getArtifactsByPagePromise(artifactsPerPage, currentPage)
       .then((res) => {
         setArtifacts(res);
+        setArtifactsLoading(false);
       })
       .catch(() => {
+        setArtifactsLoading(false);
         // console.log("error");
-      })
-      .finally(setArtifactsLoading(false));
-  }, [currentPage, artifactsPerPage, searching]);
+      });
+    // .finally(setArtifactsLoading(false));
+  }, [currentPage, artifactsPerPage]);
 
   // handling search query
   const handleSearch = () => {
@@ -91,6 +91,15 @@ const AllArtifacts = () => {
     getArtifactsCountPromise(searchQuery).then((res) => {
       setArtifactsCount(res);
     });
+
+    getArtifactsByPagePromise(artifactsPerPage, currentPage, searchQuery)
+      .then((res) => {
+        setArtifacts(res);
+      })
+      .catch(() => {
+        // console.log("error");
+      })
+      .finally(setArtifactsLoading(false));
   };
 
   const handleCurrentPage = (pageNumber) => {
@@ -110,7 +119,7 @@ const AllArtifacts = () => {
     if (val) {
       setArtifactsPerPage(val);
     } else {
-      setArtifactsPerPage(artifactsCount);
+      setArtifactsPerPage(artifactsCount + 1);
     }
   };
 
@@ -177,14 +186,14 @@ const AllArtifacts = () => {
                       >
                         <SelectTrigger className="border-none">
                           View:{" "}
-                          {artifactsPerPage === artifactsCount
+                          {artifactsPerPage === artifactsCount + 1
                             ? "All"
                             : artifactsPerPage}
                         </SelectTrigger>
                         <SelectContent>
                           <SelectItem value={3}>3</SelectItem>
                           <SelectItem value={6}>6</SelectItem>
-                          <SelectItem value={12}>12</SelectItem>
+                          <SelectItem value={9}>9</SelectItem>
                           <SelectItem value={0}>All</SelectItem>
                         </SelectContent>
                       </Select>
