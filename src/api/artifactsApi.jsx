@@ -6,6 +6,17 @@ const useArtifactsApi = () => {
   const axiosOpen = useAxiosOpen();
 
   // get apis
+
+  const getArtifactsCountPromise = (searchQuery = "") => {
+    return axiosOpen.get(`/artifactsCount?searchQuery=${searchQuery}`).then((res) => res.data);
+  };
+
+  const getArtifactsByPagePromise = (artifactsPerPage, currentPage, searchQuery="") => {
+    return axiosOpen
+      .get(`/artifacts?limit=${artifactsPerPage}&currentPage=${currentPage}&name=${searchQuery}`)
+      .then((res) => res.data);
+  };
+
   const topSixArtifactsPromise = () => {
     return axiosOpen.get(`/artifacts?limit=6&sort_by=likeCount`).then((res) => {
       return res.data;
@@ -48,6 +59,8 @@ const useArtifactsApi = () => {
   };
 
   return {
+    getArtifactsCountPromise,
+    getArtifactsByPagePromise,
     topSixArtifactsPromise,
     addArtifactPromise,
     getAllArtifactsPromise,

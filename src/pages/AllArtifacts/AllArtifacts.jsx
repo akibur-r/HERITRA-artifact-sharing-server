@@ -10,45 +10,108 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+
+import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination";
+
+import { useEffect, useState } from "react";
+
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+} from "@/components/ui/select";
 import useDynamicTitle from "@/hooks/useDynamicTitle";
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 import { BiErrorCircle, BiInfoCircle } from "react-icons/bi";
 import { Link } from "react-router";
 
 const AllArtifacts = () => {
   useDynamicTitle("Artifacts Collection");
-  const { getAllArtifactsPromise, getArtifactsBySearchPromise } =
-    useArtifactsApi();
+  const {
+    getArtifactsCountPromise,
+    getArtifactsByPagePromise,
+    getAllArtifactsPromise,
+    getArtifactsBySearchPromise,
+  } = useArtifactsApi();
   const [artifacts, setArtifacts] = useState([]);
   const [artifactsLoading, setArtifactsLoading] = useState(false);
   const [searching, setSearching] = useState("");
 
+  const [artifactsCount, setArtifactsCount] = useState(0);
+  const [artifactsPerPage, setArtifactsPerPage] = useState(6);
+  const [currentPage, setCurrentPage] = useState(0);
+  const totalPages = Math.ceil(artifactsCount / artifactsPerPage);
+  const pages = [...Array(totalPages).keys()];
+
   const searchQueryRef = useRef();
 
+  // loading the number of artifacts in the server by default
   useEffect(() => {
     setArtifactsLoading(true);
 
-    getAllArtifactsPromise()
-      .then((data) => {
-        setArtifacts(data);
-        setArtifactsLoading(false);
-      })
-      .catch(() => {
-        // console.log("error");
-        setArtifactsLoading(false);
-      });
-  }, []);
-
-  const handleSearch = () => {
-    const searchQuery = searchQueryRef.current.value;
-    setSearching(searchQuery);
-    getArtifactsBySearchPromise(searchQuery)
+    getArtifactsCountPromise()
       .then((res) => {
-        setArtifacts(res);
+        setArtifactsCount(res);
       })
       .catch((err) => {
         // console.log(err);
       });
+  }, []);
+
+  // loading artifacts by page and search
+  useEffect(() => {
+    setArtifactsLoading(true);
+
+    const searchQuery = searchQueryRef.current.value;
+
+    getArtifactsByPagePromise(artifactsPerPage, currentPage, searchQuery)
+      .then((res) => {
+        setArtifacts(res);
+      })
+      .catch(() => {
+        // console.log("error");
+      })
+      .finally(setArtifactsLoading(false));
+  }, [currentPage, artifactsPerPage, searching]);
+
+  // handling search query
+  const handleSearch = () => {
+    setCurrentPage(0);
+    const searchQuery = searchQueryRef.current.value;
+    setSearching(searchQuery);
+
+    getArtifactsCountPromise(searchQuery).then((res) => {
+      setArtifactsCount(res);
+    });
+  };
+
+  const handleCurrentPage = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
+  const handleNext = () => {
+    setCurrentPage(Math.min(currentPage + 1, totalPages - 1));
+  };
+
+  const handlePrev = () => {
+    setCurrentPage(Math.max(currentPage - 1, 0));
+  };
+
+  const handlePerPageValueChange = (val) => {
+    setCurrentPage(0);
+    if (val) {
+      setArtifactsPerPage(val);
+    } else {
+      setArtifactsPerPage(artifactsCount);
+    }
   };
 
   return (
@@ -79,55 +142,100 @@ const AllArtifacts = () => {
 
           <Separator />
 
-          <main className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-            {artifacts.length ? (
-              artifacts.map((artifact) => (
-                <ArtifactCard key={artifact._id} artifact={artifact} />
-              ))
-            ) : searching ? (
-              <>
-                <Alert variant={"destructive"}>
-                  <BiErrorCircle />
-                  <AlertTitle>Nothing Found!</AlertTitle>
-                  <AlertDescription>
-                    <p>
-                      We couldn't find anything matching your query in our
-                      server. Try a different search.
-                    </p>
-                    <p className="text-foreground/70">
-                      Note: Searches work only on the artifact names.
-                    </p>
-                  </AlertDescription>
-                </Alert>
-              </>
-            ) : (
-              <>
-                <Alert variant={"default"}>
-                  <BiInfoCircle />
-                  <AlertTitle className="text-lg">
-                    No artifact available.
-                  </AlertTitle>
-                  <AlertDescription>
-                    <p>Artifacts will eventually appear here.</p>
-                    <Tooltip>
-                      <TooltipTrigger>
-                        <p className="text-foreground/70">
-                          try{" "}
-                          <Link to={"/add-artifact"} className="underline">
-                            Adding an artifact
-                          </Link>
-                          .
-                        </p>
-                      </TooltipTrigger>
-                      <TooltipContent side="bottom">
-                        <p>Click to add an artifact.</p>
-                      </TooltipContent>
-                    </Tooltip>
-                  </AlertDescription>
-                </Alert>
-              </>
-            )}
-          </main>
+          {artifacts.length ? (
+            <section className="space-y-3">
+              <main className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                {artifacts.map((artifact) => (
+                  <ArtifactCard key={artifact._id} artifact={artifact} />
+                ))}
+              </main>
+
+              <footer>
+                <Pagination>
+                  <PaginationContent className="space-x-2">
+                    <PaginationItem>
+                      <PaginationPrevious onClick={handlePrev} />
+                    </PaginationItem>
+                    <PaginationItem className="space-x-2">
+                      {pages.map((page) => (
+                        <PaginationLink
+                          onClick={() => handleCurrentPage(page)}
+                          isActive={page === currentPage}
+                        >
+                          {page + 1}
+                        </PaginationLink>
+                      ))}
+                    </PaginationItem>
+                    <PaginationItem>
+                      <PaginationNext onClick={handleNext} />
+                    </PaginationItem>
+
+                    <PaginationItem>
+                      <Select
+                        value={artifactsPerPage}
+                        onValueChange={handlePerPageValueChange}
+                      >
+                        <SelectTrigger className="border-none">
+                          View:{" "}
+                          {artifactsPerPage === artifactsCount
+                            ? "All"
+                            : artifactsPerPage}
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value={3}>3</SelectItem>
+                          <SelectItem value={6}>6</SelectItem>
+                          <SelectItem value={12}>12</SelectItem>
+                          <SelectItem value={0}>All</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </PaginationItem>
+                  </PaginationContent>
+                </Pagination>
+              </footer>
+            </section>
+          ) : searching ? (
+            <main className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+              <Alert variant={"destructive"}>
+                <BiErrorCircle />
+                <AlertTitle>Nothing Found!</AlertTitle>
+                <AlertDescription>
+                  <p>
+                    We couldn't find anything matching your query in our server.
+                    Try a different search.
+                  </p>
+                  <p className="text-foreground/70">
+                    Note: Searches work only on the artifact names.
+                  </p>
+                </AlertDescription>
+              </Alert>
+            </main>
+          ) : (
+            <main className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+              <Alert variant={"default"}>
+                <BiInfoCircle />
+                <AlertTitle className="text-lg">
+                  No artifact available.
+                </AlertTitle>
+                <AlertDescription>
+                  <p>Artifacts will eventually appear here.</p>
+                  <Tooltip>
+                    <TooltipTrigger>
+                      <p className="text-foreground/70">
+                        try{" "}
+                        <Link to={"/add-artifact"} className="underline">
+                          Adding an artifact
+                        </Link>
+                        .
+                      </p>
+                    </TooltipTrigger>
+                    <TooltipContent side="bottom">
+                      <p>Click to add an artifact.</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </AlertDescription>
+              </Alert>
+            </main>
+          )}
         </main>
       )}
     </section>
