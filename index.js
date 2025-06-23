@@ -217,6 +217,24 @@ async function run() {
       }
     );
 
+    // [secured] delete a user
+    app.delete("/users", verifyToken, async (req, res) => {
+      try {
+        const user_email = req.headers?.user_email;
+        await artifactsCollection.deleteMany({
+          userEmail: user_email,
+        });
+
+        await usersCollection.deleteOne({
+          email: user_email,
+        });
+
+        res.send(true);
+      } catch (error) {
+        res.send(error);
+      }
+    });
+
     // artifacts related queries ---------------------
 
     // get artifacts count
