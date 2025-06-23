@@ -6,6 +6,7 @@ import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
 import useAuth from "@/hooks/useAuth";
 import { useEffect, useState } from "react";
 import UpdateBasicInfoButton from "../UpdateBasicInfoButton/UpdateBasicInfoButton";
+import DeleteUserButton from "../DeleteUserButton/DeleteUserButton";
 
 const BasicProfileInfo = () => {
   const [basicProfileInfoLoading, setBasicProfileInfoLoading] = useState(false);
@@ -37,7 +38,10 @@ const BasicProfileInfo = () => {
       ) : (
         <div className="flex flex-col gap-4 justify-center items-center my-4 relative">
           <div className="absolute top-0 right-0 z-10">
-            <UpdateBasicInfoButton setProfileUpdated={setProfileUpdated} showText={false} />
+            <UpdateBasicInfoButton
+              setProfileUpdated={setProfileUpdated}
+              showText={false}
+            />
           </div>
           <Avatar className="relative w-32 md:w-48 h-32 md:h-48 rounded-xs ring-3 ring-secondary/50 bg-accent/10">
             <AvatarImage
@@ -91,6 +95,15 @@ const BasicProfileInfo = () => {
                   </TableRow>
                 </TableBody>
               </Table>
+            </div>
+          </div>
+
+          <div className="w-full space-y-2">
+            <h3 className="font-cinzel text-destructive">Danger Zone</h3>
+            <Separator />
+            <div>
+              <span className="text-destructive">Delete Account: </span>
+              <DeleteUserButton showText={false}/>
             </div>
           </div>
         </div>

@@ -87,8 +87,9 @@ const ArtifactDeleteButton = ({
         <DialogHeader>
           <DialogTitle>Are you absolutely sure?</DialogTitle>
           <DialogDescription className="max-w-sm">
-            This action cannot be undone. This will permanently delete your
-            account and remove your data from our servers.
+            This action cannot be undone. This will permanently delete{" "}
+            <span className="text-accent font-semibold">{artifact.name}</span>{" "}
+            from our servers.
           </DialogDescription>
         </DialogHeader>
 

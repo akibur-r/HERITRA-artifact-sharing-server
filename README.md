@@ -86,6 +86,7 @@ The application is built in response of the need to create a simple and accessib
 - See all artifacts that they added
 - View personal profile details
 - Update personal profile details
+- Delete profile
 </details>
 
 ## <p style="color: #b89c72">Behind the Scene</p>
@@ -101,4 +102,5 @@ The application is built in response of the need to create a simple and accessib
 - Like button and like count is updated upon interaction.
 - Deleting takes two step confirmation.
 - Updating is done only when anything is changed.
+- Upon deleting user profile, all data related to that user is also deleted from the server.
 - <p style="color: #ff7c00">A custom loading animation (.gif) is used in all loading scenerios.</p>

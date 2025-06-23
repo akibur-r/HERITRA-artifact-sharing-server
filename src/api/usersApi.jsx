@@ -30,11 +30,17 @@ const useUsersApi = () => {
       .then((res) => res.data);
   };
 
+  // delete apis
+  const deleteUserPromise = () => {
+    return axiosSecure.delete("/users").then((res) => res.data);
+  };
+
   return {
     getUserInfoPromise,
     checkIfLikedPromise,
     updateLikePromise,
     getLikedArtifacts,
+    deleteUserPromise,
   };
 };
 

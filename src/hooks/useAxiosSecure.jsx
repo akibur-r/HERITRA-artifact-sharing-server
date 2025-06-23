@@ -1,24 +1,21 @@
 import axios from "axios";
-import { useEffect } from "react";
 import useAuth from "./useAuth";
 import { baseURL } from "@/utils/baseURL";
-
-const axiosInstance = axios.create({
-  baseURL: baseURL,
-});
 
 const useAxiosSecure = () => {
   const { user } = useAuth();
 
-  useEffect(() => {
+  const axiosInstance = axios.create({
+    baseURL,
+  });
+
+  axiosInstance.interceptors.request.use((config) => {
     if (user) {
-      axiosInstance.interceptors.request.use((config) => {
-        config.headers.authorization = `Bearer ${user.accessToken}`;
-        config.headers.user_email = user.email;
-        return config;
-      });
+      config.headers.authorization = `Bearer ${user.accessToken}`;
+      config.headers.user_email = user.email;
     }
-  }, [user]);
+    return config;
+  });
 
   return axiosInstance;
 };
