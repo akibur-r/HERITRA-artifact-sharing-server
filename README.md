@@ -17,6 +17,7 @@
 <details open="open">
 <summary><h3>Table of Contents</h3></summary>
 
+- [How to](#how-to-run-this-project)
 - [About](#about)
   - [Purpose](#purpose)
   - [Built With](#built-with)
@@ -102,3 +103,19 @@ The application is built in response of the need to create a simple and accessib
 - Every sensitive api is protected via a auth verifier middleware.
 - Every artifact is formatted before adding to the database via middleware.
 - Default sorting order of getting artifacts is newest first.
+
+## How to Run This Project
+
+Open your command line and follow these commands:
+
+```javascript
+git clone https://github.com/akibur-r/HERITRA-artifact-sharing-server.git
+```
+
+```javascript
+cd HERITRA-artifact-sharing-server
+npm install
+npm run dev
+```
+
+> Note: You'll need MongoDB user credentials in a .env file in the root folder.
