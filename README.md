@@ -120,7 +120,7 @@ npm install
 npm run dev
 ```
 
-> Note: You'll need firebase authentication credentials in a .inv.local file in the root folder.
+> Note: You'll need firebase authentication credentials in a .env.local file in the root folder.
 
 #### To run with your own backend server, follow the How to guide in <a href="https://github.com/akibur-r/HERITRA-artifact-sharing-server">https://github.com/akibur-r/HERITRA-artifact-sharing-server</a>
 > change the baseURL once you run the backend server.
