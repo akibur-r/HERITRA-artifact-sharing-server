@@ -17,6 +17,7 @@
 <details open="open">
 <summary><h3>Table of Contents</h3></summary>
 
+- [How to](#how-to-run-this-project)
 - [About](#about)
   - [Purpose](#purpose)
   - [Built With](#built-with)
@@ -104,3 +105,22 @@ The application is built in response of the need to create a simple and accessib
 - Updating is done only when anything is changed.
 - Upon deleting user profile, all data related to that user is also deleted from the server.
 - <p style="color: #ff7c00">A custom loading animation (.gif) is used in all loading scenerios.</p>
+
+## How to Run This Project
+
+Open your command line and follow these commands:
+
+```javascript
+git clone https://github.com/akibur-r/HERITRA-artifact-sharing-client.git
+```
+
+```javascript
+cd HERITRA-artifact-sharing-client
+npm install
+npm run dev
+```
+
+> Note: You'll need firebase authentication credentials in a .inv.local file in the root folder.
+
+#### To run with your own backend server, follow the How to guide in <a href="https://github.com/akibur-r/HERITRA-artifact-sharing-server">https://github.com/akibur-r/HERITRA-artifact-sharing-server</a>
+> change the baseURL once you run the backend server.
