@@ -39,7 +39,7 @@ const SwiperSlider = () => {
   ];
 
   return (
-    <div className="h-[70vh] md:h-[80vh] w-full overflow-hidden px-4 lg:px-12 bg-amber-400/10 dark:bg-amber-600/10">
+    <div className="h-[65vh] md:h-[50vh] lg:h-[75vh] w-full overflow-hidden px-4 lg:px-12 bg-amber-400/10 dark:bg-amber-600/10">
       <Swiper
         direction="vertical"
         slidesPerView={1}
@@ -55,17 +55,17 @@ const SwiperSlider = () => {
       >
         {swiperItems.map((item) => (
           <SwiperSlide key={item.title} className="overflow-hidden">
-            <div className="flex flex-col-reverse md:flex-col lg:flex-row items-center justify-center h-full w-full ">
+            <div className="flex flex-col-reverse md:flex-col lg:flex-row items-center justify-center h-full w-full max-w-screen-xl mx-auto px-4 ">
               <div className="space-y-4">
                 <h1 className="text-3xl md:text-4xl lg:text-6xl font-cinzel max-w-lg">
                   {item.title}
                 </h1>
-                <p className="px-6 mb-6 md:mb-0 border-l-4 border-l-primary md:w-7/12">
+                <p className="px-6 mb-6 md:mb-0 border-l-4 text-sm md:text-md border-l-primary md:w-7/12">
                   {item.subtitle}
                 </p>
               </div>
-              <div className="h-full max-h-64 md:max-h-128">
-                <img src={item.image} className="h-full aspect-square" alt="" />
+              <div className="h-full max-h-64 md:max-h-72 lg:max-h-128">
+                <img src={item.image} className="h-full aspect-square object-contain" alt="" />
               </div>
               <div className="absolute -z-10 opacity-10">
                 <img src={item.image} className="h-full" alt="" />
