@@ -124,7 +124,7 @@ const AllArtifacts = () => {
   };
 
   return (
-    <section className="flex flex-col gap-4 justify-center items-center my-10 max-w-screen-xl mx-auto px-4">
+    <section className="flex flex-col gap-4 justify-start items-center my-10 max-w-screen-xl mx-auto px-4">
       <header className="max-w-sm text-center">
         <h2 className="text-3xl font-cinzel font-bold">All Artifacts</h2>
         <p className="text-sm">Explore the ancient marvels</p>

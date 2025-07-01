@@ -139,3 +139,7 @@
   text-decoration: underline;
   color: var(--primary);
 }
+
+.main > * {
+  width: 100%;
+}

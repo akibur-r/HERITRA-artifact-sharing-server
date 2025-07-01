@@ -6,10 +6,12 @@ import { Outlet } from "react-router";
 const RootLayout = () => {
   return (
     <div className="bg-background font-dm-sans relative">
-      <Navbar />
-      <main>
-        <Outlet />
-      </main>
+      <div className="min-h-screen flex flex-col">
+        <Navbar />
+        <main className="flex-1 flex main">
+          <Outlet />
+        </main>
+      </div>
       <Footer />
       <Toaster position="top-right" richColors />
     </div>
