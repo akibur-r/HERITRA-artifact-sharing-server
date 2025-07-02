@@ -6,7 +6,7 @@ const BlogCard = ({ blog, orientation = "l-to-r" }) => {
   const titleAlignment = isLTR ? "md:justify-start" : "md:justify-end";
 
   return (
-    <Card className="rounded-none shadow-none bg-transparent">
+    <Card className="rounded-none shadow-none bg-secondary">
       <CardHeader>
         <CardTitle className={`font-cinzel flex flex-col md:flex-row items-center gap-2 ${titleAlignment}`}>
           <span>{blog.title}</span>
@@ -25,7 +25,7 @@ const BlogCard = ({ blog, orientation = "l-to-r" }) => {
         <div className="hidden lg:block h-full w-56">
           <img
             className="h-full w-full object-cover rounded-sm border border-primary/20"
-            src="https://i.postimg.cc/59v3kGcf/blog.png"
+            src={blog.image}
             alt="Blog"
           />
         </div>

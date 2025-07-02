@@ -9,6 +9,10 @@ const navItemsData = [
     name: "Explore",
     url: "/artifacts",
   },
+  {
+    name: "Learn",
+    url: "/learn",
+  },
 ];
 
 export const navItems = navItemsData.map((item) => (

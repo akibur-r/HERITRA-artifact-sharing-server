@@ -45,7 +45,7 @@ const FeaturedArtifacts = () => {
       )}
 
       <footer className="flex justify-center">
-        <Link to={"/all-artifacts"}>
+        <Link to={"/artifacts"}>
           <Button variant={"secondary"} className="cursor-pointer font-cinzel">
             See All
           </Button>

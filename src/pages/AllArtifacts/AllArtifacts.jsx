@@ -78,8 +78,12 @@ const AllArtifacts = () => {
       .catch(() => {
         setArtifactsLoading(false);
         // console.log("error");
-      });
-    // .finally(setArtifactsLoading(false));
+      })
+      .finally(
+        window.scrollTo({
+          top: 0,
+        })
+      );
   }, [currentPage, artifactsPerPage]);
 
   // handling search query

@@ -2,6 +2,7 @@ import RootLayout from "@/layouts/RootLayout";
 import AddArtifact from "@/pages/AddArtifact/AddArtifact";
 import AllArtifacts from "@/pages/AllArtifacts/AllArtifacts";
 import ArtifactDetails from "@/pages/ArtifactDetails/ArtifactDetails";
+import BlogPage from "@/pages/BlogPage/BlogPage";
 import ErrorPage from "@/pages/ErrorPage/ErrorPage";
 import HomePage from "@/pages/HomePage/HomePage";
 import LikedArtifactsPage from "@/pages/LikedArtifacts/LikedArtifactsPage";
@@ -24,6 +25,10 @@ export const router = createBrowserRouter([
       {
         path: "/artifacts",
         Component: AllArtifacts,
+      },
+      {
+        path: "/learn",
+        Component: BlogPage,
       },
       {
         path: "/my-artifacts",

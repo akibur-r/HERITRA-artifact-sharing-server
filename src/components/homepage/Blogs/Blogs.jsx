@@ -1,17 +1,9 @@
+import blogs from "@/assets/docs/blogsList.json";
 import BlogCard from "@/components/shared/blogCard/BlogCard";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router";
 
 const Blogs = () => {
-  const blog = {
-    title: "Glossary of Terms",
-    description:
-      "Confused by words like stratigraphy or provenance? This glossary breaks down common archaeological and historical terms to help you better understand the artifacts you explore on Heritra.",
-    image: "/images/blogs/glossary.jpg",
-    author: "Heritra Editorial",
-    publishedDate: "2025-06-16",
-    category: "help",
-  };
-
   return (
     <section className="bg-secondary py-10 my-10">
       <div className="max-w-screen-xl mx-auto px-4 space-y-6">
@@ -21,17 +13,21 @@ const Blogs = () => {
         </header>
 
         <main className="space-y-4">
-          <BlogCard blog={blog}/>
-          <BlogCard blog={blog} orientation="r-to-l"/>
+          {blogs.slice(0, 2).map((blog, idx) => (
+            <BlogCard
+              key={idx}
+              blog={blog}
+              orientation={idx === 1 ? "r-to-l" : "l-to-r"}
+            />
+          ))}
         </main>
 
         <footer className="flex justify-center">
-          <Button
-            variant={"outline"}
-            className="cursor-pointer font-cinzel"
-          >
-            Explore More
-          </Button>
+          <Link to={'/learn'}>
+            <Button variant={"outline"} className="cursor-pointer font-cinzel">
+              Explore More
+            </Button>
+          </Link>
         </footer>
       </div>
     </section>

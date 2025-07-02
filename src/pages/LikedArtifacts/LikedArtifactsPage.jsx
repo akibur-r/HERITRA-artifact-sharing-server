@@ -52,7 +52,7 @@ const LikedArtifactsPage = () => {
   // console.log(artifacts);
 
   return (
-    <section className="flex flex-col gap-4 justify-center items-center my-10 max-w-screen-xl mx-auto px-4">
+    <section className="flex flex-col gap-4 items-center my-10 max-w-screen-xl mx-auto px-4">
       {artifactsLoading ? (
         <div className="h-48">
           <LoaderLogoSpinner />
@@ -95,7 +95,7 @@ const LikedArtifactsPage = () => {
         </>
       ) : (
         <>
-          <Card className="w-full max-w-sm text-center bg-accent/5">
+          <Card className="w-full my-auto max-w-sm text-center bg-accent/5">
             <CardHeader>
               <div className="flex justify-center">
                 <BsHeartbreak className="text-5xl text-accent" />
@@ -110,7 +110,7 @@ const LikedArtifactsPage = () => {
               </CardDescription>
             </CardContent>
             <CardFooter className="flex-col gap-2">
-              <Link to={"/all-artifacts"} className="w-full">
+              <Link to={"/artifacts"} className="w-full">
                 <Button variant={"outline"} className="w-full text-primary">
                   Browse Artifacts
                 </Button>

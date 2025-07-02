@@ -52,7 +52,7 @@ const MyArtifactsPage = ({ showHeader = true }) => {
 
   return (
     <section
-      className={`flex flex-col gap-4 justify-center items-center ${
+      className={`flex flex-col gap-4 items-center ${
         showHeader && "my-10 max-w-screen-xl mx-auto px-4"
       }`}
     >
@@ -100,7 +100,7 @@ const MyArtifactsPage = ({ showHeader = true }) => {
         </>
       ) : (
         <>
-          <Card className="w-full max-w-sm text-center bg-destructive/5">
+          <Card className="w-full my-auto max-w-sm text-center bg-destructive/5">
             <CardHeader>
               <div className="flex justify-center">
                 <BiXCircle className="text-6xl text-destructive" />

@@ -1,0 +1,34 @@
+[
+  {
+    "title": "Glossary of Terms",
+    "description": "Confused by words like stratigraphy or provenance? This glossary breaks down common archaeological and historical terms to help you better understand the artifacts you explore on Heritra.",
+    "image": "https://i.postimg.cc/59v3kGcf/blog.png",
+    "author": "Heritra Editorial",
+    "publishedDate": "2025-06-16",
+    "category": "help"
+  },
+  {
+    "title": "Understanding Stratigraphy",
+    "description": "Stratigraphy can be confusing, but this guide unpacks the layers of archaeological digs so you can better grasp how artifacts are found and dated.",
+    "image": "https://i.postimg.cc/SN2SsgJh/image.png",
+    "author": "Dr. Lena Morrison",
+    "publishedDate": "2025-06-20",
+    "category": "archaeology"
+  },
+  {
+    "title": "What is Provenance?",
+    "description": "Provenance helps trace where artifacts came from. Learn how this concept ensures historical accuracy and reveals an object’s journey through time.",
+    "image": "https://i.postimg.cc/CxbwCdGr/image.png",
+    "author": "Heritra Research Team",
+    "publishedDate": "2025-06-22",
+    "category": "history"
+  },
+  {
+    "title": "Decoding Artifact Labels",
+    "description": "Artifact labels may look cryptic, but they tell a detailed story. This post explains how museums use numbers and codes to catalog objects.",
+    "image": "https://i.postimg.cc/Xv83hhDw/image.png",
+    "author": "Museum Insights",
+    "publishedDate": "2025-06-25",
+    "category": "collections"
+  }
+]
