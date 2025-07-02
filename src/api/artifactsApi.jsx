@@ -16,11 +16,13 @@ const useArtifactsApi = () => {
   const getArtifactsByPagePromise = (
     artifactsPerPage,
     currentPage,
-    searchQuery = ""
+    searchQuery = "",
+    sortingValue = "",
+    sortingOrder = 1
   ) => {
     return axiosOpen
       .get(
-        `/artifacts?limit=${artifactsPerPage}&currentPage=${currentPage}&name=${searchQuery}`
+        `/artifacts?limit=${artifactsPerPage}&currentPage=${currentPage}&name=${searchQuery}&sort_by=${sortingValue}&order=${sortingOrder}`
       )
       .then((res) => res.data);
   };

@@ -28,6 +28,8 @@ import {
   SelectItem,
   SelectTrigger,
 } from "@/components/ui/select";
+
+import SortArtifact from "@/components/artifacts/sortArtifact/SortArtifact";
 import useDynamicTitle from "@/hooks/useDynamicTitle";
 import { useRef } from "react";
 import { BiErrorCircle, BiInfoCircle } from "react-icons/bi";
@@ -49,6 +51,8 @@ const ExploreArtifactsPage = () => {
   const [artifactsPerPage, setArtifactsPerPage] = useState(6);
   const [currentPage, setCurrentPage] = useState(0);
   const totalPages = Math.ceil(artifactsCount / artifactsPerPage);
+  const [sortingValue, setSortingValue] = useState("uploadDate");
+  const [sortingOrder, setSortingOrder] = useState(1);
   const pages = [...Array(totalPages).keys()];
 
   const searchQueryRef = useRef();
@@ -57,7 +61,14 @@ const ExploreArtifactsPage = () => {
   useEffect(() => {
     setArtifactsLoading(true);
 
-    getArtifactsCountPromise()
+    const searchQuery = "";
+
+    getArtifactsCountPromise(
+      artifactsPerPage,
+      currentPage,
+      sortingValue,
+      sortingOrder
+    )
       .then((res) => {
         setArtifactsCount(res);
       })
@@ -69,8 +80,15 @@ const ExploreArtifactsPage = () => {
   // loading artifacts by page and search
   useEffect(() => {
     setArtifactsLoading(true);
+    const searchQuery = "";
 
-    getArtifactsByPagePromise(artifactsPerPage, currentPage)
+    getArtifactsByPagePromise(
+      artifactsPerPage,
+      currentPage,
+      searchQuery,
+      sortingValue,
+      sortingOrder
+    )
       .then((res) => {
         setArtifacts(res);
         setArtifactsLoading(false);
@@ -84,9 +102,8 @@ const ExploreArtifactsPage = () => {
           top: 0,
         })
       );
-  }, [currentPage, artifactsPerPage]);
+  }, [currentPage, artifactsPerPage, sortingOrder, sortingValue]);
 
-  // handling search query
   const handleSearch = () => {
     setCurrentPage(0);
     const searchQuery = searchQueryRef.current.value;
@@ -96,7 +113,15 @@ const ExploreArtifactsPage = () => {
       setArtifactsCount(res);
     });
 
-    getArtifactsByPagePromise(artifactsPerPage, currentPage, searchQuery)
+    console.log(sortingValue);
+
+    getArtifactsByPagePromise(
+      artifactsPerPage,
+      currentPage,
+      searchQuery,
+      sortingValue,
+      sortingOrder
+    )
       .then((res) => {
         setArtifacts(res);
       })
@@ -139,18 +164,35 @@ const ExploreArtifactsPage = () => {
         </main>
       ) : (
         <main className="w-full space-y-4">
-          <header className="flex flex-col md:flex-row justify-center items-center gap-2">
-            <Label htmlFor="query" className="text-base">
-              Search
-            </Label>
-            <Input
-              type="text"
-              id="email"
-              placeholder="Type to search..."
-              className="w-full text-sm max-w-sm border-0 focus-visible:ring-ring/10 focus-visible:ring-[2px]"
-              ref={searchQueryRef}
-              onChange={handleSearch}
-            />
+          <header className="flex flex-col md:flex-row justify-between items-start gap-2">
+            <div className="flex flex-col md:flex-row justify-start items-center gap-2 w-full">
+              <Label htmlFor="query" className="text-base">
+                Search
+              </Label>
+              <Input
+                type="text"
+                id="email"
+                placeholder="Type to search..."
+                className="w-full text-sm max-w-sm border-0 focus-visible:ring-ring/10 focus-visible:ring-[2px]"
+                ref={searchQueryRef}
+                onChange={handleSearch}
+              />
+            </div>
+
+            <div className="w-full max-w-sm flex justify-end">
+              <SortArtifact
+                artifactState={{
+                  artifacts,
+                  setArtifacts,
+                  currentPage,
+                  artifactsPerPage,
+                  sortingValue,
+                  setSortingValue,
+                  sortingOrder,
+                  setSortingOrder,
+                }}
+              />
+            </div>
           </header>
 
           <Separator />
