@@ -253,16 +253,21 @@ async function run() {
     app.get("/artifacts", async (req, res) => {
       const limit = Number(req.query.limit) || 0;
       const sort_by = req.query.sort_by;
+      const order = req.query.order;
       const searchByNameQuery = req.query.name;
       const user_email = req.query.user_email;
 
       const currentPage = parseInt(req.query.currentPage) || 0;
       const skip = currentPage * limit;
-
+      // console.log(sort_by);
+      
       const sort = {};
       const query = {};
       if (sort_by === "likeCount") {
-        sort.likeCount = -1;
+        sort.likeCount = order;
+      }
+      else if (sort_by === "uploadDate") {
+        sort.likeCount = order;
       }
 
       if (user_email) {
