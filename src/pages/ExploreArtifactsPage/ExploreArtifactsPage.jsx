@@ -33,7 +33,7 @@ import { useRef } from "react";
 import { BiErrorCircle, BiInfoCircle } from "react-icons/bi";
 import { Link } from "react-router";
 
-const AllArtifacts = () => {
+const ExploreArtifactsPage = () => {
   useDynamicTitle("Artifacts Collection");
   const {
     getArtifactsCountPromise,
@@ -254,4 +254,4 @@ const AllArtifacts = () => {
   );
 };
 
-export default AllArtifacts;
+export default ExploreArtifactsPage;

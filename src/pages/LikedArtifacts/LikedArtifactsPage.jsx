@@ -110,7 +110,7 @@ const LikedArtifactsPage = () => {
               </CardDescription>
             </CardContent>
             <CardFooter className="flex-col gap-2">
-              <Link to={"/artifacts"} className="w-full">
+              <Link to={"/explore"} className="w-full">
                 <Button variant={"outline"} className="w-full text-primary">
                   Browse Artifacts
                 </Button>

@@ -7,7 +7,7 @@ const navItemsData = [
   },
   {
     name: "Explore",
-    url: "/artifacts",
+    url: "/explore",
   },
   {
     name: "Learn",
