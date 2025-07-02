@@ -63,9 +63,21 @@ const Footer = () => {
       <Separator className="opacity-20 bg-gray-600 dark:bg-gray-400" />
 
       {/* Bottom Strip */}
-      <div className="text-center text-sm opacity-60">
-        Copyright &copy; 2025 by Heritra Heritage Archive Inc. All Rights
-        Reserved.
+      <div className="text-center text-sm ">
+        <p className="text-neutral-700 dark:text-neutral-300 space-x-1">
+          <span>Copyright © 2025 by Heritra Heritage Archive Inc.</span>
+          <span className="hidden lg:inline">All Rights Reserved.</span>
+        </p>
+        <p className="text-neutral-800 dark:text-neutral-200 space-x-1">
+          <span>Developed with ❤️ by</span>
+          <Link
+            target="_blank"
+            to={"https://akibur.web.app/"}
+            className="font-semibold underline"
+          >
+            Akib
+          </Link>
+        </p>
       </div>
     </footer>
   );
