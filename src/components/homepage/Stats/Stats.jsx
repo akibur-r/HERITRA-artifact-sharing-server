@@ -45,7 +45,7 @@ const Stats = () => {
         <h1 className="font-cinzel text-2xl font-medium">By the Numbers</h1>
         <p className="opacity-70">Heritra at a glance</p>
       </header>
-      <main className="grid grid-cols-2 md:grid-cols-4">
+      <main className="grid grid-cols-2 md:grid-cols-4 overflow-hidden">
         {stats.map((stat, i) => (
           <motion.div
             key={i}
@@ -62,7 +62,7 @@ const Stats = () => {
                 {stat.label}
               </div>
             </div>
-            <Separator orientation="vertical" className="hidden md:block" />
+            {i> 0 && <Separator orientation="vertical" className="-translate-y-full hidden md:block"/>}
           </motion.div>
         ))}
       </main>
