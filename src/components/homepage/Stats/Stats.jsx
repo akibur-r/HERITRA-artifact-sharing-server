@@ -30,20 +30,20 @@ const Stats = () => {
   ];
 
   const animationColors = [
-    ["var(--foreground)", "var(--primary)", "var(--foreground)"],
-    ["var(--primary)", "var(--foreground)", "var(--primary)"],
+    ["var(--accent)", "var(--primary)", "var(--accent)"],
+    ["var(--primary)", "var(--accent)", "var(--primary)"],
   ];
 
   const animationOpacities = [
-    [1, 0.5, 1],
-    [0.5, 1, 0.5],
+    [1, 0.8, 1],
+    [0.8, 1, 0.8],
   ];
 
   return (
     <section className="max-w-screen-xl mx-auto px-4 my-10 space-y-6">
       <header>
         <h1 className="font-cinzel text-2xl font-medium">By the Numbers</h1>
-        <p className="opacity-70">Our history at a glance</p>
+        <p className="opacity-70">Heritra at a glance</p>
       </header>
       <main className="grid grid-cols-2 md:grid-cols-4">
         {stats.map((stat, i) => (

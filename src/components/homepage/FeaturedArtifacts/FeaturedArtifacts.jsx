@@ -46,7 +46,7 @@ const FeaturedArtifacts = () => {
 
       <footer className="flex justify-center">
         <Link to={"/explore"}>
-          <Button variant={"secondary"} className="cursor-pointer font-cinzel">
+          <Button variant={"primary-custom"} className="cursor-pointer font-cinzel">
             See All
           </Button>
         </Link>
