@@ -25,7 +25,7 @@ const Blogs = () => {
         <footer className="flex justify-center">
           <Link to={'/learn'}>
             <Button variant={"outline"} className="cursor-pointer font-cinzel">
-              Explore More
+              View More
             </Button>
           </Link>
         </footer>
