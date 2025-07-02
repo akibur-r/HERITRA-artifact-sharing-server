@@ -50,10 +50,10 @@ const Footer = () => {
             <h4 className="text-lg font-semibold mb-2 md:mb-4">Legal</h4>
             <ul className="space-y-2  text-sm">
               <li>
-                <Link to={"#"}>Privacy Policy</Link>
+                <Link to={"/privacy-policy"}>Privacy Policy</Link>
               </li>
               <li>
-                <Link to={"#"}>Terms of Use</Link>
+                <Link to={"/terms-of-use"}>Terms of Use</Link>
               </li>
             </ul>
           </div>
