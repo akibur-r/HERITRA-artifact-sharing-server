@@ -76,6 +76,11 @@ const ArtifactUpdateButton = ({
         return;
       }
 
+      updatedArtifact.description = updatedArtifact.description
+        .split("\n")
+        .map((p) => p.trim())
+        .filter((p) => p.length > 0);
+
       updateArtifactPromise(artifact._id, updatedArtifact)
         .then((res) => {
           // console.log(res);
@@ -157,8 +162,7 @@ const ArtifactUpdateButton = ({
             <DialogDescription>
               <p className="text-xs">
                 <span>
-                  Edit your artifact details here. Click save when you're
-                  done.
+                  Edit your artifact details here. Click save when you're done.
                 </span>{" "}
                 <span className="text-accent">Scroll to view more</span>
               </p>
@@ -238,7 +242,10 @@ const ArtifactUpdateButton = ({
                   name="description"
                   placeholder="Short Description..."
                   className="text-sm md:text-md"
-                  defaultValue={artifact.description}
+                  defaultValue={artifact.description.map(
+                    (d, idx) => d + (idx + 1 < artifact.description.length ? "\n" : "")
+                  )
+                }
                 />
               </div>
 

@@ -68,6 +68,11 @@ const AddArtifact = () => {
       return;
     }
 
+    newArtifact.description = newArtifact.description
+        .split("\n")
+        .map((p) => p.trim())
+        .filter((p) => p.length > 0);
+
     addArtifactPromise(newArtifact)
       .then((res) => {
         if (res.insertedId) {

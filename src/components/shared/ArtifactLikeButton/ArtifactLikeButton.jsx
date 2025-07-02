@@ -7,6 +7,7 @@ import LoaderSpinner from "../LoaderSpinner/LoaderSpinner";
 import { toast } from "sonner";
 
 const ArtifactLikeButton = ({
+  size="sm",
   liked = false,
   setLiked,
   artifact,
@@ -66,7 +67,7 @@ const ArtifactLikeButton = ({
     <Button
       onClick={handleLike}
       variant={"secondary"}
-      size={"sm"}
+      size={size}
       className={`border border-green-500/20 cursor-pointer ${
         liked
           ? "bg-green-500/50 hover:bg-green-500/15 hover:text-green-500 text-black dark:text-white"

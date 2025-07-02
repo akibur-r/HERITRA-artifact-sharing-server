@@ -1,9 +1,9 @@
 import useArtifactsApi from "@/api/artifactsApi";
 import LoaderLogoSpinner from "@/components/shared/LoaderLogoSpinner/LoaderLogoSpinner";
 import { Separator } from "@/components/ui/separator";
+import { formatDistanceToNow } from "date-fns";
 import { useEffect, useState } from "react";
 import { LuFileX } from "react-icons/lu";
-import { formatDistanceToNow } from "date-fns";
 import {
   TbClockSearch,
   TbClockStar,
@@ -259,9 +259,12 @@ const ArtifactDetails = () => {
                     Details
                   </h3>
                 </header>
-                <p className="text-center md:text-left">
-                  {artifact.description}
-                </p>
+                <div className="text-left space-y-1">
+                  {artifact.description.map((d) => (
+                    <p>{d}</p>
+                  ))
+                  }
+                </div>
               </div>
             </>
           ) : (
