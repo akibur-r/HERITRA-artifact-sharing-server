@@ -1,3 +1,4 @@
+import { Separator } from "@/components/ui/separator";
 import useAuth from "@/hooks/useAuth";
 import { motion } from "motion/react";
 import { useEffect, useState } from "react";
@@ -33,7 +34,7 @@ const TopActionPrompt = () => {
         animate={{ height: "auto" }}
         transition={{ duration: 0.3, ease: "easeOut", delay: 2 }}
       >
-        <div className="border-b border-accent/10">
+        <div>
           <div className="max-w-screen-xl mx-auto px-4 w-full text-sm text-neutral-600 dark:text-neutral-300 space-x-1 py-0.5">
             <span>You now have access to our exclusive features.</span>
             <Link
@@ -51,6 +52,8 @@ const TopActionPrompt = () => {
             </button>
           </div>
         </div>
+
+        <Separator className="opacity-5 bg-foreground"/>
       </motion.section>
     )
   );

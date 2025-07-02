@@ -70,25 +70,22 @@ export function Navbar() {
   );
 
   const profileDropDown = (
-    <DropdownMenu dir="rtl">
-      <DropdownMenuTrigger className="outline-none flex">
-        <Tooltip>
-          <TooltipTrigger className="cursor-pointer rounded-full">
-            <Avatar
-              className="size-9 rounded-full border-4 border-primary/60 hover:border-primary/80"
-              onClick={() => setDrawerOpen(true)}
-            >
+    <DropdownMenu dir="rtl" modal={false}>
+      <Tooltip>
+        <TooltipTrigger asChild className="cursor-pointer rounded-full">
+          <DropdownMenuTrigger className="outline-none flex">
+            <Avatar className="size-9 rounded-full border-4 border-primary/60 hover:border-primary/80">
               <AvatarImage src={user?.photoURL} />
               <AvatarFallback>
                 {user?.displayName?.toUpperCase()[0]}
               </AvatarFallback>
             </Avatar>
-          </TooltipTrigger>
-          <TooltipContent>
-            <p>Click to show menu</p>
-          </TooltipContent>
-        </Tooltip>
-      </DropdownMenuTrigger>
+          </DropdownMenuTrigger>
+        </TooltipTrigger>
+        <TooltipContent className="hidden lg:block">
+          <p>Click to show menu</p>
+        </TooltipContent>
+      </Tooltip>
       <DropdownMenuContent className="mr-4">
         <DropdownMenuLabel className="text-left">
           {user?.displayName && user.displayName}
@@ -217,11 +214,10 @@ export function Navbar() {
                   })}
                 </div>
               </DrawerHeader>
-              <DrawerFooter
-                onClick={() => setDrawerOpen(false)}
-                className="flex flex-row justify-end items-center"
-              >
-                <ThemeToggle />
+              <DrawerFooter className="flex flex-row justify-end items-center">
+                <span onClick={() => setDrawerOpen(false)}>
+                  <ThemeToggle />
+                </span>
 
                 {loading ? (
                   <LoaderSpinner size={18} />
