@@ -6,12 +6,8 @@ const navItemsData = [
     url: "/",
   },
   {
-    name: "All Artifacts",
-    url: "/all-artifacts",
-  },
-  {
-    name: "Add Artifact",
-    url: "/add-artifact",
+    name: "Explore",
+    url: "/artifacts",
   },
 ];
 

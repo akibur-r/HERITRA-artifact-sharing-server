@@ -1,3 +1,4 @@
+import TopActionPrompt from "@/components/root/topActionPrompt/TopActionPrompt";
 import Footer from "@/components/shared/Footer/Footer";
 import { Navbar } from "@/components/shared/Navbar/Navbar";
 import { Toaster } from "@/components/ui/sonner";
@@ -9,6 +10,7 @@ const RootLayout = () => {
       <ScrollRestoration />
       <div className="bg-background font-dm-sans relative">
         <div className="min-h-screen flex flex-col">
+          <TopActionPrompt />
           <Navbar />
           <main className="flex-1 flex main">
             <Outlet />

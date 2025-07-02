@@ -46,6 +46,7 @@ const AuthProvider = ({ children }) => {
   };
 
   const logOut = () => {
+    localStorage.removeItem(`topActionClosed:${user?.email}`);
     return signOut(auth);
   };
 

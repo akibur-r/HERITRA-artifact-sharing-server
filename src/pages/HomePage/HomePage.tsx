@@ -8,7 +8,7 @@ import useDynamicTitle from "@/hooks/useDynamicTitle";
 const HomePage = () => {
   useDynamicTitle("*homepage");
   return (
-    <div className="relative">
+    <div className="relative homepage">
       <SwiperSlider />
       <HeroButton/>
       <FeaturedArtifacts />

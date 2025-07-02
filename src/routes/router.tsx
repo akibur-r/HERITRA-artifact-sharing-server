@@ -22,7 +22,7 @@ export const router = createBrowserRouter([
         Component: HomePage,
       },
       {
-        path: "/all-artifacts",
+        path: "/artifacts",
         Component: AllArtifacts,
       },
       {

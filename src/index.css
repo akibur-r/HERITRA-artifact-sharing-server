@@ -143,3 +143,7 @@
 .main > * {
   width: 100%;
 }
+
+.homepage > section {
+  scroll-margin-top: 5rem;
+}

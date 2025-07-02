@@ -2,7 +2,7 @@ import { ThemeToggle } from "@/components/theme/ThemeToggle";
 import { Button } from "@/components/ui/button";
 import { navItems } from "@/utils/navItems";
 
-import { FiBox, FiLogOut, FiThumbsUp, FiUser } from "react-icons/fi";
+import { FiBox, FiLogOut, FiPlus, FiThumbsUp, FiUser } from "react-icons/fi";
 import { HiMenuAlt3 } from "react-icons/hi";
 import { Link } from "react-router";
 
@@ -94,6 +94,19 @@ export function Navbar() {
           {user?.displayName && user.displayName}
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
+
+        <Link to={"/add-artifact"}>
+          <DropdownMenuItem
+            onClick={() => {
+              setDrawerOpen(false);
+            }}
+            className="cursor-pointer flex items-center text-primary"
+          >
+            Add Artifact
+            <FiPlus className="text-primary" />
+          </DropdownMenuItem>
+        </Link>
+        <DropdownMenuSeparator className="w-4" />
 
         <Link to={"/my-profile"}>
           <DropdownMenuItem

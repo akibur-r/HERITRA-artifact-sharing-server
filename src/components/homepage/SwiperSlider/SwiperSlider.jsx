@@ -39,7 +39,7 @@ const SwiperSlider = () => {
   ];
 
   return (
-    <div className="h-[65vh] md:h-[50vh] lg:h-[75vh] w-full overflow-hidden px-4 lg:px-12 bg-amber-400/10 dark:bg-amber-600/10">
+    <section className="h-[65vh] md:h-[50vh] lg:h-[75vh] w-full overflow-hidden px-4 lg:px-12 bg-amber-400/10 dark:bg-amber-600/10">
       <Swiper
         direction="vertical"
         slidesPerView={1}
@@ -74,7 +74,7 @@ const SwiperSlider = () => {
           </SwiperSlide>
         ))}
       </Swiper>
-    </div>
+    </section>
   );
 };
 
