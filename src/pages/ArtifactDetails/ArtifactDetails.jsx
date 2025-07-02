@@ -65,9 +65,9 @@ const ArtifactDetails = () => {
           <LoaderLogoSpinner />
         </div>
       ) : (
-        <div className="max-w-screen-xl mx-auto py-10 px-4 space-y-4">
+        <div className="max-w-screen-xl h-full mx-auto flex justify-center py-10">
           {artifact ? (
-            <>
+            <div className="px-4 space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-6">
                 <div className="">
                   <img
@@ -262,49 +262,41 @@ const ArtifactDetails = () => {
                 <div className="text-left space-y-1">
                   {artifact.description.map((d) => (
                     <p>{d}</p>
-                  ))
-                  }
+                  ))}
                 </div>
               </div>
-            </>
+            </div>
           ) : (
-            <>
-              <div className="flex justify-center">
-                <Card className="w-full max-w-sm text-center bg-destructive/5">
-                  <CardHeader>
-                    <div className="flex justify-center">
-                      <LuFileX className="text-5xl text-destructive" />
-                    </div>
-                  </CardHeader>
-                  <CardContent>
-                    <CardTitle className="text-2xl font-cinzel">
-                      Artifact Not Found
-                    </CardTitle>
-                    <CardDescription>
-                      The artifact you're looking for is not in our server.
-                    </CardDescription>
-                  </CardContent>
-                  <CardFooter className="flex-col gap-2">
-                    <Link to={-1} className="w-full">
-                      <Button
-                        variant={"outline"}
-                        className="w-full text-primary"
-                      >
-                        Go Back
-                      </Button>
-                    </Link>
-                    <Link to={"/"} className="w-full">
-                      <Button
-                        variant={"link"}
-                        className="w-full text-base-content underline"
-                      >
-                        Go to Homepage
-                      </Button>
-                    </Link>
-                  </CardFooter>
-                </Card>
-              </div>
-            </>
+            <Card className="w-full my-auto max-w-sm text-center bg-destructive/5">
+              <CardHeader>
+                <div className="flex justify-center">
+                  <LuFileX className="text-5xl text-destructive" />
+                </div>
+              </CardHeader>
+              <CardContent>
+                <CardTitle className="text-2xl font-cinzel">
+                  Artifact Not Found
+                </CardTitle>
+                <CardDescription>
+                  The artifact you're looking for is not in our server.
+                </CardDescription>
+              </CardContent>
+              <CardFooter className="flex-col gap-2">
+                <Link to={-1} className="w-full">
+                  <Button variant={"outline"} className="w-full text-primary">
+                    Go Back
+                  </Button>
+                </Link>
+                <Link to={"/"} className="w-full">
+                  <Button
+                    variant={"link"}
+                    className="w-full text-base-content underline"
+                  >
+                    Go to Homepage
+                  </Button>
+                </Link>
+              </CardFooter>
+            </Card>
           )}
         </div>
       )}
