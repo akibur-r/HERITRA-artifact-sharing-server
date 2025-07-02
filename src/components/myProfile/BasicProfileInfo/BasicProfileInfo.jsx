@@ -5,8 +5,8 @@ import { Separator } from "@/components/ui/separator";
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
 import useAuth from "@/hooks/useAuth";
 import { useEffect, useState } from "react";
-import UpdateBasicInfoButton from "../UpdateBasicInfoButton/UpdateBasicInfoButton";
 import DeleteUserButton from "../DeleteUserButton/DeleteUserButton";
+import UpdateBasicInfoButton from "../UpdateBasicInfoButton/UpdateBasicInfoButton";
 
 const BasicProfileInfo = () => {
   const [basicProfileInfoLoading, setBasicProfileInfoLoading] = useState(false);
@@ -46,7 +46,7 @@ const BasicProfileInfo = () => {
           <Avatar className="relative w-32 md:w-48 h-32 md:h-48 rounded-xs ring-3 ring-secondary/50 bg-accent/10">
             <AvatarImage
               src={user.photoURL}
-              className="object-cover object-top"
+              className="object-cover"
             />
             <AvatarFallback>A</AvatarFallback>
           </Avatar>

@@ -75,7 +75,7 @@ export function Navbar() {
         <TooltipTrigger asChild className="cursor-pointer rounded-full">
           <DropdownMenuTrigger className="outline-none flex">
             <Avatar className="size-9 rounded-full border-4 border-primary/60 hover:border-primary/80">
-              <AvatarImage src={user?.photoURL} />
+              <AvatarImage src={user?.photoURL} className="object-cover" />
               <AvatarFallback>
                 {user?.displayName?.toUpperCase()[0]}
               </AvatarFallback>
