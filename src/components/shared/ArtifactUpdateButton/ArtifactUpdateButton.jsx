@@ -56,7 +56,7 @@ const ArtifactUpdateButton = ({
           setUpdateBtnLoading(false);
           setUpdateConfirmLoading(false);
 
-          toast.error("Not Saved.", {
+          toast.error("Changes Not Saved.", {
             description: artifactErrorMessages[key],
           });
           return;
@@ -67,7 +67,7 @@ const ArtifactUpdateButton = ({
         /^https?:\/\/(www\.)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/[^\s]*)?$/;
 
       if (!validUrlRegex.test(updatedArtifact.imageURL)) {
-        toast.error("Not Saved.", {
+        toast.error("Changes Not Saved.", {
           description: "You must provide a valid image URL.",
         });
         setUpdateBtnLoading(false);
@@ -93,7 +93,7 @@ const ArtifactUpdateButton = ({
             setUpdateConfirmLoading(false);
           } else {
             toast.warning("Changes Not Saved", {
-              description: "There was no change made.",
+              description: "You did not make any change.",
             });
             setUpdateBtnLoading(false);
             setUpdateConfirmLoading(false);

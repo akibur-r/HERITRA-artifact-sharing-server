@@ -56,7 +56,7 @@ const ArtifactLikeButton = ({
           setLikeBtnLoading(false);
         });
     } else {
-      toast.error("Like Not Added.", {
+      toast.error("Failed to Like.", {
         description: "You must be logged in to like an artifact",
       });
       setLikeBtnLoading(false);

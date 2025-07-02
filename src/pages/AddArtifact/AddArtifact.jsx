@@ -49,7 +49,7 @@ const AddArtifact = () => {
       if (!value) {
         setAddLoading(false);
 
-        toast.error("Adding Not Added.", {
+        toast.error("Artifact Not Added.", {
           description: artifactErrorMessages[key],
         });
         return;

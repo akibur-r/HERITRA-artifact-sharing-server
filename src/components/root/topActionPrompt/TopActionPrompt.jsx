@@ -36,7 +36,11 @@ const TopActionPrompt = () => {
         <div className="border-b border-accent/10">
           <div className="max-w-screen-xl mx-auto px-4 w-full text-sm text-neutral-600 dark:text-neutral-300 space-x-1 py-0.5">
             <span>You now have access to our exclusive features.</span>
-            <Link to={"/add-artifact"} className="underline text-primary">
+            <Link
+              onClick={() => setIsTopActionClosed(true)}
+              to={"/add-artifact"}
+              className="underline text-primary"
+            >
               Add an artifact?
             </Link>
             <button

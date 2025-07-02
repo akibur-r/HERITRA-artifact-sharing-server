@@ -62,7 +62,7 @@ const UpdateBasicInfoButton = ({ showText = true, setProfileUpdated }) => {
       const validPhoneNumberRegex = /^$|^\+?[0-9]+$/;
 
       if (!validUrlRegex.test(photoURL)) {
-        toast.error("Not Saved.", {
+        toast.error("Changes Not Saved.", {
           description: "You must provide a valid image URL.",
         });
         setUpdateConfirmLoading(false);
@@ -71,7 +71,7 @@ const UpdateBasicInfoButton = ({ showText = true, setProfileUpdated }) => {
       }
 
       if (!validPhoneNumberRegex.test(phoneNumber)) {
-        toast.error("Not Saved.", {
+        toast.error("Changes Not Saved.", {
           description: "You must provide a valid phone number.",
         });
         setUpdateConfirmLoading(false);
