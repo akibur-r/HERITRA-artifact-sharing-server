@@ -134,8 +134,8 @@ const AllArtifacts = () => {
         <p className="text-sm">Discover the ancient marvels</p>
       </header>
       {artifactsLoading ? (
-        <main className="h-48">
-          <LoaderLogoSpinner />
+        <main>
+          <LoaderLogoSpinner className={"h-48"} />
         </main>
       ) : (
         <main className="w-full space-y-4">

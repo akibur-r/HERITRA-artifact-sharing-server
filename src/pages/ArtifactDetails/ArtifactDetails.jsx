@@ -59,10 +59,10 @@ const ArtifactDetails = () => {
   }, [updateBtnLoading]);
 
   return (
-    <section className="bg-primary/5 relative overflow-hidden">
+    <section className="bg-primary/5 relative overflow-hidden ">
       {artifactLoading ? (
-        <div className="my-10 h-48">
-          <LoaderLogoSpinner />
+        <div className="flex justify-center h-full">
+          <LoaderLogoSpinner className={'h-48 my-auto'} />
         </div>
       ) : (
         <div className="max-w-screen-xl h-full mx-auto flex justify-center py-10">

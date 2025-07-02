@@ -9,11 +9,7 @@ const PrivateRouteProvider = ({ children }) => {
   const location = useLocation();
 
   if (loading) {
-    return (
-      <div className="h-48 my-10">
-        <LoaderLogoSpinner />
-      </div>
-    );
+    return <LoaderLogoSpinner className={"h-48 my-10"} />;
   }
 
   if (user && user?.email) {

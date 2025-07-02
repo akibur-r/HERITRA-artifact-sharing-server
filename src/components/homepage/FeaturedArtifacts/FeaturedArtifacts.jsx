@@ -33,8 +33,8 @@ const FeaturedArtifacts = () => {
         <p className="opacity-70">Most Liked Artifacts on Heritra</p>
       </header>
       {artifactsLoading ? (
-        <main className="h-48">
-          <LoaderLogoSpinner />
+        <main >
+          <LoaderLogoSpinner className={"h-48"} />
         </main>
       ) : (
         <main className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">

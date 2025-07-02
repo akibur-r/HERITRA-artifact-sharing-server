@@ -54,8 +54,8 @@ const LikedArtifactsPage = () => {
   return (
     <section className="flex flex-col gap-4 items-center my-10 max-w-screen-xl mx-auto px-4">
       {artifactsLoading ? (
-        <div className="h-48">
-          <LoaderLogoSpinner />
+        <div className="h-full flex justify-center items-center">
+          <LoaderLogoSpinner className={"h-48"} />
         </div>
       ) : artifacts.length ? (
         <>

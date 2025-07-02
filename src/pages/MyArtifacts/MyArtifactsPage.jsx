@@ -57,8 +57,8 @@ const MyArtifactsPage = ({ showHeader = true }) => {
       }`}
     >
       {artifactsLoading ? (
-        <div className="h-48">
-          <LoaderLogoSpinner />
+        <div className="h-full flex justify-center items-center">
+          <LoaderLogoSpinner className={"h-48"} />
         </div>
       ) : artifacts.length ? (
         <>

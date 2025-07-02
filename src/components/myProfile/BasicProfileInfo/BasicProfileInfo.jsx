@@ -32,8 +32,8 @@ const BasicProfileInfo = () => {
   return (
     <div>
       {basicProfileInfoLoading ? (
-        <div className="h-48">
-          <LoaderLogoSpinner />
+        <div>
+          <LoaderLogoSpinner className={"h-48"} />
         </div>
       ) : (
         <div className="flex flex-col gap-4 justify-center items-center my-4 relative">
@@ -44,10 +44,7 @@ const BasicProfileInfo = () => {
             />
           </div>
           <Avatar className="relative w-32 md:w-48 h-32 md:h-48 rounded-xs ring-3 ring-secondary/50 bg-accent/10">
-            <AvatarImage
-              src={user.photoURL}
-              className="object-cover"
-            />
+            <AvatarImage src={user.photoURL} className="object-cover" />
             <AvatarFallback>A</AvatarFallback>
           </Avatar>
 
@@ -103,7 +100,7 @@ const BasicProfileInfo = () => {
             <Separator />
             <div>
               <span className="text-destructive">Delete Account: </span>
-              <DeleteUserButton showText={false}/>
+              <DeleteUserButton showText={false} />
             </div>
           </div>
         </div>
