@@ -43,6 +43,18 @@ const RegisterPage = () => {
     const password = form.password.value;
     const gender = form.gender.value || "unspecified";
 
+    const validUrlRegex =
+      /^https?:\/\/(www\.)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/[^\s]*)?$/;
+
+    if (!validUrlRegex.test(photoURL)) {
+      toast.error("Failed to Register.", {
+        description: "You must provide a valid image URL.",
+      });
+      setLoading(false);
+
+      return;
+    }
+
     const passRegex = /(?=.*[a-z])(?=.*[A-Z]).{6,}/;
 
     if (!passRegex.test(password)) {
@@ -50,6 +62,8 @@ const RegisterPage = () => {
         description:
           "Password must be at least 6 characters long with minimum 1 digit.",
       });
+
+      setLoading(false);
       return;
     }
 
@@ -112,7 +126,7 @@ const RegisterPage = () => {
                 <Input
                   id="name"
                   type="text"
-                  placeholder="Abdul Kuddus"
+                  placeholder="e.g. Abdul Kuddus"
                   required
                 />
               </div>

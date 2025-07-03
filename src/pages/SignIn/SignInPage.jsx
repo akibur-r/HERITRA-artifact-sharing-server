@@ -67,7 +67,7 @@ const SignInPage = () => {
                 <Input
                   id="email"
                   type="email"
-                  placeholder="m@example.com"
+                  placeholder="yourmail@email.com"
                   required
                 />
               </div>
@@ -75,7 +75,7 @@ const SignInPage = () => {
                 <div className="flex items-center">
                   <Label htmlFor="password">Password</Label>
                 </div>
-                <Input id="password" type="password" required />
+                <Input id="password" type="password" placeholder="Your Password" required />
               </div>
             </div>
           </CardContent>
