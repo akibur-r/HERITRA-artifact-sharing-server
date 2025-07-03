@@ -41,7 +41,7 @@ const ArtifactDeleteButton = ({
           });
           setDeleteBtnLoading(false);
           if (location.pathname !== "/my-artifacts") {
-            navigate("/artifacts");
+            navigate("/explore");
           } else {
             navigate("/my-artifacts");
           }

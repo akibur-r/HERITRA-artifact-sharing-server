@@ -36,11 +36,11 @@ const Newsletter = () => {
   };
 
   return (
-    <section className="max-w-screen-xl mx-auto px-4 my-10 space-y-6">
+    <section className="max-w-screen-xl mx-auto px-4 my-10 space-y-10">
       <Separator className="opacity-50"/>
       <main className="flex flex-col md:flex-row gap-4 md:gap-16 justify-between items-end">
         <div className="text-center md:text-left">
-          <h2 className="font-cinzel font-medium text-3xl md:text-4xl flex flex-col ">
+          <h2 className="font-cinzel font-medium text-3xl md:text-3xl lg:text-6xl flex flex-col">
             <span className="text-[0.85em]">Want to</span>{" "}
             <span className="text-accent">Stay Updated?</span>
           </h2>
@@ -50,7 +50,7 @@ const Newsletter = () => {
           </p>
         </div>
 
-        <div className="text-center space-y-2">
+        <div className="text-center space-y-2 flex justify-center flex-col md:items-end w-full">
           <h3 className="font-cinzel font-medium space-x-1">
             <span>Subscribe to our</span>
             <span className="text-accent">Newsletter</span>

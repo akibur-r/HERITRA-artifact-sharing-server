@@ -28,7 +28,7 @@ const useArtifactsApi = () => {
   };
 
   const topSixArtifactsPromise = () => {
-    return axiosOpen.get(`/artifacts?limit=6&sort_by=likeCount`).then((res) => {
+    return axiosOpen.get(`/artifacts?limit=6&sort_by=likeCount&order=-1`).then((res) => {
       return res.data;
     });
   };
