@@ -13,14 +13,23 @@ import { useState } from "react";
 import { Link } from "react-router";
 import ArtifactLikeButton from "../ArtifactLikeButton/ArtifactLikeButton";
 
-const ArtifactCard = ({ artifact }) => {
+const ArtifactCard = ({ artifact, idx = 0 }) => {
   const { name, imageURL, historicalContext, likeCount } = artifact;
   const [liked, setLiked] = useState(false);
+  console.log(idx);
 
   return (
-    <Card className="grid grid-rows-2 gap-3 aspect-auto rounded-xs">
+    <Card
+      className={` grid grid-rows-2 gap-3 aspect-auto rounded-xs ${
+        idx > 3 && "hidden lg:grid"
+      }`}
+    >
       <CardHeader className="grid items-center justify-center">
-        <img src={imageURL} alt={name} className="max-h-48 h-48 object-contain" />
+        <img
+          src={imageURL}
+          alt={name}
+          className="max-h-48 h-48 object-contain"
+        />
       </CardHeader>
 
       <div>

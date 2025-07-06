@@ -38,8 +38,8 @@ const FeaturedArtifacts = () => {
         </main>
       ) : (
         <main className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-          {artifacts.map((artifact) => (
-            <ArtifactCard key={artifact._id} artifact={artifact} />
+          {artifacts.map((artifact, idx) => (
+            <ArtifactCard key={artifact._id} idx={idx} artifact={artifact} />
           ))}
         </main>
       )}
