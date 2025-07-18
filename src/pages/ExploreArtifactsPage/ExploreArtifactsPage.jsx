@@ -20,7 +20,7 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 import {
   Select,
@@ -30,6 +30,7 @@ import {
 } from "@/components/ui/select";
 
 import SortArtifact from "@/components/artifacts/sortArtifact/SortArtifact";
+import useArtifactsStore from "@/hooks/stores/artifactsStore";
 import useDynamicTitle from "@/hooks/useDynamicTitle";
 import { useRef } from "react";
 import { BiErrorCircle, BiInfoCircle } from "react-icons/bi";
@@ -43,16 +44,25 @@ const ExploreArtifactsPage = () => {
     getAllArtifactsPromise,
     getArtifactsBySearchPromise,
   } = useArtifactsApi();
-  const [artifacts, setArtifacts] = useState([]);
-  const [artifactsLoading, setArtifactsLoading] = useState(false);
-  const [searching, setSearching] = useState("");
-
-  const [artifactsCount, setArtifactsCount] = useState(0);
-  const [artifactsPerPage, setArtifactsPerPage] = useState(6);
-  const [currentPage, setCurrentPage] = useState(0);
+  const {
+    artifacts,
+    setArtifacts,
+    artifactsLoading,
+    setArtifactsLoading,
+    artifactsCount,
+    setArtifactsCount,
+    artifactsPerPage,
+    setArtifactsPerPage,
+    currentPage,
+    setCurrentPage,
+    sortingValue,
+    setSortingValue,
+    sortingOrder,
+    setSortingOrder,
+    searching,
+    setSearching,
+  } = useArtifactsStore();
   const totalPages = Math.ceil(artifactsCount / artifactsPerPage);
-  const [sortingValue, setSortingValue] = useState("uploadDate");
-  const [sortingOrder, setSortingOrder] = useState(1);
   const pages = [...Array(totalPages).keys()];
 
   const searchQueryRef = useRef();
@@ -61,14 +71,9 @@ const ExploreArtifactsPage = () => {
   useEffect(() => {
     setArtifactsLoading(true);
 
-    const searchQuery = "";
+    const searchQuery = searching;
 
-    getArtifactsCountPromise(
-      artifactsPerPage,
-      currentPage,
-      sortingValue,
-      sortingOrder
-    )
+    getArtifactsCountPromise(searchQuery)
       .then((res) => {
         setArtifactsCount(res);
       })
@@ -80,7 +85,7 @@ const ExploreArtifactsPage = () => {
   // loading artifacts by page and search
   useEffect(() => {
     setArtifactsLoading(true);
-    const searchQuery = "";
+    const searchQuery = searching;
 
     getArtifactsByPagePromise(
       artifactsPerPage,
@@ -102,7 +107,7 @@ const ExploreArtifactsPage = () => {
           top: 0,
         })
       );
-  }, [currentPage, artifactsPerPage, sortingOrder, sortingValue]);
+  }, [currentPage, artifactsPerPage, sortingOrder, sortingValue, searching]);
 
   const handleSearch = () => {
     setCurrentPage(0);
@@ -112,23 +117,6 @@ const ExploreArtifactsPage = () => {
     getArtifactsCountPromise(searchQuery).then((res) => {
       setArtifactsCount(res);
     });
-
-    console.log(sortingValue);
-
-    getArtifactsByPagePromise(
-      artifactsPerPage,
-      currentPage,
-      searchQuery,
-      sortingValue,
-      sortingOrder
-    )
-      .then((res) => {
-        setArtifacts(res);
-      })
-      .catch(() => {
-        // console.log("error");
-      })
-      .finally(setArtifactsLoading(false));
   };
 
   const handleCurrentPage = (pageNumber) => {
@@ -158,43 +146,32 @@ const ExploreArtifactsPage = () => {
         <h2 className="text-3xl font-cinzel font-bold">Explore Artifacts</h2>
         <p className="text-sm">Discover the ancient marvels</p>
       </header>
+
+      <header className="flex flex-col w-full md:flex-row justify-between items-start gap-2">
+        <div className="flex flex-col md:flex-row justify-start items-center gap-2 w-full">
+          <Label htmlFor="query" className="text-base">
+            Search
+          </Label>
+          <Input
+            type="text"
+            id="email"
+            placeholder="Type to search..."
+            className="w-full text-sm max-w-sm border-0 focus-visible:ring-ring/10 focus-visible:ring-[2px]"
+            ref={searchQueryRef}
+            onChange={handleSearch}
+          />
+        </div>
+
+        <div className="w-full max-w-sm flex justify-end">
+          <SortArtifact />
+        </div>
+      </header>
       {artifactsLoading ? (
         <main>
           <LoaderLogoSpinner className={"h-48"} />
         </main>
       ) : (
         <main className="w-full space-y-4">
-          <header className="flex flex-col md:flex-row justify-between items-start gap-2">
-            <div className="flex flex-col md:flex-row justify-start items-center gap-2 w-full">
-              <Label htmlFor="query" className="text-base">
-                Search
-              </Label>
-              <Input
-                type="text"
-                id="email"
-                placeholder="Type to search..."
-                className="w-full text-sm max-w-sm border-0 focus-visible:ring-ring/10 focus-visible:ring-[2px]"
-                ref={searchQueryRef}
-                onChange={handleSearch}
-              />
-            </div>
-
-            <div className="w-full max-w-sm flex justify-end">
-              <SortArtifact
-                artifactState={{
-                  artifacts,
-                  setArtifacts,
-                  currentPage,
-                  artifactsPerPage,
-                  sortingValue,
-                  setSortingValue,
-                  sortingOrder,
-                  setSortingOrder,
-                }}
-              />
-            </div>
-          </header>
-
           <Separator />
 
           {artifacts.length ? (
@@ -204,48 +181,6 @@ const ExploreArtifactsPage = () => {
                   <ArtifactCard key={artifact._id} artifact={artifact} />
                 ))}
               </main>
-
-              <footer>
-                <Pagination className="flex-col items-center justify-center gap-y-2">
-                  <PaginationContent className="space-x-2">
-                    <PaginationItem>
-                      <PaginationPrevious onClick={handlePrev} />
-                    </PaginationItem>
-                    <PaginationItem className="flex gap-x-1 flex-wrap justify-center">
-                      {pages.map((page) => (
-                        <PaginationLink
-                          onClick={() => handleCurrentPage(page)}
-                          isActive={page === currentPage}
-                        >
-                          {page + 1}
-                        </PaginationLink>
-                      ))}
-                    </PaginationItem>
-                    <PaginationItem>
-                      <PaginationNext onClick={handleNext} />
-                    </PaginationItem>
-                  </PaginationContent>
-                  <div>
-                    <Select
-                      value={artifactsPerPage}
-                      onValueChange={handlePerPageValueChange}
-                    >
-                      <SelectTrigger className="border-none">
-                        View:{" "}
-                        {artifactsPerPage === artifactsCount + 1
-                          ? "All"
-                          : artifactsPerPage}
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value={3}>3</SelectItem>
-                        <SelectItem value={6}>6</SelectItem>
-                        <SelectItem value={9}>9</SelectItem>
-                        <SelectItem value={0}>All</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                </Pagination>
-              </footer>
             </section>
           ) : searching ? (
             <main className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
@@ -292,6 +227,48 @@ const ExploreArtifactsPage = () => {
           )}
         </main>
       )}
+
+      <footer>
+        <Pagination className="flex-col items-center justify-center gap-y-2">
+          <PaginationContent className="space-x-2">
+            <PaginationItem>
+              <PaginationPrevious onClick={handlePrev} />
+            </PaginationItem>
+            <PaginationItem className="flex gap-x-1 flex-wrap justify-center">
+              {pages.map((page) => (
+                <PaginationLink
+                  onClick={() => handleCurrentPage(page)}
+                  isActive={page === currentPage}
+                >
+                  {page + 1}
+                </PaginationLink>
+              ))}
+            </PaginationItem>
+            <PaginationItem>
+              <PaginationNext onClick={handleNext} />
+            </PaginationItem>
+          </PaginationContent>
+          <div>
+            <Select
+              value={artifactsPerPage}
+              onValueChange={handlePerPageValueChange}
+            >
+              <SelectTrigger className="border-none">
+                View:{" "}
+                {artifactsPerPage === artifactsCount + 1
+                  ? "All"
+                  : artifactsPerPage}
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value={3}>3</SelectItem>
+                <SelectItem value={6}>6</SelectItem>
+                <SelectItem value={9}>9</SelectItem>
+                <SelectItem value={0}>All</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+        </Pagination>
+      </footer>
     </section>
   );
 };

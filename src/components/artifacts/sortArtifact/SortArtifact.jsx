@@ -1,24 +1,17 @@
 import {
-    Accordion,
-    AccordionContent,
-    AccordionItem,
-    AccordionTrigger,
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
 } from "@/components/ui/accordion";
+import useArtifactsStore from "@/hooks/stores/artifactsStore";
 import { useState } from "react";
 
-const SortArtifact = ({ artifactState }) => {
+const SortArtifact = () => {
   const [open, setOpen] = useState(false);
 
-  const {
-    artifacts,
-    setArtifacts,
-    currentPage,
-    artifactsPerPage,
-    sortingValue,
-    setSortingValue,
-    sortingOrder,
-    setSortingOrder,
-  } = artifactState;
+  const { sortingValue, setSortingValue, sortingOrder, setSortingOrder } =
+    useArtifactsStore();
 
   return (
     <Accordion

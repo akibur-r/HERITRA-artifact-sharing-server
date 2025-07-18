@@ -16,7 +16,6 @@ import ArtifactLikeButton from "../ArtifactLikeButton/ArtifactLikeButton";
 const ArtifactCard = ({ artifact, idx = 0 }) => {
   const { name, imageURL, historicalContext, likeCount } = artifact;
   const [liked, setLiked] = useState(false);
-  console.log(idx);
 
   return (
     <Card
