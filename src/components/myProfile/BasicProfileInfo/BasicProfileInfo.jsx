@@ -3,35 +3,35 @@ import LoaderLogoSpinner from "@/components/shared/LoaderLogoSpinner/LoaderLogoS
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Separator } from "@/components/ui/separator";
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
+import useUserFromDBStore from "@/hooks/stores/userFromDBStore";
 import useAuth from "@/hooks/useAuth";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import DeleteUserButton from "../DeleteUserButton/DeleteUserButton";
 import UpdateBasicInfoButton from "../UpdateBasicInfoButton/UpdateBasicInfoButton";
 
 const BasicProfileInfo = () => {
-  const [basicProfileInfoLoading, setBasicProfileInfoLoading] = useState(false);
-  const [userFromDB, setUserFromDB] = useState(null);
-  const [profileUpdated, setProfileUpdated] = useState(false);
+  const { userFromDB, setUserFromDB, userFromDBLoading, setUserFromDBLoading } =
+    useUserFromDBStore();
 
   const { user } = useAuth();
   const { getUserInfoPromise } = useUsersApi();
 
   useEffect(() => {
-    setBasicProfileInfoLoading(true);
+    setUserFromDBLoading(true);
     getUserInfoPromise()
       .then((res) => {
         // console.log(user);
         setUserFromDB(res);
-        setBasicProfileInfoLoading(false);
+        setUserFromDBLoading(false);
       })
       .catch((err) => {
         // console.log(err);
       });
-  }, [user, profileUpdated]);
+  }, [user]);
 
   return (
     <div>
-      {basicProfileInfoLoading ? (
+      {userFromDBLoading ? (
         <div>
           <LoaderLogoSpinner className={"h-48"} />
         </div>
@@ -39,7 +39,6 @@ const BasicProfileInfo = () => {
         <div className="flex flex-col gap-4 justify-center items-center my-4 relative">
           <div className="absolute top-0 right-0 z-10">
             <UpdateBasicInfoButton
-              setProfileUpdated={setProfileUpdated}
               showText={false}
             />
           </div>
@@ -79,7 +78,7 @@ const BasicProfileInfo = () => {
                       Phone Number
                     </TableCell>
                     <TableCell className="pl-4">
-                      {user.phoneNumber ? user.phoneNumber : "*Not Added"}
+                      {userFromDB?.phoneNumber ? userFromDB.phoneNumber : "*Not Added"}
                     </TableCell>
                   </TableRow>
                   <TableRow>

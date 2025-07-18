@@ -24,6 +24,10 @@ const useUsersApi = () => {
   // post apis
 
   //   put apis
+  const updateUserPromise = (updatedUser) => {
+    return axiosSecure.put("/users", updatedUser).then((res) => res.data);
+  };
+
   const updateLikePromise = (artifact_id, user_email) => {
     return axiosSecure
       .put(`/users/likes?artifact_id=${artifact_id}&user_email=${user_email}`)
@@ -38,6 +42,7 @@ const useUsersApi = () => {
   return {
     getUserInfoPromise,
     checkIfLikedPromise,
+    updateUserPromise,
     updateLikePromise,
     getLikedArtifacts,
     deleteUserPromise,

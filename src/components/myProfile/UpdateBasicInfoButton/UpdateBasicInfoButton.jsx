@@ -1,3 +1,4 @@
+import useUsersApi from "@/api/usersApi";
 import LoaderSpinner from "@/components/shared/LoaderSpinner/LoaderSpinner";
 import { Button } from "@/components/ui/button";
 
@@ -23,33 +24,46 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Tooltip, TooltipContent } from "@/components/ui/tooltip";
+import useUserFromDBStore from "@/hooks/stores/userFromDBStore";
 import useAuth from "@/hooks/useAuth";
 import { TooltipTrigger } from "@radix-ui/react-tooltip";
 import { useState } from "react";
 import { BiEditAlt } from "react-icons/bi";
 import { toast } from "sonner";
 
-const UpdateBasicInfoButton = ({ showText = true, setProfileUpdated }) => {
+const UpdateBasicInfoButton = ({ showText = true }) => {
   const [updateConfirmLoading, setUpdateConfirmLoading] = useState(false);
   const [dialogOpen, setDialogOpen] = useState(false);
   const { user, updateUser, setLoading, setUser } = useAuth();
+  const { userFromDB } = useUserFromDBStore();
+  const { updateUserPromise } = useUsersApi();
 
   const handleArtifactUpdate = (e) => {
     e.preventDefault();
     setUpdateConfirmLoading(true);
-    setProfileUpdated(false);
     try {
       const form = e.target;
 
       const name = form.name.value;
       const photoURL = form.photoURL.value;
       const phoneNumber = form.phoneNumber.value;
+      const gender = form.gender.value;
+
       const updatedUser = {
         displayName: name,
-        photoURL: photoURL,
+        photoURL,
+        phoneNumber,
+        gender,
       };
 
-      if (name === user.displayName && photoURL === user.photoURL) {
+      if (
+        name === user.displayName &&
+        photoURL === user.photoURL &&
+        userFromDB.phoneNumber === phoneNumber &&
+        userFromDB.gender === gender &&
+        ["male", "female"].includes(gender)
+      ) {
+        setUpdateConfirmLoading(false);
         toast.warning("Not Saved.", {
           description: "You did not make any change.",
         });
@@ -81,12 +95,15 @@ const UpdateBasicInfoButton = ({ showText = true, setProfileUpdated }) => {
 
       updateUser(updatedUser)
         .then(() => {
-          setUser(user);
-          setProfileUpdated(true);
-
-          toast.success("Changes Saved.", {
-            description: "Profile information updated successfully.",
-          });
+          updateUserPromise(updatedUser)
+            .then((res) => {
+              toast.success("Changes Saved.", {
+                description: "Profile information updated successfully.",
+              });
+            })
+            .catch((err) => {
+              console.log(err);
+            });
         })
         .catch((err) => {
           console.log(err);
@@ -110,7 +127,7 @@ const UpdateBasicInfoButton = ({ showText = true, setProfileUpdated }) => {
   };
 
   return (
-    <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
+    <Dialog open={dialogOpen} onOpenChange={setDialogOpen} modal={false}>
       <DialogTrigger>
         <Tooltip>
           <TooltipTrigger>
@@ -181,29 +198,37 @@ const UpdateBasicInfoButton = ({ showText = true, setProfileUpdated }) => {
                   id="phoneNumber"
                   type="text"
                   placeholder="Your Phone Number"
-                  defaultValue={user.phoneNumber ? user.phoneNumber : ""}
-                  disabled
+                  defaultValue={
+                    userFromDB?.phoneNumber ? userFromDB?.phoneNumber : ""
+                  }
                 />
               </div>
 
               <div className="grid gap-2">
                 <Label htmlFor="gender">Gender</Label>
-                <Select disabled name="gender">
+                <Select
+                  name="gender"
+                  defaultValue={userFromDB?.gender}
+                  disabled={
+                    userFromDB?.gender === "male" ||
+                    userFromDB?.gender === "female"
+                  }
+                >
                   <SelectTrigger className="w-full">
                     <SelectValue
                       className="text-sm md:text-md"
-                      placeholder="Temporarily Unavailable"
+                      placeholder="You can't update gender once set"
                     />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value={"male"} className="text-sm md:text-md">
+                    <SelectItem value="male" className="text-sm md:text-md">
                       Male
                     </SelectItem>
-                    <SelectItem value={"female"} className="text-sm md:text-md">
+                    <SelectItem value="female" className="text-sm md:text-md">
                       Female
                     </SelectItem>
                     <SelectItem
-                      value={"prefersNotToSay"}
+                      value="prefersNotToSay"
                       className="text-sm md:text-md"
                     >
                       Prefer Not to Say
