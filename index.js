@@ -162,6 +162,25 @@ async function run() {
       }
     });
 
+    // [secured] update user
+    app.put("/users", verifyToken, async (req, res) => {
+      try {
+        const user_email = req.decoded.email;
+
+        const updatedUser = req.body;
+
+        const result = await usersCollection.updateOne(
+          { email: user_email },
+          { $set: updatedUser }
+        );
+
+        return res.status(200).json(result);
+      } catch (error) {
+        console.error("User update error:", error);
+        return res.status(500).json({ error: "Internal server error" });
+      }
+    });
+
     // [secured] add or remove like
     app.put(
       "/users/likes",
@@ -260,13 +279,12 @@ async function run() {
       const currentPage = parseInt(req.query.currentPage) || 0;
       const skip = currentPage * limit;
       // console.log(sort_by);
-      
+
       const sort = {};
       const query = {};
       if (sort_by === "likeCount") {
         sort.likeCount = order;
-      }
-      else if (sort_by === "uploadDate") {
+      } else if (sort_by === "uploadDate") {
         sort.likeCount = order;
       }
 
