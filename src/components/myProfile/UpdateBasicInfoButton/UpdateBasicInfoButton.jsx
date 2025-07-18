@@ -241,11 +241,11 @@ const UpdateBasicInfoButton = ({ showText = true }) => {
 
           <DialogFooter>
             <DialogClose asChild>
-              <Button type="button" variant="outline">
+              <Button type="button" variant="outline" disabled={updateConfirmLoading}>
                 Cancel
               </Button>
             </DialogClose>
-            <Button type="submit">
+            <Button type="submit" disabled={updateConfirmLoading}>
               {updateConfirmLoading ? <LoaderSpinner /> : "Save"}
             </Button>
           </DialogFooter>

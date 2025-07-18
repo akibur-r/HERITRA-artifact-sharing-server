@@ -189,7 +189,11 @@ const RegisterPage = () => {
           </CardContent>
           <CardFooter className="flex-col gap-2">
             <div className="w-full space-y-1">
-              <Button type="submit" className="w-full cursor-pointer">
+              <Button
+                type="submit"
+                className="w-full cursor-pointer"
+                disabled={loading}
+              >
                 {loading ? <Loader /> : "Register"}
               </Button>
               <p className="text-sm">

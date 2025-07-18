@@ -243,9 +243,9 @@ const ArtifactUpdateButton = ({
                   placeholder="Short Description..."
                   className="text-sm md:text-md"
                   defaultValue={artifact.description.map(
-                    (d, idx) => d + (idx + 1 < artifact.description.length ? "\n" : "")
-                  )
-                }
+                    (d, idx) =>
+                      d + (idx + 1 < artifact.description.length ? "\n" : "")
+                  )}
                 />
               </div>
 
@@ -337,11 +337,15 @@ const ArtifactUpdateButton = ({
 
           <DialogFooter>
             <DialogClose asChild>
-              <Button type="button" variant="outline">
+              <Button
+                type="button"
+                variant="outline"
+                disabled={updateConfirmLoading}
+              >
                 Cancel
               </Button>
             </DialogClose>
-            <Button type="submit">
+            <Button type="submit" disabled={updateConfirmLoading}>
               {updateConfirmLoading ? <LoaderSpinner /> : "Save"}
             </Button>
           </DialogFooter>

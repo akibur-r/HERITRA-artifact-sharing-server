@@ -33,8 +33,6 @@ const AddArtifact = () => {
   const userEmail = user.email;
   const userName = user.displayName;
 
-  
-
   const handleAddArtifact = (e) => {
     setAddLoading(true);
     e.preventDefault();
@@ -69,9 +67,9 @@ const AddArtifact = () => {
     }
 
     newArtifact.description = newArtifact.description
-        .split("\n")
-        .map((p) => p.trim())
-        .filter((p) => p.length > 0);
+      .split("\n")
+      .map((p) => p.trim())
+      .filter((p) => p.length > 0);
 
     addArtifactPromise(newArtifact)
       .then((res) => {
@@ -253,7 +251,11 @@ const AddArtifact = () => {
               </div>
 
               {/* submit btn */}
-              <Button type="submit" className="md:col-span-2 w-full">
+              <Button
+                type="submit"
+                className="md:col-span-2 w-full"
+                disabled={addLoading}
+              >
                 {addLoading ? <LoaderSpinner /> : "Add Artifact"}
               </Button>
             </div>

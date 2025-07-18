@@ -81,7 +81,7 @@ const SignInPage = () => {
           </CardContent>
           <CardFooter className="flex-col gap-2">
             <div className="w-full space-y-1">
-              <Button type="submit" className="w-full">
+              <Button type="submit" className="w-full" disabled={loading}>
                 {loading ? <Loader /> : "Sign In"}
               </Button>
               <p className="text-sm">
