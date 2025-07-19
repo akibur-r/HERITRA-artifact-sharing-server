@@ -68,10 +68,10 @@ const ArtifactLikeButton = ({
       onClick={handleLike}
       variant={"secondary"}
       size={size}
-      className={`border border-green-500/20 cursor-pointer ${
+      className={`border border-emerald-500/20 cursor-pointer ${
         liked
-          ? "bg-green-500/50 hover:bg-green-500/15 hover:text-green-500 text-black dark:text-white"
-          : "hover:bg-green-500/50 bg-green-500/15 text-green-700 dark:text-green-300 hover:text-black dark:hover:text-white"
+          ? "bg-emerald-500/50 hover:bg-emerald-500/15 hover:text-emerald-500 text-black dark:text-white"
+          : "hover:bg-emerald-500/50 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 hover:text-black dark:hover:text-white"
       }`}
       disabled={disabled}
     >

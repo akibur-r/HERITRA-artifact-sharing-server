@@ -11,7 +11,7 @@ import Logo from "../Logo/Logo";
 
 const Footer = () => {
   return (
-    <footer className="bg-secondary p-4 relative space-y-10 text-center md:text-left">
+    <footer className="bg-background border-t p-4 relative space-y-6 text-center md:text-left">
       <div className="max-w-screen-xl pt-10 mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10">
         <div className="space-y-2 md:space-y-3 lg:space-y-4">
           <div className="h-14 md:h-16 w-fit mx-auto md:mx-0">
@@ -24,16 +24,16 @@ const Footer = () => {
           </p>
           <div className="flex justify-center md:justify-start gap-4 mt-4  text-lg">
             <Link to={"https://www.facebook.com/ar.akib2d"} target="_blank">
-              <FaFacebookF className="hover:text-white cursor-pointer" />
+              <FaFacebookF className="hover:text-accent transition duration-100 cursor-pointer" />
             </Link>
             <Link to={"https://www.instagram.com/_akibur_r/"} target="_blank">
-              <FaInstagram className="hover:text-white cursor-pointer" />
+              <FaInstagram className="hover:text-accent transition duration-100 cursor-pointer" />
             </Link>
             <Link to={"https://www.linkedin.com/in/akibur-r/"} target="_blank">
-              <FaLinkedinIn className="hover:text-white cursor-pointer" />
+              <FaLinkedinIn className="hover:text-accent transition duration-100 cursor-pointer" />
             </Link>
             <Link to={"https://x.com/akibur_r"} target="_blank">
-              <FaXTwitter className="hover:text-white cursor-pointer" />
+              <FaXTwitter className="hover:text-accent transition duration-100 cursor-pointer" />
             </Link>
           </div>
         </div>

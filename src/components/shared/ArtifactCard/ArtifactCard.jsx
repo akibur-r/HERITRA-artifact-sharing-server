@@ -63,7 +63,7 @@ const ArtifactCard = ({ artifact, idx = 0 }) => {
                 <Button
                   variant={"outline"}
                   size={"sm"}
-                  className="cursor-pointer"
+                  className="cursor-pointer bg-accent/20"
                 >
                   View Details
                 </Button>

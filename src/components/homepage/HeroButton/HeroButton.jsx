@@ -3,9 +3,16 @@ import { motion } from "motion/react";
 import { FaAngleDoubleDown } from "react-icons/fa";
 
 const HeroButton = () => {
+  const scrollToSection = () => {
+    const element = document.getElementById("featured-artifacts");
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <div className="absolute w-full flex -translate-y-8 h-16 z-10 justify-center items-center">
-      <motion.a
+      <motion.span
         animate={{
           backgroundColor: [
             "var(--primary)",
@@ -15,7 +22,7 @@ const HeroButton = () => {
           // opacity: [0.8, 1, 0.8]
         }}
         transition={{ duration: 3, repeat: Infinity }}
-        href={"#featured-artifacts"}
+        onClick={scrollToSection}
         className="p-0"
       >
         <Button
@@ -32,7 +39,7 @@ const HeroButton = () => {
             <FaAngleDoubleDown />
           </motion.span>
         </Button>
-      </motion.a>
+      </motion.span>
     </div>
   );
 };

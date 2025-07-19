@@ -16,7 +16,7 @@ const SortArtifact = () => {
   return (
     <Accordion
       type="single"
-      className="w-full border px-2 rounded-xs"
+      className="w-full border border-accent/10 px-2 rounded-xs"
       collapsible
       value={open ? "sort" : ""}
       onValueChange={() => setOpen(!open)}

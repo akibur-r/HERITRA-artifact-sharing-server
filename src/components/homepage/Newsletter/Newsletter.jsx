@@ -1,3 +1,4 @@
+import NewsletterBG from "@/assets/vectors/newletter_bg.svg";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -36,9 +37,12 @@ const Newsletter = () => {
   };
 
   return (
-    <section className="max-w-screen-xl mx-auto px-4 my-10 space-y-10">
-      <Separator className="opacity-50"/>
-      <main className="flex flex-col md:flex-row gap-4 md:gap-16 justify-between items-end">
+    <section className={`max-w-screen-xl mx-auto px-4 my-10 space-y-10 relative`}>
+      <div className="absolute z-0 right-0 opacity-10 hidden md:block">
+        <img src={NewsletterBG} className="h-full w-full right-0  " />
+      </div>
+      <Separator className="opacity-50" />
+      <main className="flex flex-col md:flex-row gap-4 md:gap-16 justify-between items-end z-10 relative">
         <div className="text-center md:text-left">
           <h2 className="font-cinzel font-medium text-3xl md:text-3xl lg:text-6xl flex flex-col">
             <span className="text-[0.85em]">Want to</span>{" "}
@@ -61,7 +65,7 @@ const Newsletter = () => {
           >
             {subscribed ? (
               <>
-                <Badge className="w-full bg-green-500/20 rounded-xs text-foreground py-2">
+                <Badge className="w-full bg-emerald-200 dark:bg-emerald-800 rounded-xs text-foreground py-2">
                   Subscribed!
                 </Badge>
               </>
