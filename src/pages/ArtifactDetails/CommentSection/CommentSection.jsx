@@ -67,6 +67,7 @@ const CommentSection = ({ artifact }) => {
 
     const newComment = {
       artifactId: artifact._id,
+      ownerEmail: artifact.userEmail,
       userEmail: user.email,
       userName: user.displayName,
       content,

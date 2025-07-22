@@ -5,7 +5,7 @@ import { FcGoogle } from "react-icons/fc";
 import { useNavigate } from "react-router";
 import { toast } from "sonner";
 const SocialLogin = ({ location }) => {
-  const { signInWithGoogle, setLoading } = useAuth();
+  const { signInWithGoogle, loading, setLoading } = useAuth();
   const navigate = useNavigate();
 
   const { addUserPromise } = useAuthUserApi();
@@ -46,6 +46,7 @@ const SocialLogin = ({ location }) => {
       type="button"
       variant="outline"
       className="w-full cursor-pointer"
+      disabled={loading}
     >
       <FcGoogle /> Login with Google
     </Button>

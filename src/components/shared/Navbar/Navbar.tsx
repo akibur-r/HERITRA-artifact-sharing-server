@@ -36,6 +36,7 @@ import { useState } from "react";
 import { toast } from "sonner";
 import LoaderSpinner from "../LoaderSpinner/LoaderSpinner";
 import Logo from "../Logo/Logo";
+import NotificationBell from "../NotificationBell/NotificationBell";
 
 export function Navbar() {
   const { loading, user, logOut } = useAuth();
@@ -173,14 +174,26 @@ export function Navbar() {
           {loading ? (
             <LoaderSpinner size={18} />
           ) : user ? (
-            profileDropDown
+            <>
+              <NotificationBell />
+              {profileDropDown}
+            </>
           ) : (
             authButtons
           )}
           <ThemeToggle />
         </div>
 
-        <div className="md:hidden">
+        <div className="md:hidden flex gap-2 items-center">
+          {loading ? (
+            <LoaderSpinner size={18} />
+          ) : (
+            user && (
+              <>
+                <NotificationBell />
+              </>
+            )
+          )}
           <Drawer
             open={drawerOpen}
             onOpenChange={setDrawerOpen}
