@@ -87,6 +87,9 @@ async function run() {
     const artifactsCollection = client.db("heritra").collection("artifacts");
     const usersCollection = client.db("heritra").collection("users");
     const commentsCollection = client.db("heritra").collection("comments");
+    const notificationsCollection = client
+      .db("heritra")
+      .collection("notifications");
 
     //users relted queries -------------------------
 
@@ -230,6 +233,28 @@ async function run() {
           artifactUpdateQuery,
           artifactUpdateOptions
         );
+
+        if (result.likeAdded) {
+          await notificationsCollection.insertOne({
+            actionUserEmail: userDetails.email,
+            userEmail: artifactDetails.userEmail,
+            type: "like",
+            message: `${
+              userDetails.email === artifactDetails.userEmail
+                ? "You"
+                : userDetails.displayName
+            } liked your artifact`,
+            isRead: false,
+            createdAt: new Date().toISOString(),
+            targetId: artifact_id,
+          });
+        } else {
+          await notificationsCollection.deleteOne({
+            actionUserEmail: userDetails.email,
+            targetId: artifact_id,
+            type: "like",
+          });
+        }
         // console.log(countUpd);
 
         res.send(result);
@@ -376,7 +401,7 @@ async function run() {
 
     // comments related apis --
     // get comments
-    app.get("/comments", async (req, res) => {
+    app.get("/comments", verifyToken, async (req, res) => {
       const artifactId = req.query.artifactId;
 
       const filter = {};
@@ -391,12 +416,48 @@ async function run() {
     });
 
     // add a new comment
-    app.post("/comments", async (req, res) => {
+    app.post("/comments", verifyToken, async (req, res) => {
       const newComment = req.body;
 
       const result = await commentsCollection.insertOne(newComment);
 
+      await notificationsCollection.insertOne({
+        actionUserEmail: newComment.userEmail,
+        userEmail: newComment.ownerEmail,
+        type: "comment",
+        message: `${
+          newComment.userEmail === newComment.ownerEmail
+            ? "You"
+            : newComment.userName
+        } commented on your artifact`,
+        isRead: false,
+        createdAt: newComment.createdAt,
+        targetId: newComment.artifactId,
+      });
+
       res.send(result);
+    });
+
+    // notifications related apis --
+    //get notifications
+    app.get("/notifications", verifyToken, async (req, res) => {
+      try {
+        const userEmail = req.decoded.email;
+        const limit = parseInt(req.query.limit) || 0;
+
+        const filter = { userEmail };
+
+        const result = await notificationsCollection
+          .find(filter)
+          .sort({ isRead: 1, createdAt: -1 })
+          .limit(limit)
+          .toArray();
+
+        res.json(result);
+      } catch (error) {
+        console.error("Error fetching notifications:", error);
+        res.status(500).json({ message: "Failed to fetch notifications" });
+      }
     });
   } finally {
     // await client.close();
