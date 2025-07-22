@@ -86,6 +86,7 @@ async function run() {
     // collections
     const artifactsCollection = client.db("heritra").collection("artifacts");
     const usersCollection = client.db("heritra").collection("users");
+    const commentsCollection = client.db("heritra").collection("comments");
 
     //users relted queries -------------------------
 
@@ -369,6 +370,31 @@ async function run() {
       const result = await artifactsCollection.deleteOne({
         _id: new ObjectId(id),
       });
+
+      res.send(result);
+    });
+
+    // comments related apis --
+    // get comments
+    app.get("/comments", async (req, res) => {
+      const artifactId = req.query.artifactId;
+
+      const filter = {};
+      const sort = {};
+      if (artifactId) {
+        filter.artifactId = artifactId;
+        sort.createdAt = -1;
+      }
+
+      const result = await commentsCollection.find(filter).sort(sort).toArray();
+      res.send(result);
+    });
+
+    // add a new comment
+    app.post("/comments", async (req, res) => {
+      const newComment = req.body;
+
+      const result = await commentsCollection.insertOne(newComment);
 
       res.send(result);
     });
