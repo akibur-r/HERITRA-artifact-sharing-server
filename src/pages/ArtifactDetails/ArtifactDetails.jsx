@@ -33,6 +33,7 @@ import {
 } from "@/components/ui/tooltip";
 import useAuth from "@/hooks/useAuth";
 import useDynamicTitle from "@/hooks/useDynamicTitle";
+import CommentSection from "./CommentSection/CommentSection";
 
 const ArtifactDetails = () => {
   useDynamicTitle("Artifact Details");
@@ -62,7 +63,7 @@ const ArtifactDetails = () => {
     <section className="bg-primary/5 relative overflow-hidden ">
       {artifactLoading ? (
         <div className="flex justify-center h-full">
-          <LoaderLogoSpinner className={'h-48 my-auto'} />
+          <LoaderLogoSpinner className={"h-48 my-auto"} />
         </div>
       ) : (
         <div className="max-w-screen-xl h-full mx-auto flex justify-center py-10">
@@ -265,6 +266,7 @@ const ArtifactDetails = () => {
                   ))}
                 </div>
               </div>
+              <CommentSection artifact={artifact}/>
             </div>
           ) : (
             <Card className="w-full my-auto max-w-sm text-center bg-destructive/5">
