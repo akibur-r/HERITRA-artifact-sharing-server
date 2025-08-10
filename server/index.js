@@ -333,8 +333,8 @@ async function run() {
       res.send(result);
     });
 
-    // [secured] get a single artifact
-    app.get("/artifacts/findOne/:id", verifyToken, async (req, res) => {
+    // [open] get a single artifact
+    app.get("/artifacts/findOne/:id", async (req, res) => {
       const id = req.params.id;
       const targetId = new ObjectId(id);
       const result = await artifactsCollection.findOne({ _id: targetId });
