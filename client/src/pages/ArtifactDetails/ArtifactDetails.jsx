@@ -1,4 +1,3 @@
-import useArtifactsApi from "@/api/artifactsApi";
 import LoaderLogoSpinner from "@/components/shared/LoaderLogoSpinner/LoaderLogoSpinner";
 import { Separator } from "@/components/ui/separator";
 import { formatDistanceToNow } from "date-fns";
@@ -13,10 +12,12 @@ import {
 } from "react-icons/tb";
 import { Link, useParams } from "react-router";
 
+import useArtifactsOpenApi from "@/api/artifactsOpenApi";
 import useUsersApi from "@/api/usersApi";
 import ArtifactDeleteButton from "@/components/shared/ArtifactDeleteButton/ArtifactDeleteButton";
 import ArtifactLikeButton from "@/components/shared/ArtifactLikeButton/ArtifactLikeButton";
 import ArtifactUpdateButton from "@/components/shared/ArtifactUpdateButton/ArtifactUpdateButton";
+import { Alert, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -33,12 +34,13 @@ import {
 } from "@/components/ui/tooltip";
 import useAuth from "@/hooks/useAuth";
 import useDynamicTitle from "@/hooks/useDynamicTitle";
+import { Info } from "lucide-react";
 import CommentSection from "./CommentSection/CommentSection";
 
 const ArtifactDetails = () => {
   useDynamicTitle("Artifact Details");
   const { id } = useParams();
-  const { getOneArtifactPromise } = useArtifactsApi();
+  const { getOneArtifactPromise } = useArtifactsOpenApi();
   const { checkIfLikedPromise, updateLikePromise } = useUsersApi();
   const { user } = useAuth();
 
@@ -235,7 +237,7 @@ const ArtifactDetails = () => {
                   {/* <Separator className="hidden md:block" /> */}
 
                   {/* action buttons: HIDDEN IF OWNER IS SOMEONE ELSE */}
-                  {user.email === artifact.userEmail ? (
+                  {user?.email === artifact.userEmail ? (
                     <div className="flex gap-2 justify-center md:justify-start py-2">
                       {/* <div className="hidden"> */}
                       {/* update */}
@@ -266,7 +268,23 @@ const ArtifactDetails = () => {
                   ))}
                 </div>
               </div>
-              <CommentSection artifact={artifact}/>
+              {user ? (
+                <CommentSection artifact={artifact} />
+              ) : (
+                <Alert>
+                  <Info />
+                  <AlertTitle>
+                    <Link to={"/sign-in"} className="underline text-accent">
+                      Sign In
+                    </Link>{" "}
+                    or{" "}
+                    <Link to={"/register"} className="underline">
+                      Register
+                    </Link>{" "}
+                    to view comments
+                  </AlertTitle>
+                </Alert>
+              )}
             </div>
           ) : (
             <Card className="w-full my-auto max-w-sm text-center bg-destructive/5">
